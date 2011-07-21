@@ -477,7 +477,7 @@
 				case 'function':
 					return String(maybe); // we return a string for safety - no calling the func!
 				case 'string':
-					return /^\s*(on|true|yes|1)\s*$/i.test(maybe);
+					return /^\s*(on|true|yes|1|yar)\s*$/i.test(maybe);
 					break;
 				case 'object':
 					return this.obj( maybe, true );
