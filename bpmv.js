@@ -538,7 +538,7 @@
 	// populate the appropriate global-ish place
 	if ( bpmv.node() ) {
 		exports[bpmv._cfg.varName] = bpmv;
-	} else if ( bpmv.obj(us) && bpmv.obj(us.ebpm) && !bpmv.obj(us.ebpm.v)) {
+	} else if ( us && bpmv.obj(us) && bpmv.obj(us.ebpm) && !bpmv.obj(us.ebpm.v)) {
 		us.ebpm.v = bpmv;
 	} else if ( bpmv.obj(BPMV_ATTACH) && !bpmv.obj(BPMV_ATTACH[bpmv._cfg.varName]) ) {
 		BPMV_ATTACH[bpmv._cfg.varName] = bpmv;
