@@ -538,14 +538,12 @@
 	// populate the appropriate global-ish place
 	if ( bpmv.node() ) {
 		exports[bpmv._cfg.varName] = bpmv;
-	} else if ( us && bpmv.obj(us) && bpmv.obj(us.ebpm) && !bpmv.obj(us.ebpm.v)) {
+	} else if ( ( typeof(us) == 'object' ) && bpmv.obj(us.ebpm) && !bpmv.obj(us.ebpm.v)) {
+	// lead with typeof here because scope will throw Uncaught ReferenceError when strict
 		us.ebpm.v = bpmv;
-	} else if ( bpmv.obj(BPMV_ATTACH) && !bpmv.obj(BPMV_ATTACH[bpmv._cfg.varName]) ) {
+	} else if ( ( typeof(BPMV_ATTACH) == 'object' ) && !bpmv.obj(BPMV_ATTACH[bpmv._cfg.varName]) ) {
 		BPMV_ATTACH[bpmv._cfg.varName] = bpmv;
 	} else if ( bpmv.obj(window) ) {
 		window[bpmv._cfg.varName] = bpmv;
 	}
 })()
-
-
-
