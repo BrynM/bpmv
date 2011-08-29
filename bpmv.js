@@ -1,6 +1,7 @@
 (function () {
 	/**
 	* bpmv - A Simple Validator
+	* https://github.com/BrynM/bpmv
 	*
 	* These are tasks that I find myself repeating over and over again. The rules
 	* for me including code in here are simple: nothing that tries to manipulate
