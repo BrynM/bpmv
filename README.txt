@@ -126,6 +126,14 @@ date ( whEn )
 */
 dirname ( wellDuh )
 /**
+* Generate a random valid html id using characters and a timestamp.
+* @param {object} fans An options object. us.ebpm.ego.defOpts is what will be used for defaults.
+* @class us.ebpm.ego
+* @namespace us.ebpm
+* @constructor
+*/
+ego ( fans )
+/**
 * An alias to combine node() and brow() into a single call (for varialbe storage).
 * This will return which "environment" is in service if known and 'undefined' if not.
 * Currently, only 'undefined', 'browser' and 'node' are supported.
