@@ -171,6 +171,72 @@
 			return this.str(ret) ? ret : wellDuh;
 		},
 		/**
+		* Generate a random valid html id using characters and a timestamp.
+		* @param {object} fans An options object. us.ebpm.ego.defOpts is what will be used for defaults.
+		* @class us.ebpm.ego
+		* @namespace us.ebpm
+		* @constructor
+		*/
+		ego : function ( fans ) {
+			if ( !bpmv.obj(bpmv.ego.defOpts) ) {
+				bpmv.ego.defOpts = {
+					// Length of the string to generate (see us.ebpm.ego.defOpts.absLen for forced truncation).
+					'len' : 12,
+					// A prefix to apply to the ID string generated
+					'prefix' : '',
+					// The character set to choose from for generating the &quot;random&quot; portion of the ID.
+					'charset' : '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+					// If set to true, a delimiter and integer UNIX time stamp will be appended to the generated ID string.
+					'useTime' : true,
+					// If set to true, the entire return string will be truncated to the len setting.*
+					// Note that this may truncate away desired portions such as timestamps.
+					'absLen' : false,
+					// The delimiter to use between portions of the ID string (prefix, id and time stamp).
+					'delim' : '_'
+				};
+			}
+			if ( !bpmv.obj(bpmv.ego.usedIds) ) { bpmv.ego.usedIds = {} };
+			if ( !bpmv.obj(fans) ) { fans = {}; }
+			for ( var anO in bpmv.ego.defOpts ) {
+				if ( ( bpmv.ego.defOpts.hasOwnProperty(anO) ) && ( typeof(fans[anO]) == 'undefined' ) ) {
+					fans[anO] = bpmv.ego.defOpts[anO];
+				}
+			}
+			var tm = new Date();
+			fans.ts = tm.getTime().toString();
+			var rStr = '',
+			first = false, // html elements must being with a letter!
+			tsLen = fans.useTime == false ? 0 : fans.ts.length + fans.delim.toString().length;
+			var iLen = fans.absLen == true ? fans.len - tsLen : fans.len;
+			for ( var i=0; i < iLen; i++ ) {
+				var rnum = Math.floor(Math.random() * fans.charset.length);
+				c = fans.charset.substring(rnum,rnum+1);
+				if ( first == false ) {
+					if ( c.match(/[a-zA-Z]/) == null ) {
+						i--;
+					} else {
+						rStr += c;
+						first = true;
+					}
+				} else {
+					var vId = new RegExp( '['+fans.charset+']' );
+					if ( c.match(vId) == null ) {
+						i--;
+					} else {
+						rStr += c;
+					}
+				}
+			}
+			rStr = fans.useTime == false ? rStr : rStr+fans.delim+fans.ts;
+			if ( typeof(bpmv.ego.usedIds[rStr]) == 'undefined' ) {
+				bpmv.ego.usedIds[rStr] = true;
+				return fans.prefix+rStr;
+			} else {
+				// we do this to avoid dupe strings. currently no limit on the recursive call.
+				rStr = this.ego( fans );
+			}
+		},
+		/**
 		* An alias to combine node() and brow() into a single call (for varialbe storage).
 		* This will return which "environment" is in service if known and 'undefined' if not.
 		* Currently, only 'undefined', 'browser' and 'node' are supported.
