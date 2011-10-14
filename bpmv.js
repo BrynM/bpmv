@@ -510,7 +510,7 @@
 					delims.r = this.str(delims.r) ? delims.r : '##';
 				}
 				for ( ppPass in stash ) {
-					if ( stash.hasOwnProperty( ppPass ) && this.str(ppPass) && this.str(stash[ppPass]) ) {
+					if ( stash.hasOwnProperty( ppPass ) && this.str(ppPass) && (this.str(stash[ppPass]) || this.num(stash[ppPass], true) ) ) {
 						var bogart = ''+delims.l+ppPass+delims.r;
 						var rex = new RegExp( this.rescape(bogart), 'g'+onMyCase );
 						newStr = newStr.replace( rex, stash[ppPass] );
