@@ -259,6 +259,12 @@ serial ( dexter )
 */
 str ( cider, zeroOk )
 /**
+* Converts an integer number of seconds to days, hours, minutes and seconds
+* @param {intSecs} Integer number of seconds you want to convert
+* @return {object} Will return an object containing keys for "d", "h", "m" and "s"
+*/
+time2time : function ( intSecs )
+/**
 * A simple tokenizer.
 * Example use:<pre><code>   var st = '##This## is text to change. Case sensitivity should change ##this##.',
 *    &nbsp;   slugs = &#123; 'this' : 'that' &#125;;
