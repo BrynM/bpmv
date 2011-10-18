@@ -470,6 +470,41 @@
 			return ( typeof( cider ) === 'string' ) && ( zeroOk || ( cider.length > 0 ) );
 		},
 		/**
+		* Converts an integer number of seconds to days, hours, minutes and seconds
+		* @param {intSecs} Integer number of seconds you want to convert
+		* @return {object} Will return an object containing keys for "d", "h", "m" and "s"
+		*/
+		time2time : function ( intSecs ) {
+			var remain = parseInt(intSecs),
+				min = 60,
+				hr = 60 * min,
+				day = 24 * hr,
+				ret = {
+				d : 0,
+				h : 0,
+				m : 0,
+				s : 0
+				};
+			if ( this.num(remain) ) {
+				if ( remain > day ) {
+					ret.d = parseInt(remain / day);
+					remain = parseInt(remain - (day*ret.d) );
+				}
+				if ( remain > hr ) {
+					ret.h = parseInt(remain / hr);
+					remain = parseInt(remain - (hr*ret.h) );
+				}
+				if ( remain > min ) {
+					ret.m = parseInt(remain / min);
+					remain = parseInt(remain - (min*ret.m) );
+				}
+				if ( remain > 0 ) {
+					ret.s = remain;
+				}
+			}
+			return ret;
+		},
+		/**
 		* A simple tokenizer.
 		* Example use:<pre><code>   var st = '##This## is text to change. Case sensitivity should change ##this##.',
 		*    &nbsp;   slugs = &#123; 'this' : 'that' &#125;;
