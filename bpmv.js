@@ -78,7 +78,7 @@
 		* @return {boolean} Will return true if an array
 		*/
 		arr : function ( dIsArr, okEmpty ) {
-			return this.obj( dIsArr ) && ( Object.prototype.toString.call(dIsArr) === '[object Array]' ) && ( okEmpty | (dIsArr.length > 0) );
+			return this.obj( dIsArr ) && ( Object.prototype.toString.call(dIsArr) === '[object Array]' ) && ( okEmpty || (dIsArr.length > 0) );
 		},
 		/**
 		* Get the basename of a path
