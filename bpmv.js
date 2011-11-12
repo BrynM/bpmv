@@ -88,11 +88,12 @@
 		basename : function ( redOrBlue ) {
 			var ret = false;
 			if ( this.str( redOrBlue ) ) {
-				var tstr = this.rtrim( redOrBlue, '/\\' );
+				var tstr = this.rtrim( redOrBlue, '/\\' ),
+					capFlag = false;
 				if ( /\//.test( tstr ) ) { // *nix dirs
-					var capFlag = tstr.split( '/' );
+					capFlag = tstr.split( '/' );
 				} else if ( /\\/.test( tstr ) ) { // windows dirs
-					var capFlag = tstr.split( '\\' );
+					capFlag = tstr.split( '\\' );
 				}
 				if ( this.arr( capFlag ) ) {
 					ret = capFlag.pop();
@@ -118,7 +119,7 @@
 		* camel case
 		*/
 		ccase : function ( hump, wspace ) {
-			if ( !this.str( hump ) ) return hump;
+			if ( !this.str( hump ) ) { return hump; }
 			wspace = this.str( wspace ) ? wspace.split( /\,/ ) : wspace;
 			wspace = this.arr( wspace ) ? wspace : [ ' ', '_', '-' ];
 			var getChar = new RegExp( '(['+wspace.join( '\\' )+'][a-z])', 'g' ),
@@ -138,7 +139,7 @@
 			}
 			var objProps = 0;
 			if ( this.obj(ahAHah) ) {
-				for ( bAtz in ahAHah ) {
+				for ( var bAtz in ahAHah ) {
 					if ( ahAHah.hasOwnProperty(bAtz) ) {
 						++objProps;
 					}
@@ -195,7 +196,7 @@
 					'delim' : '_'
 				};
 			}
-			if ( !bpmv.obj(bpmv.ego.usedIds) ) { bpmv.ego.usedIds = {} };
+			if ( !bpmv.obj(bpmv.ego.usedIds) ) { bpmv.ego.usedIds = {}; }
 			if ( !bpmv.obj(fans) ) { fans = {}; }
 			for ( var anO in bpmv.ego.defOpts ) {
 				if ( ( bpmv.ego.defOpts.hasOwnProperty(anO) ) && ( typeof(fans[anO]) == 'undefined' ) ) {
@@ -256,7 +257,7 @@
 		* @return {boolean} Will return true if the value is a valid floating point number
 		*/
 		float : function ( mFreak, zeroOk ) { // validates for formatting so '2.0b' is NOT valid
-			return /^\s*[0-9]*\.?[0-9]+\s*$/.test(String(mFreak)) && this.num(mFreak, zeroOk);
+			return (/^\s*[0-9]*\.?[0-9]+\s*$/).test(String(mFreak)) && this.num(mFreak, zeroOk);
 		},
 		/**
 		* is a function?
@@ -272,7 +273,7 @@
 		* @return {boolean} Will return true if the value is a valid host name with at least two levelc (name plus tld)
 		*/
 		host : function ( drinks ) {
-			return  /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/.test( drinks );
+			return  (/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/).test( drinks );
 		},
 		/**
 		* Parse ini file contents into an object if possible with optional callback.
@@ -290,7 +291,7 @@
 				for ( aL in fLines ) {
 					if ( fLines.hasOwnProperty(aL) && this.str(fLines[aL]) ) {
 						switch ( true ) {
-							case /(^\s*\[[^\]]+\]\s*$|^\[[^\]]+\]$)/.test( fLines[aL] ):
+							case (/(^\s*\[[^\]]+\]\s*$|^\[[^\]]+\]$)/).test( fLines[aL] ):
 								// found a header
 								currKey = this.trim( fLines[aL].replace( /(^\s*\[|\]\s*$)/g, '' ) );
 								outData[currKey] = this.obj(outData[currKey]) ? outData[currKey] : {};
@@ -312,7 +313,7 @@
 												// convert floats
 												aVal = parseFloat(tSpl[1]);
 												break;
-											case /^(on|true|yes|off|false|no)$/i.test(tSpl[1]):
+											case (/^(on|true|yes|off|false|no)$/i).test(tSpl[1]):
 												// convert semi-boolean values to booleans
 												aVal = this.trueish( tSpl[1] );
 												break;
@@ -356,7 +357,7 @@
 		* @return {boolean} Will return true if the value is a valid integer
 		*/
 		int : function ( threeD6, zeroOk ) { // validates for formatting so '3m' is NOT valid
-			return /^\s*[0-9]+\s*$/.test(String(threeD6)) && this.num(threeD6, zeroOk);
+			return (/^\s*[0-9]+\s*$/).test(String(threeD6)) && this.num(threeD6, zeroOk);
 		},
 		/**
 		* Trim whitespace or optionally other characters from the beginning of a string
@@ -420,7 +421,7 @@
 			if ( !this.str(fromNy) ) {
 				return fromNy; // not a string? just return it
 			}
-			return String(fromNy).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+			return String(fromNy).replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
 		},
 		/**
 		* Trim whitespace or optionally other characters from the end of a string
@@ -475,7 +476,7 @@
 		* @return {object} Will return an object containing keys for "d", "h", "m" and "s"
 		*/
 		time2time : function ( intSecs ) {
-			var remain = parseInt(intSecs),
+			var remain = parseInt(intSecs, 10),
 				min = 60,
 				hr = 60 * min,
 				day = 24 * hr,
@@ -487,16 +488,16 @@
 				};
 			if ( this.num(remain) ) {
 				if ( remain > day ) {
-					ret.d = parseInt(remain / day);
-					remain = parseInt(remain - (day*ret.d) );
+					ret.d = parseInt(remain / day, 10);
+					remain = parseInt(remain - (day*ret.d), 10);
 				}
 				if ( remain > hr ) {
-					ret.h = parseInt(remain / hr);
-					remain = parseInt(remain - (hr*ret.h) );
+					ret.h = parseInt(remain / hr, 10);
+					remain = parseInt(remain - (hr*ret.h), 10);
 				}
 				if ( remain > min ) {
-					ret.m = parseInt(remain / min);
-					remain = parseInt(remain - (min*ret.m) );
+					ret.m = parseInt(remain / min, 10);
+					remain = parseInt(remain - (min*ret.m), 10);
 				}
 				if ( remain > 0 ) {
 					ret.s = remain;
@@ -544,7 +545,7 @@
 					delims.l = this.str(delims.l) ? delims.l : '##';
 					delims.r = this.str(delims.r) ? delims.r : '##';
 				}
-				for ( ppPass in stash ) {
+				for ( var ppPass in stash ) {
 					if ( stash.hasOwnProperty( ppPass ) && this.str(ppPass) && (this.str(stash[ppPass]) || this.num(stash[ppPass], true) ) ) {
 						var bogart = ''+delims.l+ppPass+delims.r;
 						var rex = new RegExp( this.rescape(bogart), 'g'+onMyCase );
@@ -579,7 +580,7 @@
 				case 'function':
 					return String(maybe); // we return a string for safety - no calling the func!
 				case 'string':
-					return /^\s*(on|true|yes|1|yar)\s*$/i.test(maybe);
+					return (/^\s*(on|true|yes|1|yar)\s*$/i).test(maybe);
 					break;
 				case 'object':
 					return this.obj( maybe, true );
