@@ -230,7 +230,7 @@
 			rStr = fans.useTime == false ? rStr : rStr+fans.delim+fans.ts;
 			if ( typeof(bpmv.ego.usedIds[rStr]) == 'undefined' ) {
 				bpmv.ego.usedIds[rStr] = true;
-				return fans.prefix+rStr;
+				return fans.prefix+fans.delim+rStr;
 			} else {
 				// we do this to avoid dupe strings. currently no limit on the recursive call.
 				rStr = this.ego( fans );
