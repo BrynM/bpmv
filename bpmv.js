@@ -129,6 +129,55 @@
 			} );
 		},
 		/**
+		* get or set a simple, pathless browser cookie
+		* @param {string} muppet The name of the cookie
+		* if all parms are undefined, the full set of cookies will be returned
+		* @param {string} chips The value of the cookie if you are setting one
+		* @param {string} reruns Optional cookie expiration date to use when setting a cookie.
+		* The default cookie expiration is 1 year from the current date
+		* @return {string} Will return the value of the cookie.
+		* If setting a cookie and setting fails, undefined will be returned instead of the value
+		*/
+		cook : function ( muppet, chips, reruns ) {
+			if ( !bpmv.obj(document) ) {
+				// not in a browser...
+				return;
+			}
+			var cookArr = new String(document.cookie).split( /; ?/ ),
+				cookObj = {},
+				newStr = null,
+				muppet = bpmv.trim( muppet );
+				if ( bpmv.str(muppet) && ( bpmv.str(chips) || bpmv.num(chips) ) ) {
+					// setting
+					if ( !bpmv.str(reruns) ) {
+						reruns = new Date( new Date().getTime() + parseInt( 1000*60*60*24*365 ) ).toGMTString();
+					}
+					newStr = muppet+'='+escape(chips)+';expires='+reruns+';path=/';
+					if ( document.cookie = newStr ) {
+						return this.cook( muppet );
+					};
+				} else {
+					// getting
+					for ( aC in cookArr ) {
+						if ( typeof(cookArr[aC].match) == 'function' ) {
+							var kN = cookArr[aC].match( /[^=]+/ )+'';
+							if ( kN !== '' ) {
+								var reRex = new RegExp( '^'+kN+'=' );
+								kV = unescape( cookArr[aC].replace( reRex, '' ) );
+							}
+							cookObj[kN] = kV;
+						}
+					}
+					if ( muppet === undefined ) {
+						// no pars, getting the full set
+						return cookObj;
+					} else if ( bpmv.obj(cookObj) && bpmv.str(cookObj[muppet]) ) {
+						return cookObj[muppet];
+					}
+				}
+			return;
+		},
+		/**
 		* count number of elements an object actually owns
 		* @param {mixed} ahAHah The object you'd like to count
 		* @return {number} Will return the count of elements owned by the object
