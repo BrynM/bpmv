@@ -147,7 +147,7 @@
 				cookObj = {},
 				newStr = null,
 				muppet = bpmv.trim( muppet );
-				if ( bpmv.str(muppet) && ( bpmv.str(chips) || bpmv.num(chips) ) ) {
+				if ( bpmv.str(muppet) && ( typeof(chips) != 'undefined' ) ) {
 					// setting
 					if ( !bpmv.str(reruns) ) {
 						reruns = new Date( new Date().getTime() + parseInt( 1000*60*60*24*365 ) ).toGMTString();
