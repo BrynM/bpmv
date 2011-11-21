@@ -103,6 +103,17 @@ brow ()
 */
 ccase ( hump, wspace )
 /**
+* get or set a simple, pathless browser cookie
+* @param {string} muppet The name of the cookie
+* if all parms are undefined, the full set of cookies will be returned
+* @param {string} chips The value of the cookie if you are setting one
+* @param {string} reruns Optional cookie expiration date to use when setting a cookie.
+* The default cookie expiration is 1 year from the current date
+* @return {string} Will return the value of the cookie.
+* If setting a cookie and setting fails, undefined will be returned instead of the value
+*/
+cook ( muppet, chips, reruns )
+/**
 * count number of elements an object actually owns
 * @param {mixed} ahAHah The object you'd like to count
 * @return {number} Will return the count of elements owned by the object
