@@ -431,6 +431,14 @@
 			return (/^\s*[0-9]+\s*$/).test(String(threeD6)) && this.num(threeD6, zeroOk);
 		},
 		/**
+		* Will test if object is a RegExp object
+		* @param {mixed} namedRex The regular expression object you'd like to test
+		* @return {bool} Returns true if the object was a RegExp
+		*/
+		isadog : function ( namedRex ) {
+			return ( this.obj(namedRex) && ( Object.prototype.toString.call( namedRex ) === '[object RegExp]' ) );
+		},
+		/**
 		* Trim whitespace or optionally other characters from the beginning of a string
 		* @param {string} bush The string you'd like to trim
 		* @param {string} chars Optional list of characters to trim.
