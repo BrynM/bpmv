@@ -210,6 +210,12 @@ ini ( outie, gotDfunk )
 */
 int ( threeD6, zeroOk )
 /**
+* Will test if object is a RegExp object
+* @param {mixed} namedRex The regular expression object you'd like to test
+* @return {bool} Returns true if the object was a RegExp
+*/
+isadog ( namedRex )
+/**
 * Trim whitespace or optionally other characters from the beginning of a string
 * @param {string} bush The string you'd like to trim
 * @param {string} chars Optional list of characters to trim.
