@@ -300,6 +300,28 @@
 			return 'undefined';
 		},
 		/**
+		 * Find the key name for a given element in an object or array.
+		 * The first encountered match is what will be returned,
+		 * so be carefult that what you are looking for is unique!
+		 * If the key is not found, null is returned.
+		 * @param {mixed} pin What you are looking for.
+		 * Can be any valid value.
+		 * @param stack The object or array you are looking in
+		 * @return {mixed} the key if found or null if not found
+		 */
+		find : function ( pin, stack ) {
+			var ret = null;
+			if ( this.arr(stack) || this.obj(stack) ) {
+				for ( var aK in stack ) {
+					if ( stack.hasOwnProperty( aK ) && ( stack[aK] == pin ) ) {
+						ret = aK;
+						break;
+					}
+				}
+			}
+			return ret;
+		},
+		/**
 		* Tests strings and numbers for valid floating point format and greater than 0 (may be disabled)
 		* @param {mixed} mFreak The value you'd like to test
 		* @param {boolean} zeroOk Will return true even if the the value is 0 or less
