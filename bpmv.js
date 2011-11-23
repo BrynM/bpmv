@@ -650,6 +650,26 @@
 			return bush.replace( rex, '' );
 		},
 		/**
+		* Test something for a particular type constructor
+		* @param {mixed} clicketyClack The thing you want to test
+		* @param {string} shakDing The object constructor name you expect to match
+		* @return {boolean} Returns true if the type matches, false if not and undefined
+		* if the parameters are incorrect (either clicketyClack was undefined or shakDing
+		* was not a valid string)
+		* On failure, will return boolean false.
+		*/
+		typeis : function ( clicketyClack, shakDing ) {
+			if ( ( typeof(clicketyClack) != 'undefined' ) && this.str(shakDing) ) {
+				if ( Object.prototype.toString.call( clicketyClack ) === '[object ' + shakDing + ']' ) {
+					return true;
+				} else if ( bpmv.obj( clicketyClack ) && ( clicketyClack.constructor.name == shakDing ) ) { // fall back to constructor name
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return; // undef
+		},		/**
 		* Is something that for a human resolves to true, such as "on" or "yes"
 		* @param {mixed} maybe The value you'd like to test
 		* @return {boolean} Will return true if the value is representationally positive in english, false otherwise
