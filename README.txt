@@ -339,6 +339,16 @@ trim ( bush, chars )
 */
 trueish ( maybe )
 /**
+* Test something for a particular type constructor
+* @param {mixed} clicketyClack The thing you want to test
+* @param {string} shakDing The object constructor name you expect to match
+* @return {boolean} Returns true if the type matches, false if not and undefined
+* if the parameters are incorrect (either clicketyClack was undefined or shakDing
+* was not a valid string)
+* On failure, will return boolean false.
+*/
+typeis ( clicketyClack, shakDing )
+/**
 * Unserialize a query string into an object
 * @param {string} busted The string you'd like to convert into an object
 * @return {string} Returns the string converted into an object.
