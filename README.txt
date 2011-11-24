@@ -358,6 +358,12 @@ typeis ( clicketyClack, shakDing )
 */
 unserial ( busted )
 /**
+* Tries to derive the constructor name of a given thing...
+* @param {mixed} thing The thing you want to test
+* @return {string} Returns a string containing the constructor name or undefined if it can't be found
+*/
+whatis ( thing )
+/**
 * match a string against a wildcard string
 * @param {string} tundra The full text to test (ie: &quot;file_name_string&quot;)
 * @param {string} grylls The wildcard string (ie: &quot;file_*&quot;)
