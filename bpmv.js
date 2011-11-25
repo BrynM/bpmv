@@ -339,6 +339,35 @@
 			return ( typeof(boOtsy) === 'function' );
 		},
 		/**
+		* Grab a deep key from an object
+		* @param {string} leggo The deep key you are looking for. For example "foo.bar.baz".
+		* @param {object} eggo The object you're looking in
+		* @return {boolean} Will return the object by ref or undefined if not found
+		*/
+		grab : function ( leggo, eggo ) {
+			var plate = null,
+				waffle = null,
+				myPlate = null;
+			if ( bpmv.str(leggo) && !leggo.match( /\s/ ) && bpmv.obj(eggo) ) {
+				plate = leggo.split( '.' );
+				myPlate = eggo;
+				if ( bpmv.arr(plate) ) {
+					for( waffle in plate ) {
+						if ( plate.hasOwnProperty( waffle ) ) {
+							if ( typeof(myPlate[plate[waffle]]) === 'undefined' ) {
+								return; // undef
+							} else {
+								myPlate = myPlate[plate[waffle]];
+							}
+						}
+					}
+					if ( bpmv.str(plate[waffle]) && ( typeof(myPlate) != 'undefined' ) ) {
+						return myPlate;
+					}
+				}
+			}
+		},
+		/**
 		* is a valid hostname with at least a tld parent
 		* @param {mixed} drinks The value you'd like to test
 		* @return {boolean} Will return true if the value is a valid host name with at least two levelc (name plus tld)
