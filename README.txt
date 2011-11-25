@@ -182,6 +182,13 @@ float ( mFreak, zeroOk )
 */
 func ( boOtsy )
 /**
+* Grab a deep key from an object
+* @param {string} leggo The deep key you are looking for. For example "foo.bar.baz".
+* @param {object} eggo The object you're looking in
+* @return {boolean} Will return the object by ref or undefined if not found
+*/
+grab ( leggo, eggo )
+/**
 * is a valid hostname with at least a tld parent
 * @param {mixed} drinks The value you'd like to test
 * @return {boolean} Will return true if the value is a valid host name with at least two levelc (name plus tld)
