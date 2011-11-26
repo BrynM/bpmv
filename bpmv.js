@@ -521,6 +521,44 @@
 			return ( ojUc !== null ) && ( typeof(ojUc) === 'object' ) && ( !populated || (this.count(ojUc) > 0) );
 		},
 		/**
+		* Perform left padding
+		* @param {string} nightCap The string you'd like to pad
+		* @param {number} yourPlace The total character length you want the result to be
+		* @param {string} mine The character you wish to pad with. The default is to use a "0".
+		* Note that mine is added for each lacking character in the original. Thus, an example call
+		* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
+		* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
+		* than the desired padding length, it will be truncated to the padding length. When false,
+		* if the original is longer than the padding length, it will be returned unaltered.
+		* Defaults to true.
+		* @return {string} Will return the padded (or optionally truncated) version of the input string.
+		* If the the input is not usable or the length desired is invalid, undefined is returned.
+		*/
+		pad : function ( nightCap, yourPlace, mine, somethingMoreComfy ) {
+			var pillow = '',
+				needed = 0;
+			if ( bpmv.str(nightCap) && bpmv.num(yourPlace) ) {
+				pillow += nightCap;
+				mine = bpmv.num(mine) ? ''+mine : mine;
+				mine = bpmv.str(mine) ? mine : '0';
+				somethingMoreComfy = typeof(somethingMoreComfy) == 'undefined' ? true : false;
+				if ( pillow.length == yourPlace ) {
+					return pillow;
+				} else if ( pillow.length < yourPlace ) {
+					needed = yourPlace - pillow.length;
+					for ( var added = 0; added < needed; added++ ) {
+						pillow = mine + pillow;
+					}
+					return pillow;
+				} else if ( ( pillow.length > yourPlace ) && bpmv.trueish(somethingMoreComfy) ) {
+					return pillow.substr( (pillow.length-yourPlace), (pillow.length-(pillow.length-yourPlace)) );
+				} else if ( pillow.length > yourPlace ) {
+					return nightCap;
+				}
+			}
+			return; // return undef on fail
+		},
+		/**
 		* Escape regular expression characters.
 		* @param {string} str Some sort of path
 		* @return {string} The converted string
