@@ -258,6 +258,21 @@ num ( fElng, zeroOk )
 */
 obj ( ojUc, populated )
 /**
+* Perform left padding
+* @param {string} nightCap The string you'd like to pad
+* @param {number} yourPlace The total character length you want the result to be
+* @param {string} mine The character you wish to pad with. The default is to use a "0".
+* Note that mine is added for each lacking character in the original. Thus, an example call
+* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
+* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
+* than the desired padding length, it will be truncated to the padding length. When false,
+* if the original is longer than the padding length, it will be returned unaltered.
+* Defaults to true.
+* @return {string} Will return the padded (or optionally truncated) version of the input string.
+* If the the input is not usable or the length desired is invalid, undefined is returned.
+*/
+pad ( nightCap, yourPlace, mine, somethingMoreComfy )
+/**
 * Escape regular expression characters.
 * @param {string} str Some sort of path
 * @return {string} The converted string
