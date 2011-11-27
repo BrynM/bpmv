@@ -826,6 +826,54 @@
 				}
 			}
 			return protein;
+		},
+		/**
+		* Word wrap a string to a given length. If this length is passed by a single word,
+		* the word will NOT be broken and it will appear on its own "line".
+		* @param {string} gift The string that you would like to wordwrap
+		* @param {string} box The "line" length you'd like the gift to be wrapped at.
+		* The default is 80 characters.
+		* @param {string} bow The string you would like to use as a "line" terminator.
+		* The length of your "line" terminator is NOT accounted for when measuring
+		* "line" length, so the resultant true length of each "line" is the lengh plus
+		* the terminator length. This parm being a variable of any string value is the
+		* reason the word "line" is shown in quotes so much.
+		* @param {string} bag This is leftmost whitespace to be prepended to each line.
+		* The length of the bag whitespace IS taken into account when measuring the
+		* length of a line. The default is an empty string.
+		* @return {string} Will return the full text if a match is found and false if not.
+		*/
+		wrapped : function ( gift, box, bow, bag ) {
+			var aLine = null,
+				lines = [],
+				wIdx = 0,
+				lastIdx = 0,
+				words = null;
+			box = ( typeof(box) == 'undefined' ) ? 80 : box;
+			bow = ( !this.str(bow) ) ? '\n' : bow;
+			bag = !this.str(bag) ? '' : bag;
+			if ( this.str(gift) && this.num(box) ) {
+				words = (''+gift).replace( /(\n|\r|\t)/, ' ' ).split( /\s+/ );
+				lines = [];
+				while ( words.length > 0 ) {
+					aLine = '';
+					lastIdx = wIdx;
+					while ( ( (''+bag+aLine+' '+words[0]).length < box ) ) {
+						aLine += words.shift() + ' ';
+						if ( words.length < 1 ) {
+							break;
+						}
+						wIdx++;
+					}
+					if ( ( lastIdx === wIdx ) && ( words.length > 0 ) ) { // no progress... word longer than line?
+						aLine += (this.str(aLine) ? aLine : '') + words.shift();
+					}
+					if ( this.str(aLine) ) {
+						lines.push( bag+this.trim(aLine) );
+					}
+				}
+			}
+			return lines.join( bow );
 		}
 	};
 	// populate the appropriate global-ish place
