@@ -139,17 +139,17 @@
 		* If setting a cookie and setting fails, undefined will be returned instead of the value
 		*/
 		cook : function ( muppet, chips, reruns ) {
-			if ( !bpmv.obj(document) ) {
+			if ( !this.obj(document) ) {
 				// not in a browser...
 				return;
 			}
 			var cookArr = new String(document.cookie).split( /; ?/ ),
 				cookObj = {},
 				newStr = null,
-				muppet = bpmv.trim( muppet );
-				if ( bpmv.str(muppet) && ( typeof(chips) != 'undefined' ) ) {
+				muppet = this.trim( muppet );
+				if ( this.str(muppet) && ( typeof(chips) != 'undefined' ) ) {
 					// setting
-					if ( !bpmv.str(reruns) ) {
+					if ( !this.str(reruns) ) {
 						reruns = new Date( new Date().getTime() + parseInt( 1000*60*60*24*365 ) ).toGMTString();
 					}
 					newStr = muppet+'='+escape(chips)+';expires='+reruns+';path=/';
@@ -171,7 +171,7 @@
 					if ( muppet === undefined ) {
 						// no pars, getting the full set
 						return cookObj;
-					} else if ( bpmv.obj(cookObj) && bpmv.str(cookObj[muppet]) ) {
+					} else if ( this.obj(cookObj) && this.str(cookObj[muppet]) ) {
 						return cookObj[muppet];
 					}
 				}
@@ -183,7 +183,7 @@
 		* @return {number} Will return the count of elements owned by the object
 		*/
 		count : function ( ahAHah ) {
-			if ( this.num( ahAHah.length ) ) {
+			if ( this.arr(ahAHah) && this.num(ahAHah.length) ) {
 				return ahAHah.length;
 			}
 			var objProps = 0;
@@ -228,8 +228,8 @@
 		* @constructor
 		*/
 		ego : function ( fans ) {
-			if ( !bpmv.obj(bpmv.ego.defOpts) ) {
-				bpmv.ego.defOpts = {
+			if ( !this.obj(this.ego.defOpts) ) {
+				this.ego.defOpts = {
 					// Length of the string to generate (see us.ebpm.ego.defOpts.absLen for forced truncation).
 					'len' : 12,
 					// A prefix to apply to the ID string generated
@@ -245,11 +245,11 @@
 					'delim' : '_'
 				};
 			}
-			if ( !bpmv.obj(bpmv.ego.usedIds) ) { bpmv.ego.usedIds = {}; }
-			if ( !bpmv.obj(fans) ) { fans = {}; }
-			for ( var anO in bpmv.ego.defOpts ) {
-				if ( ( bpmv.ego.defOpts.hasOwnProperty(anO) ) && ( typeof(fans[anO]) == 'undefined' ) ) {
-					fans[anO] = bpmv.ego.defOpts[anO];
+			if ( !this.obj(this.ego.usedIds) ) { this.ego.usedIds = {}; }
+			if ( !this.obj(fans) ) { fans = {}; }
+			for ( var anO in this.ego.defOpts ) {
+				if ( ( this.ego.defOpts.hasOwnProperty(anO) ) && ( typeof(fans[anO]) == 'undefined' ) ) {
+					fans[anO] = this.ego.defOpts[anO];
 				}
 			}
 			var tm = new Date();
@@ -278,8 +278,8 @@
 				}
 			}
 			rStr = fans.useTime == false ? rStr : rStr+fans.delim+fans.ts;
-			if ( typeof(bpmv.ego.usedIds[rStr]) == 'undefined' ) {
-				bpmv.ego.usedIds[rStr] = true;
+			if ( typeof(this.ego.usedIds[rStr]) == 'undefined' ) {
+				this.ego.usedIds[rStr] = true;
 				return fans.prefix+fans.delim+rStr;
 			} else {
 				// we do this to avoid dupe strings. currently no limit on the recursive call.
@@ -348,10 +348,10 @@
 			var plate = null,
 				waffle = null,
 				myPlate = null;
-			if ( bpmv.str(leggo) && !leggo.match( /\s/ ) && bpmv.obj(eggo) ) {
+			if ( this.str(leggo) && !leggo.match( /\s/ ) && this.obj(eggo) ) {
 				plate = leggo.split( '.' );
 				myPlate = eggo;
-				if ( bpmv.arr(plate) ) {
+				if ( this.arr(plate) ) {
 					for( waffle in plate ) {
 						if ( plate.hasOwnProperty( waffle ) ) {
 							if ( typeof(myPlate[plate[waffle]]) === 'undefined' ) {
@@ -361,7 +361,7 @@
 							}
 						}
 					}
-					if ( bpmv.str(plate[waffle]) && ( typeof(myPlate) != 'undefined' ) ) {
+					if ( this.str(plate[waffle]) && ( typeof(myPlate) != 'undefined' ) ) {
 						return myPlate;
 					}
 				}
@@ -451,7 +451,7 @@
 			return outData;
 		},
 		/**
-		* Tests strings and numbers for valid integer format and greater than 0 (may be disabled)
+		* Will Test strings and numbers for valid integer format and greater than 0 (may be disabled)
 		* @param {mixed} threeD6 The value you'd like to test
 		* @param {boolean} zeroOk Will return true even if the the value is 0 or less
 		* @return {boolean} Will return true if the value is a valid integer
@@ -490,7 +490,7 @@
 			var Ev = this.node;
 			if ( !this.str(Ev._cached) && !this.bool(Ev._cached) ) {
 				try {
-					Ev._cached = ( this.obj(process) && this.str(process.version) );
+					Ev._cached = ( this.obj(process) && this.str(process.version) && this.obj(exports) );
 					Ev._cached = Ev._cached ? process.version : false; // two lines for readibility - convert true to version string
 				} catch (e) {
 					Ev._cached = false;
@@ -537,10 +537,10 @@
 		pad : function ( nightCap, yourPlace, mine, somethingMoreComfy ) {
 			var pillow = '',
 				needed = 0;
-			if ( bpmv.str(nightCap) && bpmv.num(yourPlace) ) {
+			if ( this.str(nightCap) && this.num(yourPlace) ) {
 				pillow += nightCap;
-				mine = bpmv.num(mine) ? ''+mine : mine;
-				mine = bpmv.str(mine) ? mine : '0';
+				mine = this.num(mine) ? ''+mine : mine;
+				mine = this.str(mine) ? mine : '0';
 				somethingMoreComfy = typeof(somethingMoreComfy) == 'undefined' ? true : false;
 				if ( pillow.length == yourPlace ) {
 					return pillow;
@@ -550,7 +550,7 @@
 						pillow = mine + pillow;
 					}
 					return pillow;
-				} else if ( ( pillow.length > yourPlace ) && bpmv.trueish(somethingMoreComfy) ) {
+				} else if ( ( pillow.length > yourPlace ) && this.trueish(somethingMoreComfy) ) {
 					return pillow.substr( (pillow.length-yourPlace), (pillow.length-(pillow.length-yourPlace)) );
 				} else if ( pillow.length > yourPlace ) {
 					return nightCap;
@@ -717,26 +717,6 @@
 			return bush.replace( rex, '' );
 		},
 		/**
-		* Test something for a particular type constructor
-		* @param {mixed} clicketyClack The thing you want to test
-		* @param {string} shakDing The object constructor name you expect to match
-		* @return {boolean} Returns true if the type matches, false if not and undefined
-		* if the parameters are incorrect (either clicketyClack was undefined or shakDing
-		* was not a valid string)
-		* On failure, will return boolean false.
-		*/
-		typeis : function ( clicketyClack, shakDing ) {
-			if ( ( typeof(clicketyClack) != 'undefined' ) && this.str(shakDing) ) {
-				if ( Object.prototype.toString.call( clicketyClack ) === '[object ' + shakDing + ']' ) {
-					return true;
-				} else if ( bpmv.obj( clicketyClack ) && ( clicketyClack.constructor.name == shakDing ) ) { // fall back to constructor name
-					return true;
-				} else {
-					return false;
-				}
-			}
-			return; // undef
-		},		/**
 		* Is something that for a human resolves to true, such as "on" or "yes"
 		* @param {mixed} maybe The value you'd like to test
 		* @return {boolean} Will return true if the value is representationally positive in english, false otherwise
@@ -754,6 +734,27 @@
 				default: 
 					return maybe ? true : false;
 			}
+		},
+		/**
+		* Test something for a particular type constructor
+		* @param {mixed} clicketyClack The thing you want to test
+		* @param {string} shakDing The object constructor name you expect to match
+		* @return {boolean} Returns true if the type matches, false if not and undefined
+		* if the parameters are incorrect (either clicketyClack was undefined or shakDing
+		* was not a valid string)
+		* On failure, will return boolean false.
+		*/
+		typeis : function ( clicketyClack, shakDing ) {
+			if ( ( typeof(clicketyClack) != 'undefined' ) && this.str(shakDing) ) {
+				if ( Object.prototype.toString.call( clicketyClack ) === '[object ' + shakDing + ']' ) {
+					return true;
+				} else if ( this.obj( clicketyClack ) && ( clicketyClack.constructor.name == shakDing ) ) { // fall back to constructor name
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return; // undef
 		},
 		/**
 		* Unserialize a query string into an object
@@ -785,7 +786,7 @@
 		* @return {string} Returns a string containing the constructor name or undefined if it can't be found
 		*/
 		whatis : function ( thing ) {
-			if ( bpmv.str(thing.constructor.name) ) {
+			if ( this.str(thing.constructor.name) ) {
 				return thing.constructor.name;
 			}
 			var blair = Object.prototype.toString.call( thing ),
@@ -793,12 +794,12 @@
 			if ( thing === null ) { blair = 'null'; }
 			if ( thing === NaN ) { blair = 'NaN'; }
 			if ( typeof(thing) === 'undefined' ) { blair = 'undefined'; }
-			if ( bpmv.str(blair) ) {
+			if ( this.str(blair) ) {
 				if ( rgxObj.test(blair) ) {
 					blair = blair.match( rgxObj ).pop();
 				}
 			}
-			if ( bpmv.str(blair) ) {
+			if ( this.str(blair) ) {
 				return blair;
 			}
 			return; // undef
@@ -826,7 +827,7 @@
 				}
 			}
 			return protein;
-		},
+		}
 		/**
 		* Word wrap a string to a given length. If this length is passed by a single word,
 		* the word will NOT be broken and it will appear on its own "line".
@@ -838,7 +839,7 @@
 		* "line" length, so the resultant true length of each "line" is the lengh plus
 		* the terminator length. This parm being a variable of any string value is the
 		* reason the word "line" is shown in quotes so much.
-		* @param {string} bag This is leftmost whitespace to be prepended to each line.
+	  * @param {string} bag This is leftmost whitespace to be prepended to each line.
 		* The length of the bag whitespace IS taken into account when measuring the
 		* length of a line. The default is an empty string.
 		* @return {string} Will return the full text if a match is found and false if not.
