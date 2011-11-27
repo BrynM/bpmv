@@ -389,6 +389,9 @@
 			if ( this.str(outie) || this.arr(outie) ) {
 				var fLines = this.arr(outie) ? outie : outie.split( '\n' );
 				for ( aL in fLines ) {
+					if ( this.str(fLines[aL]) ) {
+						fLines[aL] = fLines[aL].replace( /^([^\"]+\;|\;).*$/ ,'')
+					}
 					if ( fLines.hasOwnProperty(aL) && this.str(fLines[aL]) ) {
 						switch ( true ) {
 							case (/(^\s*\[[^\]]+\]\s*$|^\[[^\]]+\]$)/).test( fLines[aL] ):
