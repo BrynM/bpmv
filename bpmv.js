@@ -827,7 +827,7 @@
 				}
 			}
 			return protein;
-		}
+		},
 		/**
 		* Word wrap a string to a given length. If this length is passed by a single word,
 		* the word will NOT be broken and it will appear on its own "line".
