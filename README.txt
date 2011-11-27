@@ -395,6 +395,23 @@ whatis ( thing )
 * @for bpmv
 */
 wild ( tundra, grylls, piss )
+/**
+* Word wrap a string to a given length. If this length is passed by a single word,
+* the word will NOT be broken and it will appear on its own "line".
+* @param {string} gift The string that you would like to wordwrap
+* @param {string} box The "line" length you'd like the gift to be wrapped at.
+* The default is 80 characters.
+* @param {string} bow The string you would like to use as a "line" terminator.
+* The length of your "line" terminator is NOT accounted for when measuring
+* "line" length, so the resultant true length of each "line" is the lengh plus
+* the terminator length. This parm being a variable of any string value is the
+* reason the word "line" is shown in quotes so much.
+* @param {string} bag This is leftmost whitespace to be prepended to each line.
+* The length of the bag whitespace IS taken into account when measuring the
+* length of a line. The default is an empty string.
+* @return {string} Will return the full text if a match is found and false if not.
+*/
+wrapped ( gift, box, bow, bag )
 
 
 
