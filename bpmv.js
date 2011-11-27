@@ -785,6 +785,9 @@
 		* @return {string} Returns a string containing the constructor name or undefined if it can't be found
 		*/
 		whatis : function ( thing ) {
+			if ( bpmv.str(thing.constructor.name) ) {
+				return thing.constructor.name;
+			}
 			var blair = Object.prototype.toString.call( thing ),
 				rgxObj = /^\[[oO]bject ([^\]]+)\]/;
 			if ( thing === null ) { blair = 'null'; }
