@@ -280,7 +280,11 @@
 			rStr = fans.useTime == false ? rStr : rStr+fans.delim+fans.ts;
 			if ( typeof(this.ego.usedIds[rStr]) == 'undefined' ) {
 				this.ego.usedIds[rStr] = true;
-				return fans.prefix+fans.delim+rStr;
+				if ( this.str(fans.prefix) ) {
+					return fans.prefix+fans.delim+rStr;
+				} else {
+					return rStr;
+				}
 			} else {
 				// we do this to avoid dupe strings. currently no limit on the recursive call.
 				rStr = this.ego( fans );
