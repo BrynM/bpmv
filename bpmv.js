@@ -505,13 +505,18 @@
 		/**
 		* tests if the parseFloat() value of something is a valid number and optionally greater than 0.
 		* @param {mixed} fElng The value you'd like to test
-		* @param {boolean} zeroOk Will return true even if the the value is 0 or less
-		* @return {boolean} Will return true if the value is a valid number
+		* @param {boolean} zeroOk If set to boolean true, will return true even if the the value is 0 or less.
+		* If a Number is passed as the zeroOk value, then true will be returned only if fElng is greater than zeroOk.
+		* @return {boolean} Will return true if the value is a valid number and optionally passes zeroOk testing.
 		*/
 		num : function ( fElng, zeroOk ) {
 			it = parseFloat(fElng);
 			if ( !isNaN(fElng) ) {
-				return ( zeroOk || ( fElng > 0 ) );
+				if ( bpmv.typeis( zeroOk, 'Number' ) ) {
+					return ( fElng > zeroOk );
+				} else {
+					return ( zeroOk || ( fElng > 0 ) );
+				}
 			}
 			return false;
 		},
