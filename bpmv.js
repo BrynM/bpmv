@@ -897,4 +897,4 @@
 	} else if ( bpmv.obj(window) ) {
 		window[bpmv._cfg.varName] = bpmv;
 	}
-})()
+})();
