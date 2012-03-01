@@ -81,7 +81,7 @@ bpmv.arr ( dIsArr, okEmpty )
 * @namespace bpmv
 * @for bpmv
 */
-basename ( redOrBlue )
+bpmv.basename ( redOrBlue )
 /**
 * is a boolean
 * @param {mixed} fool The value you'd like to test
@@ -89,19 +89,19 @@ basename ( redOrBlue )
 * @namespace bpmv
 * @for bpmv
 */
-bool ( fool )
+bpmv.bool ( fool )
 /**
 * are we in a browser (returns bool, not UA!)
 * @namespace bpmv
 * @for bpmv
 */
-brow ()
+bpmv.brow ()
 /**
 * camel case
 * @namespace bpmv
 * @for bpmv
 */
-ccase ( hump, wspace )
+bpmv.ccase ( hump, wspace )
 /**
 * get or set a simple, pathless browser cookie
 * @param {string} muppet The name of the cookie
@@ -112,7 +112,7 @@ ccase ( hump, wspace )
 * @return {string} Will return the value of the cookie.
 * If setting a cookie and setting fails, undefined will be returned instead of the value
 */
-cook ( muppet, chips, reruns )
+bpmv.cook ( muppet, chips, reruns )
 /**
 * count number of elements an object actually owns
 * @param {mixed} ahAHah The object you'd like to count
@@ -120,7 +120,7 @@ cook ( muppet, chips, reruns )
 * @namespace bpmv
 * @for bpmv
 */
-count ( ahAHah )
+bpmv.count ( ahAHah )
 /**
 * is a date object (or in a future addition, a valid date string - todo)
 * @param {mixed} whEn The value you'd like to test
@@ -128,7 +128,7 @@ count ( ahAHah )
 * @namespace bpmv
 * @for bpmv
 */
-date ( whEn )
+bpmv.date ( whEn )
 /**
 * Get the dirname of a path
 * @param {string} wellDuh Some sort of path
@@ -136,7 +136,7 @@ date ( whEn )
 * @namespace bpmv
 * @for bpmv
 */
-dirname ( wellDuh )
+bpmv.dirname ( wellDuh )
 /**
 * Generate a random valid html id using characters and a timestamp.
 * @param {object} fans An options object. us.ebpm.ego.defOpts is what will be used for defaults.
@@ -144,7 +144,7 @@ dirname ( wellDuh )
 * @namespace us.ebpm
 * @constructor
 */
-ego ( fans )
+bpmv.ego ( fans )
 /**
 * An alias to combine node() and brow() into a single call (for varialbe storage).
 * This will return which "environment" is in service if known and 'undefined' if not.
@@ -152,7 +152,7 @@ ego ( fans )
 * @namespace bpmv
 * @for bpmv
 */
-env ()
+bpmv.env ()
 /**
 * Find the key name for a given element in an object or array.
 * The first encountered match is what will be returned,
@@ -163,7 +163,7 @@ env ()
 * @param stack The object or array you are looking in
 * @return {mixed} the key if found or null if not found
 */
-find ( pin, stack )
+bpmv.find ( pin, stack )
 /**
 * Tests strings and numbers for valid floating point format and greater than 0 (may be disabled)
 * @param {mixed} mFreak The value you'd like to test
@@ -172,7 +172,7 @@ find ( pin, stack )
 * @namespace bpmv
 * @for bpmv
 */
-float ( mFreak, zeroOk )
+bpmv.float ( mFreak, zeroOk )
 /**
 * is a function?
 * @param {mixed} boOtsy The value you'd like to test
@@ -180,14 +180,14 @@ float ( mFreak, zeroOk )
 * @namespace bpmv
 * @for bpmv
 */
-func ( boOtsy )
+bpmv.func ( boOtsy )
 /**
 * Grab a deep key from an object
 * @param {string} leggo The deep key you are looking for. For example "foo.bar.baz".
 * @param {object} eggo The object you're looking in
 * @return {boolean} Will return the object by ref or undefined if not found
 */
-grab ( leggo, eggo )
+bpmv.grab ( leggo, eggo )
 /**
 * is a valid hostname with at least a tld parent
 * @param {mixed} drinks The value you'd like to test
@@ -195,7 +195,7 @@ grab ( leggo, eggo )
 * @namespace bpmv
 * @for bpmv
 */
-host ( drinks )
+bpmv.host ( drinks )
 /**
 * Parse ini file contents into an object if possible with optional callback.
 * The contents may be a string with newlines or an Array() of strings.
@@ -206,7 +206,7 @@ host ( drinks )
 * @namespace bpmv
 * @for bpmv
 */
-ini ( outie, gotDfunk )
+bpmv.ini ( outie, gotDfunk )
 /**
 * Tests strings and numbers for valid integer format and greater than 0 (may be disabled)
 * @param {mixed} threeD6 The value you'd like to test
@@ -215,13 +215,13 @@ ini ( outie, gotDfunk )
 * @namespace bpmv
 * @for bpmv
 */
-int ( threeD6, zeroOk )
+bpmv.int ( threeD6, zeroOk )
 /**
 * Will test if object is a RegExp object
 * @param {mixed} namedRex The regular expression object you'd like to test
 * @return {bool} Returns true if the object was a RegExp
 */
-isadog ( namedRex )
+bpmv.isadog ( namedRex )
 /**
 * Trim whitespace or optionally other characters from the beginning of a string
 * @param {string} bush The string you'd like to trim
@@ -231,14 +231,14 @@ isadog ( namedRex )
 * @namespace bpmv
 * @for bpmv
 */
-ltrim ( bush, chars )
+bpmv.ltrim ( bush, chars )
 /**
 * are we running in node?
 * @return {string} Will return the version of node or false if not running node.js
 * @namespace bpmv
 * @for bpmv
 */
-node ()
+bpmv.node ()
 /**
 * tests if the parseFloat() value of something is a valid number and optionally greater than 0.
 * @param {mixed} fElng The value you'd like to test
@@ -247,7 +247,7 @@ node ()
 * @namespace bpmv
 * @for bpmv
 */
-num ( fElng, zeroOk )
+bpmv.num ( fElng, zeroOk )
 /**
 * is an object and not empty (optionally) - this method is different from the others in that emptiness is ok by default
 * @param {mixed} ojUc The value you'd like to test
@@ -256,7 +256,7 @@ num ( fElng, zeroOk )
 * @namespace bpmv
 * @for bpmv
 */
-obj ( ojUc, populated )
+bpmv.obj ( ojUc, populated )
 /**
 * Perform left padding
 * @param {string} nightCap The string you'd like to pad
@@ -271,7 +271,7 @@ obj ( ojUc, populated )
 * @return {string} Will return the padded (or optionally truncated) version of the input string.
 * If the the input is not usable or the length desired is invalid, undefined is returned.
 */
-pad ( nightCap, yourPlace, mine, somethingMoreComfy )
+bpmv.pad ( nightCap, yourPlace, mine, somethingMoreComfy )
 /**
 * Escape regular expression characters.
 * @param {string} str Some sort of path
@@ -279,7 +279,7 @@ pad ( nightCap, yourPlace, mine, somethingMoreComfy )
 * @namespace bpmv
 * @for bpmv
 */
-rescape : function( fromNy )
+bpmv.rescape ( fromNy )
 /**
 * Trim whitespace or optionally other characters from the end of a string
 * @param {string} bush The string you'd like to trim
@@ -289,7 +289,7 @@ rescape : function( fromNy )
 * @namespace bpmv
 * @for bpmv
 */
-rtrim ( bush, chars )
+bpmv.rtrim ( bush, chars )
 /**
 * Serialize an object into a query string
 * @param {mixed} dexter The object you'd like to convert into a query string
@@ -298,7 +298,7 @@ rtrim ( bush, chars )
 * @namespace bpmv
 * @for bpmv
 */
-serial ( dexter )
+bpmv.serial ( dexter )
 /**
 * is a string of greater than 0 lenth (may be turned off)
 * @param {mixed} cider The value you'd like to test
@@ -307,13 +307,13 @@ serial ( dexter )
 * @namespace bpmv
 * @for bpmv
 */
-str ( cider, zeroOk )
+bpmv.str ( cider, zeroOk )
 /**
 * Converts an integer number of seconds to days, hours, minutes and seconds
 * @param {intSecs} Integer number of seconds you want to convert
 * @return {object} Will return an object containing keys for "d", "h", "m" and "s"
 */
-time2time : function ( intSecs )
+bpmv.time2time ( intSecs )
 /**
 * A simple tokenizer.
 * Example use:<pre><code>   var st = '##This## is text to change. Case sensitivity should change ##this##.',
@@ -341,7 +341,7 @@ time2time : function ( intSecs )
 * @namespace bpmv
 * @for bpmv
 */
-toke ( vessel, stash, onMyCase, delims )
+bpmv.toke ( vessel, stash, onMyCase, delims )
 /**
 * Trim a string of whitespace or optionally other characters
 * @param {string} bush The string you'd like to trim
@@ -351,7 +351,7 @@ toke ( vessel, stash, onMyCase, delims )
 * @namespace bpmv
 * @for bpmv
 */
-trim ( bush, chars )
+bpmv.trim ( bush, chars )
 /**
 * Is something that for a human resolves to true, such as "on" or "yes"
 * @param {mixed} maybe The value you'd like to test
@@ -359,7 +359,7 @@ trim ( bush, chars )
 * @namespace bpmv
 * @for bpmv
 */
-trueish ( maybe )
+bpmv.trueish ( maybe )
 /**
 * Test something for a particular type constructor
 * @param {mixed} clicketyClack The thing you want to test
@@ -369,7 +369,7 @@ trueish ( maybe )
 * was not a valid string)
 * On failure, will return boolean false.
 */
-typeis ( clicketyClack, shakDing )
+bpmv.typeis ( clicketyClack, shakDing )
 /**
 * Unserialize a query string into an object
 * @param {string} busted The string you'd like to convert into an object
@@ -378,13 +378,13 @@ typeis ( clicketyClack, shakDing )
 * @namespace bpmv
 * @for bpmv
 */
-unserial ( busted )
+bpmv.unserial ( busted )
 /**
 * Tries to derive the constructor name of a given thing...
 * @param {mixed} thing The thing you want to test
 * @return {string} Returns a string containing the constructor name or undefined if it can't be found
 */
-whatis ( thing )
+bpmv.whatis ( thing )
 /**
 * match a string against a wildcard string
 * @param {string} tundra The full text to test (ie: &quot;file_name_string&quot;)
@@ -394,7 +394,7 @@ whatis ( thing )
 * @namespace bpmv
 * @for bpmv
 */
-wild ( tundra, grylls, piss )
+bpmv.wild ( tundra, grylls, piss )
 /**
 * Word wrap a string to a given length. If this length is passed by a single word,
 * the word will NOT be broken and it will appear on its own "line".
@@ -411,7 +411,7 @@ wild ( tundra, grylls, piss )
 * length of a line. The default is an empty string.
 * @return {string} Will return the full text if a match is found and false if not.
 */
-wrapped ( gift, box, bow, bag )
+bpmv.wrapped ( gift, box, bow, bag )
 
 
 
