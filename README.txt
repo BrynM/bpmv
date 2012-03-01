@@ -139,7 +139,7 @@ bpmv.date ( whEn )
 bpmv.dirname ( wellDuh )
 /**
 * Generate a random valid html id using characters and a timestamp.
-* @param {object} fans An options object. us.ebpm.ego.defOpts is what will be used for defaults.
+* @param {object} fans An options object. Defaults are listed below.
 * defaults = {
 *   // Length of the string to generate (see us.ebpm.ego.defOpts.absLen for forced truncation).
 *   'len' : 12,
