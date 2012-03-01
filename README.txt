@@ -143,7 +143,7 @@ bpmv.dirname ( wellDuh )
 * defaults = {
 *   // Length of the string to generate (see us.ebpm.ego.defOpts.absLen for forced truncation).
 *   'len' : 12,
-* 	// A prefix to apply to the ID string generated
+*   // A prefix to apply to the ID string generated
 * 	'prefix' : '',
 * 	// The character set to choose from for generating the &quot;random&quot; portion of the ID.
 * 	'charset' : '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
