@@ -140,6 +140,21 @@ bpmv.dirname ( wellDuh )
 /**
 * Generate a random valid html id using characters and a timestamp.
 * @param {object} fans An options object. us.ebpm.ego.defOpts is what will be used for defaults.
+* defaults = {
+*   // Length of the string to generate (see us.ebpm.ego.defOpts.absLen for forced truncation).
+*   'len' : 12,
+* 	// A prefix to apply to the ID string generated
+* 	'prefix' : '',
+* 	// The character set to choose from for generating the &quot;random&quot; portion of the ID.
+* 	'charset' : '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+* 	// If set to true, a delimiter and integer UNIX time stamp will be appended to the generated ID string.
+* 	'useTime' : true,
+* 	// If set to true, the entire return string will be truncated to the len setting.*
+* 	// Note that this may truncate away desired portions such as timestamps.
+* 	'absLen' : false,
+* 	// The delimiter to use between portions of the ID string (prefix, id and time stamp).
+* 	'delim' : '_'
+* };
 * @class us.ebpm.ego
 * @namespace us.ebpm
 * @constructor
