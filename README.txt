@@ -332,7 +332,7 @@ bpmv.time2time ( intSecs )
 /**
 * A simple tokenizer.
 * Example use:<pre><code>   var st = '##This## is text to change. Case sensitivity should change ##this##.',
-*    &nbsp;   slugs = &#123; 'this' : 'that' &#125;;
+*    &nbsp;   slugs = { 'this' : 'that' };
 *    console.log( bpmv.toke( st, slugs ) );
 *    // output: that is text to change. Case sensitivity should change that.
 *    console.log( bpmv.toke( st, slugs, true ) );
@@ -350,7 +350,7 @@ bpmv.time2time ( intSecs )
 * These are used to denote the beginning and ending of a token in the original string.
 * For example:<pre><code>// the defaults - the token for the word 'foo' would be '##foo##'
 * // we are setting custom delimiters
-* var delims = &#123; l : '|@', r : '@|' &#125;;</code></pre>
+* var delims = { l : '|@', r : '@|' };</code></pre>
 * @return {string} Returns the string with the tokens found replaced
 * @method toke
 * @namespace bpmv
