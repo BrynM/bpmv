@@ -278,7 +278,7 @@
 				}
 			}
 			rStr = fans.useTime == false ? rStr : rStr+fans.delim+fans.ts;
-			rStr = bpmv.str(fans.prefix) ? fans.prefix+fans.delim+rStr : rStr;
+			rStr = this.str(fans.prefix) ? fans.prefix+fans.delim+rStr : rStr;
 			if ( typeof(this.ego.usedIds[rStr]) == 'undefined' ) {
 				this.ego.usedIds[rStr] = true;
 				return rStr;
@@ -515,7 +515,7 @@
 				return false;
 			}
 			if ( !isNaN(fElng) ) {
-				if ( bpmv.typeis( zeroOk, 'Number' ) ) {
+				if ( this.typeis( zeroOk, 'Number' ) ) {
 					return ( it > zeroOk );
 				} else {
 					return ( zeroOk || ( it > 0 ) );
