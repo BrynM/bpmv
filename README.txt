@@ -376,6 +376,14 @@ bpmv.trim ( bush, chars )
 */
 bpmv.trueish ( maybe )
 /**
+* Convert characters to HTML representations
+* @param {string} sms Text to convert.
+* @param {boolean} all Convert all characters to HTML.
+* Normally only ", &, ', <, and > are converted.
+* @return {string} Text with appropriate HTML characters escaped
+*/
+bpmv.txt2html( sms, all )
+/**
 * Test something for a particular type constructor
 * @param {mixed} clicketyClack The thing you want to test
 * @param {string} shakDing The object constructor name you expect to match
