@@ -748,6 +748,45 @@
 			}
 		},
 		/**
+		* Convert characters to HTML representations
+		* @param {string} sms Text to convert.
+		* @param {boolean} all Convert all characters to HTML.
+		* Normally only ", &, ', <, and > are converted.
+		* @return {string} Text with appropriate HTML characters escaped
+		*/
+		txt2html : function ( sms, all ) {
+			var some = [ '"', '&', '\'', '<', '>' ],
+				tpmCache = {},
+				tmpString = ''+sms,
+				rex = null;
+			if ( this.str(sms) ) {
+				if ( !this.obj(this._cache_txt2html) ) {
+					for ( var aC = 0; aC < some.length; aC++ ) {
+						tpmCache[some[aC]] = '&#' + some[aC].charCodeAt( 0 ) + ';';
+					}
+					if ( this.obj(tpmCache, true) ) {
+						this._cache_txt2html = tpmCache;
+					}
+				}
+				if ( all ) {
+					for ( var aC = 0; aC < sms.length; aC++ ) {
+						if ( this.str(sms[aC]) ) {
+							rex = new RegExp( this.rescape(sms[aC]) );
+							tmpString = tmpString.replace( rex, '&#' + sms.charCodeAt( aC ) + ';' );
+						}
+					}
+				} else {
+					for ( var aC in this._cache_txt2html ) {
+						if ( this.str(aC) ) {
+							rex = new RegExp( this.rescape(aC) );
+							tmpString = tmpString.replace( rex, this._cache_txt2html[aC] );
+						}
+					}
+				}
+			}
+			return  tmpString;
+		},
+		/**
 		* Test something for a particular type constructor
 		* @param {mixed} clicketyClack The thing you want to test
 		* @param {string} shakDing The object constructor name you expect to match
