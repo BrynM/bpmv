@@ -511,7 +511,7 @@
 		*/
 		num : function ( fElng, zeroOk ) {
 			var it = parseFloat(fElng);
-			if ( ( typeof(fElng) == 'undefined' ) || ( bpmv.typeis( fElng, 'String' ) && ( fElng == '' ) ) || ( fElng === null ) ) {
+			if ( ( typeof(fElng) == 'undefined' ) || ( this.typeis( fElng, 'String' ) && ( fElng == '' ) ) || ( fElng === null ) ) {
 				return false;
 			}
 			if ( !isNaN(fElng) ) {
