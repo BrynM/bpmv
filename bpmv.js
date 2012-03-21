@@ -510,12 +510,15 @@
 		* @return {boolean} Will return true if the value is a valid number and optionally passes zeroOk testing.
 		*/
 		num : function ( fElng, zeroOk ) {
-			it = parseFloat(fElng);
+			var it = parseFloat(fElng);
+			if ( ( typeof(fElng) == 'undefined' ) || ( fElng == '' ) || ( fElng === null ) ){
+				return false;
+			}
 			if ( !isNaN(fElng) ) {
 				if ( bpmv.typeis( zeroOk, 'Number' ) ) {
-					return ( fElng > zeroOk );
+					return ( it > zeroOk );
 				} else {
-					return ( zeroOk || ( fElng > 0 ) );
+					return ( zeroOk || ( it > 0 ) );
 				}
 			}
 			return false;
