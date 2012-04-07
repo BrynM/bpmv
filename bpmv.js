@@ -771,14 +771,14 @@
 				if ( all ) {
 					for ( var aC = 0; aC < sms.length; aC++ ) {
 						if ( this.str(sms[aC]) ) {
-							rex = new RegExp( this.rescape(sms[aC]) );
+							rex = new RegExp( this.rescape(sms[aC]), 'g' );
 							tmpString = tmpString.replace( rex, '&#' + sms.charCodeAt( aC ) + ';' );
 						}
 					}
 				} else {
 					for ( var aC in this._cache_txt2html ) {
 						if ( this.str(aC) ) {
-							rex = new RegExp( this.rescape(aC) );
+							rex = new RegExp( this.rescape(aC), 'g' );
 							tmpString = tmpString.replace( rex, this._cache_txt2html[aC] );
 						}
 					}
@@ -830,6 +830,33 @@
 				}
 			}
 			return ( this.count(pWagon) > 0 ) ? pWagon : false;
+		},
+		/**
+		* Walks a string to find an end point
+		* @param {string} path A path to a var... such as "my.var.thing" or "fubarVar"
+		* @return {mixed} Returns the end point of the string if possible otherwise will return undefined
+		*/
+		walk : function ( path ) {
+			var chunked, res, dOb;
+			if ( !this.str(path) || !(/^[a-zA-Z0-9\_\.\[\]\'\"]+$/).test( path ) ) {
+				return;
+			}
+			chunked = path.split( /[\.\[]/g );
+			if ( this.num(chunked.length) ) {
+				dOb = window[chunked[0]];
+				for ( var nn = 1; nn < chunked.length; nn++ ) {
+					chunked[nn] = this.trim( chunked[nn], '\'"]' );
+					if ( typeof(dOb[chunked[nn]]) != 'undefined' ) {
+						dOb = dOb[chunked[nn]];
+					} else {
+						return;
+					}
+				}
+				if ( typeof(dOb) !== 'undefined' ) {
+					res = dOb;
+				}
+				return res;
+			}
 		},
 		/**
 		* Tries to derive the constructor name of a given thing...
