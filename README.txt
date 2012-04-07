@@ -403,6 +403,12 @@ bpmv.typeis ( clicketyClack, shakDing )
 */
 bpmv.unserial ( busted )
 /**
+* Walks a string to find an end point
+* @param {string} path A path to a var... such as "my.var.thing" or "fubarVar"
+* @return {mixed} Returns the end point of the string if possible otherwise will return undefined
+*/
+bpmv.walk ( path )
+/**
 * Tries to derive the constructor name of a given thing...
 * @param {mixed} thing The thing you want to test
 * @return {string} Returns a string containing the constructor name or undefined if it can't be found
