@@ -308,15 +308,28 @@
 		 * @param {mixed} pin What you are looking for.
 		 * Can be any valid value.
 		 * @param stack The object or array you are looking in
+		 * @param siv Assume the pin is not == and instead is the keyname
+		 * of what you're looking for
 		 * @return {mixed} the key if found or null if not found
 		 */
-		find : function ( pin, stack ) {
-			var ret = null;
+		find : function ( pin, stack, siv ) {
+			var ret = null, found = false;
 			if ( this.arr(stack) || this.obj(stack) ) {
 				for ( var aK in stack ) {
-					if ( stack.hasOwnProperty( aK ) && ( stack[aK] == pin ) ) {
-						ret = aK;
-						break;
+					if ( stack.hasOwnProperty( aK ) ) {
+						if ( siv ) {
+							if ( ( aK == pin ) && ( typeof(stack[aK]) != 'undefined' ) ) {
+								found = true;
+							}
+						} else {
+							if ( stack[aK] == pin ) {
+								found = true;
+							}
+						}
+						if ( found ) {
+							ret = siv ? stack[aK] : aK;
+							break;
+						}
 					}
 				}
 			}
