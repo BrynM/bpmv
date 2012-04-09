@@ -70,36 +70,26 @@
 * @param {mixed} dIsArr The value you'd like to test
 * @param {boolean} okEmpty Will return true even if the array is empty
 * @return {boolean} Will return true if an array
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.arr ( dIsArr, okEmpty )
 /**
 * Get the basename of a path
 * @param {string} wellDuh Some sort of path
 * @return {string} The parsed dirname
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.basename ( redOrBlue )
 /**
 * is a boolean
 * @param {mixed} fool The value you'd like to test
 * @return {boolean} Will return true if the value is a real boolean value
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.bool ( fool )
 /**
 * are we in a browser (returns bool, not UA!)
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.brow ()
 /**
 * camel case
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.ccase ( hump, wspace )
 /**
@@ -117,24 +107,18 @@ bpmv.cook ( muppet, chips, reruns )
 * count number of elements an object actually owns
 * @param {mixed} ahAHah The object you'd like to count
 * @return {number} Will return the count of elements owned by the object
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.count ( ahAHah )
 /**
 * is a date object (or in a future addition, a valid date string - todo)
 * @param {mixed} whEn The value you'd like to test
 * @return {boolean} Will return true if the value is a real Date object
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.date ( whEn )
 /**
 * Get the dirname of a path
 * @param {string} wellDuh Some sort of path
 * @return {string} The parsed dirname
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.dirname ( wellDuh )
 /**
@@ -155,17 +139,12 @@ bpmv.dirname ( wellDuh )
 *   // The delimiter to use between portions of the ID string (prefix, id and time stamp).
 *   'delim' : '_'
 * };
-* @class us.ebpm.ego
-* @namespace us.ebpm
-* @constructor
 */
 bpmv.ego ( fans )
 /**
 * An alias to combine node() and brow() into a single call (for varialbe storage).
 * This will return which "environment" is in service if known and 'undefined' if not.
 * Currently, only 'undefined', 'browser' and 'node' are supported.
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.env ()
 /**
@@ -176,24 +155,22 @@ bpmv.env ()
 * @param {mixed} pin What you are looking for.
 * Can be any valid value.
 * @param stack The object or array you are looking in
+* @param siv Assume the pin is not == and instead is the keyname
+* of what you're looking for
 * @return {mixed} the key if found or null if not found
 */
-bpmv.find ( pin, stack )
+bpmv.find ( pin, stack, siv )
 /**
 * Tests strings and numbers for valid floating point format and greater than 0 (may be disabled)
 * @param {mixed} mFreak The value you'd like to test
 * @param {boolean} zeroOk Will return true even if the the value is 0 or less
 * @return {boolean} Will return true if the value is a valid floating point number
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.float ( mFreak, zeroOk )
 /**
 * is a function?
 * @param {mixed} boOtsy The value you'd like to test
 * @return {boolean} Will return true if the value is a real function
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.func ( boOtsy )
 /**
@@ -207,8 +184,6 @@ bpmv.grab ( leggo, eggo )
 * is a valid hostname with at least a tld parent
 * @param {mixed} drinks The value you'd like to test
 * @return {boolean} Will return true if the value is a valid host name with at least two levelc (name plus tld)
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.host ( drinks )
 /**
@@ -218,8 +193,6 @@ bpmv.host ( drinks )
 * @param {string} outie The string or array contents of an ini file
 * @param {gotDfunk} an optional callback function to run  when parsing is complete
 * @return {object} Will return an object representing the parsed ini values and structure
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.ini ( outie, gotDfunk )
 /**
@@ -227,8 +200,6 @@ bpmv.ini ( outie, gotDfunk )
 * @param {mixed} threeD6 The value you'd like to test
 * @param {boolean} zeroOk Will return true even if the the value is 0 or less
 * @return {boolean} Will return true if the value is a valid integer
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.int ( threeD6, zeroOk )
 /**
@@ -243,15 +214,11 @@ bpmv.isadog ( namedRex )
 * @param {string} chars Optional list of characters to trim.
 * By default the trim characters are ' \t\n\r'.
 * @return {string} Returns the trimmed string
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.ltrim ( bush, chars )
 /**
 * are we running in node?
 * @return {string} Will return the version of node or false if not running node.js
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.node ()
 /**
@@ -259,8 +226,6 @@ bpmv.node ()
 * @param {mixed} fElng The value you'd like to test
 * @param {boolean} zeroOk Will return true even if the the value is 0 or less
 * @return {boolean} Will return true if the value is a valid number
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.num ( fElng, zeroOk )
 /**
@@ -268,8 +233,6 @@ bpmv.num ( fElng, zeroOk )
 * @param {mixed} ojUc The value you'd like to test
 * @param {boolean} populated Optionally test that the object has at least one child of its own
 * @return {boolean} Will return true if the value is a valid object
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.obj ( ojUc, populated )
 /**
@@ -291,8 +254,6 @@ bpmv.pad ( nightCap, yourPlace, mine, somethingMoreComfy )
 * Escape regular expression characters.
 * @param {string} str Some sort of path
 * @return {string} The converted string
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.rescape ( fromNy )
 /**
@@ -301,8 +262,6 @@ bpmv.rescape ( fromNy )
 * @param {string} chars Optional list of characters to trim.
 * By default the trim characters are ' \t\n\r'.
 * @return {string} Returns the trimmed string
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.rtrim ( bush, chars )
 /**
@@ -310,8 +269,6 @@ bpmv.rtrim ( bush, chars )
 * @param {mixed} dexter The object you'd like to convert into a query string
 * @return {string} Returns the object converted into a query string.
 * On failure, will return boolean false.
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.serial ( dexter )
 /**
@@ -319,8 +276,6 @@ bpmv.serial ( dexter )
 * @param {mixed} cider The value you'd like to test
 * @param {boolean} zeroOk Will return true even if the the length is 0
 * @return {boolean} Will return true if the value is a valid string
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.str ( cider, zeroOk )
 /**
@@ -352,9 +307,6 @@ bpmv.time2time ( intSecs )
 * // we are setting custom delimiters
 * var delims = { l : '|@', r : '@|' };</code></pre>
 * @return {string} Returns the string with the tokens found replaced
-* @method toke
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.toke ( vessel, stash, onMyCase, delims )
 /**
@@ -363,16 +315,12 @@ bpmv.toke ( vessel, stash, onMyCase, delims )
 * @param {string} chars Optional list of characters to trim.
 * By default the trim characters are ' \t\n\r'.
 * @return {string} Returns the trimmed string
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.trim ( bush, chars )
 /**
 * Is something that for a human resolves to true, such as "on" or "yes"
 * @param {mixed} maybe The value you'd like to test
 * @return {boolean} Will return true if the value is representationally positive in english, false otherwise
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.trueish ( maybe )
 /**
@@ -398,8 +346,6 @@ bpmv.typeis ( clicketyClack, shakDing )
 * @param {string} busted The string you'd like to convert into an object
 * @return {string} Returns the string converted into an object.
 * On failure, will return boolean false.
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.unserial ( busted )
 /**
@@ -420,8 +366,6 @@ bpmv.whatis ( thing )
 * @param {string} grylls The wildcard string (ie: &quot;file_*&quot;)
 * @param {string} piss The wildcard character (ie: &quot;*&quot;)
 * @return {string} Will return the full text if a match is found and false if not.
-* @namespace bpmv
-* @for bpmv
 */
 bpmv.wild ( tundra, grylls, piss )
 /**
@@ -441,6 +385,3 @@ bpmv.wild ( tundra, grylls, piss )
 * @return {string} Will return the full text if a match is found and false if not.
 */
 bpmv.wrapped ( gift, box, bow, bag )
-
-
-
