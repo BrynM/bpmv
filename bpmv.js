@@ -341,7 +341,7 @@
 		* @param {boolean} zeroOk Will return true even if the the value is 0 or less
 		* @return {boolean} Will return true if the value is a valid floating point number
 		*/
-		float : function ( mFreak, zeroOk ) { // validates for formatting so '2.0b' is NOT valid
+		'float' : function ( mFreak, zeroOk ) { // validates for formatting so '2.0b' is NOT valid
 			return (/^\s*[0-9]*\.?[0-9]+\s*$/).test(String(mFreak)) && this.num(mFreak, zeroOk);
 		},
 		/**
@@ -422,11 +422,11 @@
 										tSpl[1] = this.trim( tSpl[1] );
 										var aVal = undefined;
 										switch ( true ) {
-											case this.int(tSpl[1]):
+											case this['int'](tSpl[1]):
 												// convert integers
 												aVal = parseInt(tSpl[1]);
 												break;
-											case this.float(tSpl[1]):
+											case this['float'](tSpl[1]):
 												// convert floats
 												aVal = parseFloat(tSpl[1]);
 												break;
@@ -473,7 +473,7 @@
 		* @param {boolean} zeroOk Will return true even if the the value is 0 or less
 		* @return {boolean} Will return true if the value is a valid integer
 		*/
-		int : function ( threeD6, zeroOk ) { // validates for formatting so '3m' is NOT valid
+		'int' : function ( threeD6, zeroOk ) { // validates for formatting so '3m' is NOT valid
 			return (/^\s*[0-9]+\s*$/).test(String(threeD6)) && this.num(threeD6, zeroOk);
 		},
 		/**
@@ -930,7 +930,7 @@
 		* "line" length, so the resultant true length of each "line" is the lengh plus
 		* the terminator length. This parm being a variable of any string value is the
 		* reason the word "line" is shown in quotes so much.
-	  * @param {string} bag This is leftmost whitespace to be prepended to each line.
+	 	* @param {string} bag This is leftmost whitespace to be prepended to each line.
 		* The length of the bag whitespace IS taken into account when measuring the
 		* length of a line. The default is an empty string.
 		* @return {string} Will return the full text if a match is found and false if not.
