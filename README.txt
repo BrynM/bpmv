@@ -187,6 +187,17 @@ bpmv.grab ( leggo, eggo )
 */
 bpmv.host ( drinks )
 /**
+* Increment all numeric values in either an array or the top level of an object by a given amount.
+* Note that this will also increment numbers inside of strings
+* @param {mixed} soil array or object to increment values in
+* @param {number} fertilizer The amount you'd like the numbers incremented.
+* Defaults to 1.
+* @param {boolean} weeds Increment numeric strings too
+* Defaults to true.
+* @return {mixed} Will return the reultant version of 
+*/
+bpmv.incall( soil, fertilizer, weeds )
+/**
 * Parse ini file contents into an object if possible with optional callback.
 * The contents may be a string with newlines or an Array() of strings.
 * This always returns an object, so check for emptiness.

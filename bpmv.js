@@ -390,11 +390,49 @@
 			return  (/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/).test( drinks );
 		},
 		/**
+		* Increment all numeric values in either an array or the top level of an object by a given amount.
+		* Note that this will also increment numbers inside of strings
+		* @param {mixed} soil array or object to increment values in
+		* @param {number} fertilizer The amount you'd like the numbers incremented.
+		* Defaults to 1.
+		* @param {boolean} weeds Increment numeric strings too
+		* Defaults to true.
+		* @return {mixed} Will return the reultant version of 
+		*/
+		incall : function ( soil, fertilizer, weeds ) {
+			var wasStr = false, nVal = false;
+			weeds = typeof(weeds) == 'undefined' ? true : weeds;
+			if ( this.obj(soil, true) || this.arr(soil) ) {
+				if ( this.num(fertilizer, true) && ( fertilizer != 0 ) ) {
+					for ( var aS in soil ) {
+						nVal = false;
+						if ( soil.hasOwnProperty( aS ) ) {
+							wasStr = this.typeis( soil[aS], 'String' )
+							if ( wasStr && !weeds ) {
+								continue;
+							}
+							if ( (/^[0-9]+\.([0-9]+([eE]\+[0-9]+)?)?$/).test( soil[aS] ) ) { // float
+								soil[aS] = parseFloat(soil[aS]) + parseFloat(fertilizer);
+								nVal = true;
+							} else if ( (/^[0-9]+$/).test( soil[aS] ) ) { // int
+								soil[aS] = Math.round( parseInt(soil[aS]) + parseFloat(fertilizer) );
+								nVal = true;
+							}
+							if ( nVal ) {
+								soil[aS] = wasStr ? ''+soil[aS] : soil[aS];
+							}
+						}
+					}
+				}
+			}
+			return soil;
+		},
+		/**
 		* Parse ini file contents into an object if possible with optional callback.
 		* The contents may be a string with newlines or an Array() of strings.
 		* This always returns an object, so check for emptiness.
 		* @param {string} outie The string or array contents of an ini file
-		* @param {gotDfunk} an optional callback function to run  when parsing is complete
+		* @param {function} gotDfunk an optional callback function to run  when parsing is complete
 		* @return {object} Will return an object representing the parsed ini values and structure
 		*/
 		ini : function ( outie, gotDfunk ) {
