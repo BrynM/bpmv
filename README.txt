@@ -62,6 +62,14 @@
 * the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 * 02110-1301, USA.
 *
+* MINIFICATION
+*
+* A minified version using Google's Closure Compiler
+* (http://closure-compiler.appspot.com/home) named bpmv.min.js is available.
+* However, I may not always have the latest changes in it. To be sure you have,
+* the lastest changes, you may want to grab the normal version (bpmv.js) and
+* minify it yourself.
+*
 */
 
 
