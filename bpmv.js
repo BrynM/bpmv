@@ -402,6 +402,7 @@
 		incall : function ( soil, fertilizer, weeds ) {
 			var wasStr = false, nVal = false;
 			weeds = typeof(weeds) == 'undefined' ? true : weeds;
+			fertilizer = typeof(fertilizer) == 'undefined' ? 1 : fertilizer;
 			if ( this.obj(soil, true) || this.arr(soil) ) {
 				if ( this.num(fertilizer, true) && ( fertilizer != 0 ) ) {
 					for ( var aS in soil ) {
