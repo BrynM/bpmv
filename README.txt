@@ -346,8 +346,9 @@ bpmv.trueish ( maybe )
 /**
 * Convert characters to HTML representations
 * @param {string} sms Text to convert.
-* @param {boolean} all Convert all characters to HTML.
-* Normally only ", &, ', <, and > are converted.
+* @param {mixed} all If a Boolean value, will convert all characters to HTML.
+* If passed an Array, only the characters in the array will be matched.
+* Normally only ", &, <, and > are converted.
 * @return {string} Text with appropriate HTML characters escaped
 */
 bpmv.txt2html( sms, all )

@@ -812,38 +812,44 @@
 			}
 		},
 		/**
-		* Convert characters to HTML representations
+		* Convert characters to HTML representations.
 		* @param {string} sms Text to convert.
-		* @param {boolean} all Convert all characters to HTML.
-		* Normally only ", &, ', <, and > are converted.
-		* @return {string} Text with appropriate HTML characters escaped
+		* @param {mixed} all If a Boolean value, will convert all characters to HTML.
+		* If passed an Array, only the characters in the array will be matched.
+		* Normally only ", &, <, and > are converted.
+		* @return {string} Text with appropriate HTML characters escaped.
 		*/
 		txt2html : function ( sms, all ) {
-			var some = [ '&', '"', '\'', '<', '>' ], // "&" must be searched for before the rest
-				tpmCache = {},
+			var doAll = false,
+				some = [ '&', '"', '<', '>' ], // "&" must be searched for before the rest
 				tmpString = ''+sms,
-				rex = null;
+				rex = null,
+				presets = {
+					'&' : '&amp;',
+					'"' : '&quot;',
+					'<' : '&lt;',
+					'>' : '&gt;',
+					'©' : '&copy;',
+					'®' : '&reg;'
+				};
 			if ( this.str(sms) ) {
-				if ( !this.obj(this._cache_txt2html) ) {
-					for ( var aC = 0; aC < some.length; aC++ ) {
-						tpmCache[some[aC]] = '&#' + some[aC].charCodeAt( 0 ) + ';';
-					}
-					if ( this.obj(tpmCache, true) ) {
-						this._cache_txt2html = tpmCache;
-					}
+				if ( !this.obj(this.txt2html._cache) ) {
+					this.txt2html._cache = {};
 				}
-				if ( all ) {
-					for ( var aC = 0; aC < sms.length; aC++ ) {
-						if ( this.str(sms[aC]) ) {
-							rex = new RegExp( this.rescape(sms[aC]), 'g' );
-							tmpString = tmpString.replace( rex, '&#' + sms.charCodeAt( aC ) + ';' );
+				if ( this.typeis( all, 'Boolean' ) ) {
+					doAll = all;
+				} else if ( this.arr(all) ) {
+					some = all;
+					doAll = false;
+				}
+				for ( var aC = 0; aC < sms.length; aC++ ) {
+					if ( this.str(sms[aC]) ) {
+						rex = new RegExp( this.rescape(sms[aC]), 'g' );
+						if ( !this.str(this.txt2html._cache[sms[aC]]) ) {
+							this.txt2html._cache[sms[aC]] = this.str(presets[sms[aC]]) ? presets[sms[aC]] : '&#' + sms[aC].charCodeAt( 0 ) + ';';
 						}
-					}
-				} else {
-					for ( var aC in this._cache_txt2html ) {
-						if ( this.str(aC) ) {
-							rex = new RegExp( this.rescape(aC), 'g' );
-							tmpString = tmpString.replace( rex, this._cache_txt2html[aC] );
+						if ( doAll || this.num(this.find( sms[aC], some ), -1) ) {
+							tmpString = tmpString.replace( rex, this.txt2html._cache[sms[aC]] );
 						}
 					}
 				}
