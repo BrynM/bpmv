@@ -399,15 +399,16 @@
 		},
 		/**
 		* Increment all numeric values in either an array or the top level of an object by a given amount.
-		* Note that this will also increment numbers inside of strings
-		* @param {mixed} soil array or object to increment values in
+		* Note that this will also increment numbers inside of strings.
+		* @param {mixed} soil array or object to increment values in.
 		* @param {number} fertilizer The amount you'd like the numbers incremented.
 		* Defaults to 1.
-		* @param {boolean} weeds Increment numeric strings too
+		* @param {boolean} weeds Increment numeric strings too.
 		* Defaults to true.
-		* @return {mixed} Will return the reultant version of 
+		* @param {boolean} flo If true, integers will not be rounded and may increment to float results.
+		* @return {mixed} Will return the reultant version of soil.
 		*/
-		incall : function ( soil, fertilizer, weeds ) {
+		incall : function ( soil, fertilizer, weeds, flo ) {
 			var wasStr = false, nVal = false;
 			weeds = typeof(weeds) == 'undefined' ? true : weeds;
 			fertilizer = typeof(fertilizer) == 'undefined' ? 1 : fertilizer;
@@ -424,7 +425,10 @@
 								soil[aS] = parseFloat(soil[aS]) + parseFloat(fertilizer);
 								nVal = true;
 							} else if ( (/^[0-9]+$/).test( soil[aS] ) ) { // int
-								soil[aS] = Math.round( parseInt(soil[aS]) + parseFloat(fertilizer) );
+								soil[aS] = ( parseInt(soil[aS]) + parseFloat(fertilizer) );
+								if ( !flo ) {
+									soil[aS] = Math.round( soil[aS] );
+								}
 								nVal = true;
 							}
 							if ( nVal ) {
