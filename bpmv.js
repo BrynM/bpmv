@@ -819,7 +819,7 @@
 		* @return {string} Text with appropriate HTML characters escaped
 		*/
 		txt2html : function ( sms, all ) {
-			var some = [ '"', '&', '\'', '<', '>' ],
+			var some = [ '&', '"', '\'', '<', '>' ], // "&" must be searched for before the rest
 				tpmCache = {},
 				tmpString = ''+sms,
 				rex = null;
