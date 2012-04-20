@@ -82,7 +82,7 @@
 	*/
 	var initialBpmv = {
 		_cfg : {
-			varName : typeof(BPMV_VARNAME) === 'string' ? BPMV_VARNAME : 'bpmv'
+			varName : typeof(BPMV_VARNAME) === 'string' ? ''+BPMV_VARNAME : 'bpmv'
 		},
 		/**
 		* tests if something is not just an object, but is an Array and is not empty
