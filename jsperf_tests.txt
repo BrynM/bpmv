@@ -1,0 +1,6 @@
+http://jsperf.com/ Performance Tests
+
+
+bpmv.num() version test - http://jsperf.com/bpmv-num-version-tests
+bpmv.str() type tests - http://jsperf.com/bpmv-js-bpmv-str
+bpmv.str() version test - http://jsperf.com/bpmv-str-version-tests
