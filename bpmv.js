@@ -80,7 +80,7 @@
 	*   sha1sum: 24c7e295c20e1bcee743d4b18f9f4d0b7efa1272 *bpmv.1.0.min.js
 	********************************************************************************
 	*/
-	var bpmv = {
+	var initialBpmv = {
 		_cfg : {
 			varName : typeof(BPMV_VARNAME) === 'string' ? BPMV_VARNAME : 'bpmv'
 		},
@@ -1031,14 +1031,14 @@
 		}
 	};
 	// populate the appropriate global-ish place
-	if ( bpmv.node() ) {
-		exports[bpmv._cfg.varName] = bpmv;
-	} else if ( ( typeof(us) == 'object' ) && bpmv.obj(us.ebpm) && !bpmv.obj(us.ebpm.v)) {
+	if ( initialBpmv.node() ) {
+		exports[initialBpmv._cfg.varName] = initialBpmv;
+	} else if ( ( typeof(us) == 'object' ) && initialBpmv.obj(us.ebpm) && !initialBpmv.obj(us.ebpm.v)) {
 	// lead with typeof here because scope will throw Uncaught ReferenceError when strict
-		us.ebpm.v = bpmv;
-	} else if ( ( typeof(BPMV_ATTACH) == 'object' ) && !bpmv.obj(BPMV_ATTACH[bpmv._cfg.varName]) ) {
-		BPMV_ATTACH[bpmv._cfg.varName] = bpmv;
-	} else if ( bpmv.obj(window) ) {
-		window[bpmv._cfg.varName] = bpmv;
+		us.ebpm.v = initialBpmv;
+	} else if ( ( typeof(BPMV_ATTACH) == 'object' ) && !initialBpmv.obj(BPMV_ATTACH[initialBpmv._cfg.varName]) ) {
+		BPMV_ATTACH[initialBpmv._cfg.varName] = initialBpmv;
+	} else if ( initialBpmv.obj(window) ) {
+		window[initialBpmv._cfg.varName] = initialBpmv;
 	}
 })();
