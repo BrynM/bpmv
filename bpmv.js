@@ -49,7 +49,7 @@
 	********************************************************************************
 	* LICENSE
 	********************************************************************************
-	* Copyright (C) 2011, Bryn P. Mosher (GPLv2)
+	* Copyright (C) 2011, 2012, Bryn P. Mosher (GPLv2)
 	*
 	* This library is free software; you can redistribute it and/or modify it under
 	* the terms of the GNU Library General Public License Version 2 as published by
