@@ -76,13 +76,34 @@
 	********************************************************************************
 	* VERSIONS
 	********************************************************************************
-	* v1.0 April 19, 2012
-	*   sha1sum: 24c7e295c20e1bcee743d4b18f9f4d0b7efa1272 *bpmv.1.0.min.js
+	* The version naming convention is as follows. Optional portions are in square
+	* brackets ("[" and  "]").
+	*      (major).(minor)[.(patch number)][-(notation)]
+	* Notation is as follows in chronological order:
+	*      dev - currently under development
+	*      rc - testing to finalize developemnt
+	*      (none) - official version
+	* The files at the top of the Git tree should be considered in development
+	* always. If you want a stable version, please select one from the "releases"
+	* subdirectory.
+	* Releases:
+	*    v1.0 April 19, 2012
+	*      sha1sum: 24c7e295c20e1bcee743d4b18f9f4d0b7efa1272 *bpmv.1.0.min.js
 	********************************************************************************
 	*/
 	var initialBpmv = {
 		_cfg : {
-			varName : typeof(BPMV_VARNAME) === 'string' ? ''+BPMV_VARNAME : 'bpmv'
+			tag : (function(){
+					var scripts = null;
+					if ( ( typeof(document) == 'object' ) && ( typeof(document.getElementsByTagName) == 'function' ) ) {
+						scripts = document.getElementsByTagName( 'script' );
+						if ( ( typeof(scripts) == 'object' ) && ( scripts.length > 0 ) ) {
+							return scripts[scripts.length - 1];
+						}
+					}
+				})(),
+			varName : typeof(BPMV_VARNAME) === 'string' ? ''+BPMV_VARNAME : 'bpmv',
+			version : '1.1-dev'
 		},
 		/**
 		* tests if something is not just an object, but is an Array and is not empty
@@ -215,7 +236,7 @@
 		* @return {boolean} Will return true if the value is a real Date object
 		*/
 		date : function ( whEn ) {
-			return Object.prototype.toString.call(oA) === '[object Date]';
+			return Object.prototype.toString.call(whEn) === '[object Date]';
 		},
 		/**
 		* Get the dirname of a path
@@ -326,7 +347,7 @@
 		 * @return {mixed} the key if found or null if not found
 		 */
 		find : function ( pin, stack, siv ) {
-			var ret = null, found = false;
+			var ret = undefined, found = false;
 			if ( this.arr(stack) || this.obj(stack) ) {
 				for ( var aK in stack ) {
 					if ( stack.hasOwnProperty( aK ) ) {
@@ -521,7 +542,7 @@
 			if ( this.func(gotDfunk) ) {
 				gotDfunk( outData );
 			}
-			return outData;
+			return this.obj(outData, true) ? outData : undefined;
 		},
 		/**
 		* Will Test strings and numbers for valid integer format and greater than 0 (may be disabled)
@@ -713,24 +734,26 @@
 				m : 0,
 				s : 0
 				};
-			if ( this.num(remain) ) {
-				if ( remain > day ) {
-					ret.d = parseInt(remain / day, 10);
-					remain = parseInt(remain - (day*ret.d), 10);
+			if ( this.num(intSecs, true) ) {
+				if ( this.num(remain) ) {
+					if ( remain > day ) {
+						ret.d = parseInt(remain / day, 10);
+						remain = parseInt(remain - (day*ret.d), 10);
+					}
+					if ( remain > hr ) {
+						ret.h = parseInt(remain / hr, 10);
+						remain = parseInt(remain - (hr*ret.h), 10);
+					}
+					if ( remain > min ) {
+						ret.m = parseInt(remain / min, 10);
+						remain = parseInt(remain - (min*ret.m), 10);
+					}
+					if ( remain > 0 ) {
+						ret.s = remain;
+					}
 				}
-				if ( remain > hr ) {
-					ret.h = parseInt(remain / hr, 10);
-					remain = parseInt(remain - (hr*ret.h), 10);
-				}
-				if ( remain > min ) {
-					ret.m = parseInt(remain / min, 10);
-					remain = parseInt(remain - (min*ret.m), 10);
-				}
-				if ( remain > 0 ) {
-					ret.s = remain;
-				}
+				return ret;
 			}
-			return ret;
 		},
 		/**
 		* A simple tokenizer.
@@ -858,8 +881,8 @@
 						}
 					}
 				}
+				return  tmpString;
 			}
-			return  tmpString;
 		},
 		/**
 		* Test something for a particular type constructor
@@ -904,7 +927,7 @@
 					}
 				}
 			}
-			return ( this.count(pWagon) > 0 ) ? pWagon : false;
+			return ( this.count(pWagon) > 0 ) ? pWagon : undefined;
 		},
 		/**
 		* Walks a string to find an end point
@@ -939,7 +962,7 @@
 		* @return {string} Returns a string containing the constructor name or undefined if it can't be found
 		*/
 		whatis : function ( thing ) {
-			if ( this.str(thing.constructor.name) ) {
+			if ( this.obj(thing) && this.obj(thing.constructor) && this.str(thing.constructor.name) ) {
 				return thing.constructor.name;
 			}
 			var blair = Object.prototype.toString.call( thing ),
