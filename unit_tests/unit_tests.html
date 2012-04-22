@@ -10,7 +10,7 @@
 <body>
 
 <div id="contain">
-	<h1 id="page_header">bpmv.js Tests</h1>
+	<h1 id="page_header">bpmv.js Unit Tests</h1>
 
 	<div id="result_reports">
 	</div>
@@ -62,9 +62,9 @@ $(document).ready( function () {
 	newMin += '<div class="subcontain">';
 	newMin += '<pre><code id="bpmv_info">';
 	newMin += 'bpmv.min.js' + '\n';
-	newMin += '         Src:' + bpmv._cfg.tag.src + '\n';
-	newMin += '         Var:' + bpmv._cfg.varName + '\n';
-	newMin += '     Version:' + bpmv._cfg.version;
+	newMin += '         Src: ' + bpmv._cfg.tag.src + '\n';
+	newMin += '         Var: ' + bpmv._cfg.varName + '\n';
+	newMin += '     Version: ' + bpmv._cfg.version;
 	newMin += '</code></pre>';
 	newMin += '</div>';
 	home.append( newMin );
@@ -81,9 +81,9 @@ $(document).ready( function () {
 	newMin += '<div class="subcontain">';
 	newMin += '<pre><code id="min_bpmv_info">';
 	newMin += 'bpmv.min.js' + '\n';
-	newMin += '         Src:' + bpmv_min._cfg.tag.src + '\n';
-	newMin += '         Var:' + bpmv_min._cfg.varName + '\n';
-	newMin += '     Version:' + bpmv_min._cfg.version;
+	newMin += '         Src: ' + bpmv_min._cfg.tag.src + '\n';
+	newMin += '         Var: ' + bpmv_min._cfg.varName + '\n';
+	newMin += '     Version: ' + bpmv_min._cfg.version;
 	newMin += '</code></pre>';
 	newMin += '</div>';
 	home.append( newMin );
@@ -102,6 +102,8 @@ $(document).ready( function () {
 		'</span> Failed: <span class="totalFailed">' + globalFail +
 		'</span></strong></div></div>'
 	);
+	toc_update();
+	toc_toggle( null, true );
 });
 
 </script>
