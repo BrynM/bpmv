@@ -376,7 +376,7 @@
 		* @return {boolean} Will return true if the value is a valid floating point number
 		*/
 		'float' : function ( mFreak, zeroOk ) { // validates for formatting so '2.0b' is NOT valid
-			return (/^\s*[0-9]*\.?[0-9]+\s*$/).test(String(mFreak)) && this.num(mFreak, zeroOk);
+			return ( (/^(\-)?[0-9]*\.?[0-9]+([eE]\+[0-9]+)?$/).test(String(mFreak)) && this.num(mFreak, zeroOk) );
 		},
 		/**
 		* is a function?
@@ -418,10 +418,11 @@
 		/**
 		* is a valid hostname with at least a tld parent
 		* @param {mixed} drinks The value you'd like to test
+		* @param {bool} justaSingle Allow tests for just a single host name
 		* @return {boolean} Will return true if the value is a valid host name with at least two levelc (name plus tld)
 		*/
-		host : function ( drinks ) {
-			return  (/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/).test( drinks );
+		host : function ( drinks, justaSingle ) {
+			return  ( ( justaSingle && (/^([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])$/).test( drinks ) ) || (/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/).test( drinks ) ) ? true : false;
 		},
 		/**
 		* Increment all numeric values in either an array or the top level of an object by a given amount.
@@ -551,15 +552,39 @@
 		* @return {boolean} Will return true if the value is a valid integer
 		*/
 		'int' : function ( threeD6, zeroOk ) { // validates for formatting so '3m' is NOT valid
-			return (/^\s*[0-9]+\s*$/).test(String(threeD6)) && this.num(threeD6, zeroOk);
+			return (/^(\-)?[0-9]+$/).test(String(threeD6)) && this.num(threeD6, zeroOk);
+		},
+		/**
+		* is a valid IP address
+		* @param {mixed} numba The value you'd like to test
+		* @param {bool} v6 Allow tests for just IPV6 addresses
+		* @return {boolean} Will return true if the value is a valid IP address
+		*/
+		ip : function ( numba, v6 ) {
+			var chunks = null;
+			if ( v6 ) {
+				return (/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/).test( numba );
+			} else if ( (/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/).test( numba ) ) { // dotted
+				chunks = numba.split( '.' );
+				if ( this.arr(chunks) && ( chunks.length == 4 ) ) {
+					return  ( chunks[0] < 1 ) || ( chunks[0] < 255 ) &&
+					 	( chunks[2] < 0 ) || ( chunks[2] < 255 ) &&
+					 	( chunks[2] < 0 ) || ( chunks[2] < 255 ) &&
+					 	( chunks[2] < 1 ) || ( chunks[2] < 255 );
+				}
+			} else if ( (/[0-9]+/).test( numba ) ) { // base 10 address
+				return ( parseInt( numba ) > 16777215 ) && ( parseInt( numba ) < 4294967296 );
+			}
+			return false;
 		},
 		/**
 		* Will test if object is a RegExp object
 		* @param {mixed} namedRex The regular expression object you'd like to test
+		* @param {boolean} hasTest If true, the source of the RegExp object must not be empty
 		* @return {bool} Returns true if the object was a RegExp
 		*/
-		isadog : function ( namedRex ) {
-			return ( this.obj(namedRex) && ( Object.prototype.toString.call( namedRex ) === '[object RegExp]' ) );
+		isadog : function ( namedRex, hasTest ) {
+			return ( this.obj(namedRex) && ( Object.prototype.toString.call( namedRex ) === '[object RegExp]' ) && ( !hasTest || this.str(namedRex.source) ) );
 		},
 		/**
 		* Trim whitespace or optionally other characters from the beginning of a string
@@ -716,7 +741,8 @@
 		* @return {boolean} Will return true if the value is a valid string
 		*/
 		str : function ( cider, zeroOk ) {
-			return ( typeof( cider ) === 'string' ) && ( zeroOk || ( cider.length > 0 ) );
+			return ( ( typeof(cider) === 'string' ) || this.typeis( cider, 'String' ) ) &&
+				( zeroOk || ( cider.length > 0 ) ) ? true : false;
 		},
 		/**
 		* Converts an integer number of seconds to days, hours, minutes and seconds
@@ -729,10 +755,10 @@
 				hr = 60 * min,
 				day = 24 * hr,
 				ret = {
-				d : 0,
-				h : 0,
-				m : 0,
-				s : 0
+					d : 0,
+					h : 0,
+					m : 0,
+					s : 0
 				};
 			if ( this.num(intSecs, true) ) {
 				if ( this.num(remain) ) {

@@ -1,0 +1,650 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>bpmv.js tests</title>
+
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			font-family: Arial, Sans-Serif;
+			font-size: 11px;
+			background-color: #4D0066;
+		}
+		h1, h2, h3, h4, h5, h6 {
+			margin: 0;
+			padding: 0;
+		}
+		h1 {
+			color: #F9FFE5;
+			text-align: center;
+		}
+		h2 {
+			color: #F9FFE5;
+			text-align: center;
+			margin-top: 30px;
+		}
+		p {
+			margin: 0 0 20px 0;
+		}
+		pre {
+			display: block;
+			width: 98%;
+			margin: 5px auto;
+			padding: 5px;
+			font-size: 8px;
+			border: 3px double #4D3900;
+			background-color: #FFF8E5;
+			color: #4D3900;
+		}
+		iframe {
+			display: block;
+			border: 1px solid #208000;
+			width: 100%;
+			margin: 5px auto;
+			padding: 0;
+		}
+		table {
+			width: 100%;
+			margin: 0 auto 20px auto;
+			padding: 0;
+/*			border: 1px solid #13004D; */
+			border-collapse:collapse;
+		}
+		table tr {
+			margin: 0;
+			padding: 0;
+		}
+		tbody tr .expect {
+			width: 15%;
+		}
+		tbody tr .syntax {
+			font-family: monospace;
+			font-size: 9px;
+			width: auto;
+			width: 30%;
+			color: #208000;
+		}
+		tbody tr .note {
+			font-style: italic;
+			width: auto;
+		}
+		tbody .tr-pass .pass {
+			font-weight: bold;
+			width: 40px;
+			background-color: #208000;
+			background: -moz-radial-gradient(center, ellipse cover,  #208000 0%, #82d890 100%); /* FF3.6+ */
+			background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#208000), color-stop(100%,#82d890)); /* Chrome,Safari4+ */
+			background: -webkit-radial-gradient(center, ellipse cover,  #208000 0%,#82d890 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-radial-gradient(center, ellipse cover,  #208000 0%,#82d890 100%); /* Opera 12+ */
+			background: -ms-radial-gradient(center, ellipse cover,  #208000 0%,#82d890 100%); /* IE10+ */
+			background: radial-gradient(center, ellipse cover,  #208000 0%,#82d890 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#208000', endColorstr='#82d890',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+			color: #EEFFEE;
+		}
+		tbody .tr-fail .fail {
+			background-color: #802000; /* Old browsers */
+			background: -moz-radial-gradient(center, ellipse cover,  #802000 0%, #db7a64 100%); /* FF3.6+ */
+			background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#802000), color-stop(100%,#db7a64)); /* Chrome,Safari4+ */
+			background: -webkit-radial-gradient(center, ellipse cover,  #802000 0%,#db7a64 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-radial-gradient(center, ellipse cover,  #802000 0%,#db7a64 100%); /* Opera 12+ */
+			background: -ms-radial-gradient(center, ellipse cover,  #802000 0%,#db7a64 100%); /* IE10+ */
+			background: radial-gradient(center, ellipse cover,  #802000 0%,#db7a64 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#802000', endColorstr='#db7a64',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+			color: #FFEEEE;
+			width: 40px;
+		}
+		tbody .tr-fail {
+			background-color: #FFCCDA !important;
+			color: #802000 !important;
+		}
+		tbody .tr-fail, tbody .tr-fail .syntax {
+			color: #66001A !important;
+		}
+		tbody .tr-fail td:first-child {
+			font-weight: bold;
+		}
+		tbody .tr-fail .expect {
+			font-weight: bold;
+		}
+		tbody tr:nth-child(odd):not(.tr-fail) {
+			background-color: #EBE5FF;
+		}
+		tbody tr:nth-child(even):not(.tr-fail) {
+			background-color: #E5ECFF;
+		}
+		tbody .tr-fail:hover, tbody .tr-fail:hover .syntax {
+			background: -moz-radial-gradient(center, ellipse cover,  #eeeeee 0%, #ffccda 100%); /* FF3.6+ */
+			background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#eeeeee), color-stop(100%,#ffccda)); /* Chrome,Safari4+ */
+			background: -webkit-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* Opera 12+ */
+			background: -ms-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* IE10+ */
+			background: radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#ffccda',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+			color: #66001A !important;
+		}
+		tbody tr:nth-child(odd).tr-pass:hover {
+			background-color: #EBE5FF;
+			background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #EBE5FF 100%) !important; /* FF3.6+ */
+			background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#EBE5FF)) !important; /* Chrome,Safari4+ */
+			background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* Chrome10+,Safari5.1+ */
+			background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* Opera 12+ */
+			background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* IE10+ */
+			background: radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#EBE5FF',GradientType=1 ) !important; /* IE6-9 fallback on horizontal gradient */
+		}
+		tbody tr:nth-child(even).tr-pass:hover {
+			background-color: #E5ECFF;
+			background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #E5ECFF 100%) !important; /* FF3.6+ */
+			background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#E5ECFF)) !important; /* Chrome,Safari4+ */
+			background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* Chrome10+,Safari5.1+ */
+			background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* Opera 12+ */
+			background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* IE10+ */
+			background: radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#E5ECFF',GradientType=1 ) !important; /* IE6-9 fallback on horizontal gradient */
+		}
+		tbody .tr-pass:hover, tbody .tr-pass .syntax:hover {
+/*
+			background-color: #208000 !important;
+			background: -moz-radial-gradient(center, ellipse cover,  #82d890 0%, #208000 100%) !important;
+			background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#82d890), color-stop(100%,#208000)) !important;
+			background: -webkit-radial-gradient(center, ellipse cover,  #82d890 0%,#208000 100%) !important;
+			background: -o-radial-gradient(center, ellipse cover,  #82d890 0%,#208000 100%) !important;
+			background: -ms-radial-gradient(center, ellipse cover,  #82d890 0%,#208000 100%) !important;
+			background: radial-gradient(center, ellipse cover,  #82d890 0%,#208000 100%) !important;
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82d890', endColorstr='#208000',GradientType=1 ) !important;
+			color: #FFFFFF !important;
+*/
+		}
+		tbody tr th {
+			text-align: left;
+			text-transform: uppercase;
+			font-weight: bold;
+		}
+		tbody tr td {
+			border-left: 1px solid #13004D;
+			padding-left: 5px;
+		}
+		tbody tr td:last-child {
+			border-right: 1px solid #13004D;
+		}
+		tbody tr:last-child {
+			border-bottom: 1px solid #13004D;
+		}
+		tbody tr {
+			border-top: 1px solid #13004D;
+		}
+		tfoot {
+			background-color: #CCCCCC;
+			background: -moz-linear-gradient(top,  #cccccc 1%, #f2f2f2 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#cccccc), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top,  #cccccc 1%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  #cccccc 1%,#f2f2f2 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  #cccccc 1%,#f2f2f2 100%); /* IE10+ */
+			background: linear-gradient(top,  #cccccc 1%,#f2f2f2 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
+		}
+		#contain {
+			margin: 5px;
+			padding: 0;
+		}
+		#log_pre {
+			height: 200px;
+			overflow: scroll;
+		}
+		.subcontain {
+			width: 95%;
+			margin: 0 auto;
+			background-color: white;
+			padding: 10px;
+		}
+		.rerun {
+			font-size: 9px;
+		}
+		.syserr {
+			color: red;
+		}
+		.totals {
+		}
+		.totalGrand, .totalPassed, .totalFailed {
+			font-size: 15px;
+			line-height: 17px;
+			font-weight: bold;
+		}
+		.totalGrand {
+			color: #002FBD;
+		}
+		.totalPassed {
+			color: #208000;
+		}
+		.totalFailed {
+			color: #802000;
+		}
+		#globalTotals .totalGrand, #globalTotals .totalPassed, #globalTotals .totalFailed {
+			font-size: 30px;
+			line-height: 35px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<div id="contain">
+	<h1>bpmv.js Tests</h1>
+
+	<h2>bpmv.js</h2>
+	<div class="subcontain">
+		<pre><code id="bpmv_info"></code></pre>
+
+		<h3>bpmv.js Empty Args Results</h3>
+		<table >
+			<thead>
+				<tr>
+					<th>Pass</th>
+					<th>Expect</th>
+					<th>Syntax</th>
+					<th>Note</th>
+				</tr>
+			</thead>
+			<tbody id="empty_test_results">
+			</tbody>
+		</table>
+
+		<h3>bpmv.js Positive Boolean Return Results</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Pass</th>
+					<th>Expect</th>
+					<th>Syntax</th>
+					<th>Note</th>
+				</tr>
+			</thead>
+			<tbody id="boolean_pos_results">
+			</tbody>
+		</table>
+
+		<h3>bpmv.js Negative Boolean Return Results</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Pass</th>
+					<th>Expect</th>
+					<th>Syntax</th>
+					<th>Note</th>
+				</tr>
+			</thead>
+			<tbody id="boolean_neg_results">
+			</tbody>
+		</table>
+	</div>
+
+	<h2>bpmv.min.js</h2>
+	<div class="subcontain">
+		<pre><code id="min_bpmv_info"></code></pre>
+
+		<h3>bpmv.min.js Empty Args Results</h3>
+		<table >
+			<thead>
+				<tr>
+					<th>Pass</th>
+					<th>Expect</th>
+					<th>Syntax</th>
+					<th>Note</th>
+				</tr>
+			</thead>
+			<tbody id="min_empty_test_results">
+			</tbody>
+		</table>
+
+		<h3>bpmv.min.js Positive Boolean Return Results</h3>
+		<table >
+			<thead>
+				<tr>
+					<th>Pass</th>
+					<th>Expect</th>
+					<th>Syntax</th>
+					<th>Note</th>
+				</tr>
+			</thead>
+			<tbody id="min_boolean_pos_results">
+			</tbody>
+		</table>
+
+		<h3>bpmv.min.js Negative Boolean Return Results</h3>
+		<table >
+			<thead>
+				<tr>
+					<th>Pass</th>
+					<th>Expect</th>
+					<th>Syntax</th>
+					<th>Note</th>
+				</tr>
+			</thead>
+			<tbody id="min_boolean_neg_results">
+			</tbody>
+		</table>
+	</div>
+
+	<h2>Extras</h2>
+	<div class="subcontain" id="extras">
+		<h3>JSPerf Performance Tests</h3>
+		<iframe src="jsperf_tests.txt"></iframe>
+
+		<h3>Log</h3>
+		<pre id="log_pre"><code id="log"></code></pre>
+	</div>
+
+</div>
+
+
+<!-- Include normal bpmv.js -->
+<script src="../bpmv.js"></script>
+
+<!-- Include bpmv.min.js -->
+<script>
+var BPMV_VARNAME = 'bpmv_min';
+</script>
+<script src="../bpmv.min.js"></script>
+
+<!-- Include jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
+<script>
+/*******************************************************************************
+* Setup Testing
+*******************************************************************************/
+var globalTotal = 0
+	, globalFail = 0
+	, globalPass = 0;
+
+function format_thing ( thing ) {
+	switch ( typeof(thing) ) {
+		case 'undefined':
+			return 'undefined';
+			break;
+		case 'function':
+			return 'function';
+			break;
+		case 'string':
+			return '&quot;' + thing + '&quot;';
+			break;
+		case 'object':
+			return whatIs( thing );
+			break;
+		default:
+			return thing.toString();
+			break;
+	}
+}
+
+function goodArr ( arr ) {
+	return goodObj( arr ) && ( Object.prototype.toString.call(arr) === '[object Array]' );
+}
+
+function goodFunc ( func ) {
+	return ( typeof(func) === 'function' );
+}
+
+function goodObj ( obj ) {
+	return ( obj !== null ) && ( typeof(obj) === 'object' );
+}
+
+function goodStr ( str ) {
+	return ( typeof( str ) === 'string' ) && ( str.length > 0 );
+}
+
+function log ( string ) {
+	var log = $('#log'),
+		logPre = $('#log_pre');
+	if ( goodStr( string ) ) {
+		log.append( '**** ' + Date() + '\n' + string + '\n' );
+		logPre.scrollTop( log.height() );
+	}
+}
+
+function report ( pass, syntax, expect, note ) {
+	var tpl = '';
+	if ( goodStr(syntax) ) {
+		tpl += '<tr class="tr-' + ( pass ? 'pass' : 'fail' )  + '">';
+		tpl += '<td class="' + ( pass ? 'pass' : 'fail' )  + '">' + ( pass ? 'pass' : 'fail' ) + '</td>';
+		tpl += '<td class="expect">' + format_thing( expect ) + '</td>';
+		tpl += '<td class="syntax">' + syntax + '</td>';
+		tpl += '<td class="note">' + note + '</td>';
+		tpl += '</tr>';
+		myTarget = goodStr(myTarget) ? myTarget : 'test_results';
+		$('#'+myTarget).append( tpl );
+	}
+}
+
+function run_tests ( set, target, min ) {
+	var tested = 0,
+		passed = 0,
+		failed = 0,
+		appNd = '';
+	if ( goodObj( set ) ) {
+		myTarget = ''+target;
+		$('#'+myTarget).parent().find( 'tbody tr' ).remove();
+		for ( var aSub in set ) {
+			if ( goodStr( aSub ) && goodArr( set[aSub] ) && ( set[aSub].length > 0 ) ) {
+				log( 'running ' + set[aSub].length + ' tests for bpmv.' + aSub + '()');
+				for ( var aT = 0; aT < set[aSub].length; aT++ ) {
+					var pass = false;
+					if ( goodArr( set[aSub][aT] ) && ( set[aSub][aT].length == 3 ) ) {
+						if ( min ) {
+							pass = test_bpmvmin( aSub, set[aSub][aT][0], set[aSub][aT][1], set[aSub][aT][2] );
+						} else {
+							pass = test_bpmv( aSub, set[aSub][aT][0], set[aSub][aT][1], set[aSub][aT][2] );
+						}
+					} else if ( goodArr( set[aSub][aT] ) && ( set[aSub][aT].length == 2 ) ) {
+						if ( min ) {
+							pass = test_bpmvmin( aSub, set[aSub][aT][0], set[aSub][aT][1] );
+						} else {
+							pass = test_bpmv( aSub, set[aSub][aT][0], set[aSub][aT][1] );
+						}
+					}
+					if ( pass ) {
+						passed++;
+						globalPass++;
+					} else {
+						failed++;
+						globalFail++
+					}
+					tested++;
+					globalTotal++;
+					log( 'bpmv.' + aSub + '() test ' + aT + ' ' + ( pass ? 'passed' : 'failed' ) );
+				}
+			}
+		}
+		$('#'+myTarget).parent().find( 'tfoot' ).remove();
+		appNd += '<tfoot><tr class="totals">';
+		appNd += '<td colspan="4">';
+		appNd += 'Grand Total Tested: <span class="totalGrand">' + tested + '</span> ';
+		appNd += 'Passed: <span class="totalPassed">' + passed + '</span> ';
+		appNd += 'Failed: <span class="totalFailed">' + failed + '</span> ';
+		appNd += '</td>';
+		appNd += '</tr></tfoot>';
+		$('#'+myTarget).parent().append( appNd );
+		$('#'+myTarget).parent().stop( true, true );
+	}
+}
+
+function test_bpmv ( member, args, expect, note, other ) {
+	var pass = false
+		, res = undefined
+		, mv = goodStr( other ) && goodObj( window[other] ) ? window[other] : bpmv
+		, argStr = 'undefined'
+		, objStr = goodStr( other ) ? other : 'bpmv'
+		, syntax = '';
+	if ( goodStr( member ) ) {
+		syntax += objStr + '.' + member + '(';
+		if ( goodArr( args ) && ( args.length > 0 ) ) {
+			for ( var aA = 0; aA < args.length; aA++ ) {
+				if ( aA > 0 ) {
+					syntax += ',';
+				}
+				syntax += ' ' + format_thing( args[aA] );
+			}
+			syntax += (/\s/).test( syntax ) ? ' )' : '';
+		} else {
+			syntax += ')';
+		}
+		if ( mv.hasOwnProperty( member ) && goodFunc(mv[member]) && ( goodArr( args ) || typeof(args) == 'undefined' ) ) {
+			try {
+				res = mv[member].apply( mv, args );
+				if ( typeof(expect) == 'function' ) {
+					pass = expect( res );
+				} else if ( ( typeof(expect) == 'undefined' ) && ( typeof(res) == 'undefined' ) ) {
+					pass = true;
+				} else if ( typeof(expect) == 'undefined' ) {
+					pass = false;
+				} else {
+					pass = expect == res;
+				}
+			} catch ( err ) {
+				pass = false;
+				note += ' <span class="syserr">[Fatal] &quot;' + err + '&quot;</span> ';
+			}
+		} else if ( !mv.hasOwnProperty( member ) ) {
+				note += ' <span class="syserr">[Fatal] &quot;Not found on object&quot;</span> ';
+		} else if ( !goodFunc(mv[member]) ) {
+				note += ' <span class="syserr">[Fatal] &quot;Not a function&quot;</span> ';
+		} else if ( !goodArr( args ) || typeof(args) != 'undefined' ) {
+				note += ' <span class="syserr">[Fatal] &quot;Invalid test arguments&quot;</span> ';
+		}
+		report( pass, syntax, expect, note );
+	}
+	return pass;
+}
+
+function test_bpmvmin ( member, args, expect, note ) {
+	return test_bpmv( member, args, expect, note, 'bpmv_min' );
+}
+
+function whatIs ( thing ) {
+	try {
+		if ( goodStr(thing.constructor.name) ) {
+			return '[object ' + thing.constructor.name + ']';
+		}
+	} catch (e) {
+	}
+	var blair = Object.prototype.toString.call( thing ),
+		rgxObj = /^\[[oO]bject ([^\]]+)\]/;
+	if ( thing === null ) { blair = 'null'; }
+	if ( thing === NaN ) { blair = 'NaN'; }
+	if ( typeof(thing) === 'undefined' ) { blair = 'undefined'; }
+	if ( goodStr(blair) ) {
+		if ( rgxObj.test(blair) ) {
+			blair = blair.match( rgxObj ).pop();
+		}
+	}
+	if ( goodStr(blair) ) {
+		return '[object ' + blair + ']';
+	}
+	if ( goodObj(thing) ) {
+		return '[object Object]';
+	}
+	return; // undef
+}
+
+</script>
+
+<!-- Actial Tests -->
+<script src="emptyTests.js"></script>
+<script src="boolTestsNeg.js"></script>
+<script src="boolTestsPos.js"></script>
+
+<script>
+/*******************************************************************************
+* Run Actial Tests
+*******************************************************************************/
+var myTarget = '';
+$(document).ready( function () {
+	/* bpmv.js Info ***************************************************************/
+	$('#bpmv_info').append( 'bpmv.js' + '\n' );
+	$('#bpmv_info').append( '         Src:' + bpmv._cfg.tag.src + '\n' );
+	$('#bpmv_info').append( '         Var:' + bpmv._cfg.varName + '\n' );
+	$('#bpmv_info').append( '     Version:' + bpmv._cfg.version + '\n' );
+
+	/* bpmv.min.js Info ***********************************************************/
+	$('#min_bpmv_info').append( 'bpmv.min.js' + '\n' );
+	$('#min_bpmv_info').append( '         Src:' + bpmv_min._cfg.tag.src + '\n' );
+	$('#min_bpmv_info').append( '         Var:' + bpmv_min._cfg.varName + '\n' );
+	$('#min_bpmv_info').append( '     Version:' + bpmv_min._cfg.version + '\n' );
+
+	/* Run Standard Empty Tests ***************************************************/
+	run_tests ( emptyTests, 'empty_test_results', false );
+	var tDootie = $('<div><a href="javascript:void(0);" class="rerun">re-run tests</a></div>');
+	tDootie.click( function () {
+		log( 'Re-running test' );
+		$('#empty_test_results * td').remove();
+		run_tests ( emptyTests, 'empty_test_results', false );
+	});
+	$('#empty_test_results').parent().before( tDootie );
+
+	/* Run Min Standard Empty Tests ***********************************************/
+	run_tests ( emptyTests, 'min_empty_test_results', true );
+	var tDootie = $('<div><a href="javascript:void(0);" class="rerun">re-run tests</a></div>');
+	tDootie.click( function () {
+		log( 'Re-running test' );
+		$('#min_empty_test_results * td').remove();
+		run_tests ( emptyTests, 'min_empty_test_results', true );
+	});
+	$('#min_empty_test_results').parent().before( tDootie );
+
+	/* Run Standard Positive Bool Tests *********************************************************/
+	run_tests ( boolTestsPos, 'boolean_pos_results', false );
+	var tDootie = $('<div><a href="javascript:void(0);" class="rerun">re-run tests</a></div>');
+	tDootie.click( function () {
+		log( 'Re-running test' );
+		$('#boolean_pos_results * td').remove();
+		run_tests ( boolTestsPos, 'boolean_pos_results', false );
+	});
+	$('#boolean_pos_results').parent().before( tDootie );
+
+	/* Run Min Standard Positive Bool Tests *****************************************************/
+	run_tests ( boolTestsPos, 'min_boolean_pos_results', true );
+	var tDootie = $('<div><a href="javascript:void(0);" class="rerun">re-run tests</a></div>');
+	tDootie.click( function () {
+		log( 'Re-running test' );
+		$('#min_boolean_pos_results * td').remove();
+		run_tests ( boolTestsPos, 'min_boolean_pos_results', true );
+	});
+	$('#min_boolean_pos_results').parent().before( tDootie );
+
+
+	/* Run Standard Negative Bool Tests *********************************************************/
+	run_tests ( boolTestsNeg, 'boolean_neg_results', false );
+	var tDootie = $('<div><a href="javascript:void(0);" class="rerun">re-run tests</a></div>');
+	tDootie.click( function () {
+		log( 'Re-running test' );
+		$('#boolean_neg_results * td').remove();
+		run_tests ( boolTestsNeg, 'boolean_neg_results', false );
+	});
+	$('#boolean_neg_results').parent().before( tDootie );
+
+	/* Run Min Standard Negative Bool Tests *****************************************************/
+	run_tests ( boolTestsNeg, 'min_boolean_neg_results', true );
+	var tDootie = $('<div><a href="javascript:void(0);" class="rerun">re-run tests</a></div>');
+	tDootie.click( function () {
+		log( 'Re-running test' );
+		$('#min_boolean_neg_results * td').remove();
+		run_tests ( boolTestsNeg, 'min_boolean_neg_results', true );
+	});
+	$('#min_boolean_neg_results').parent().before( tDootie );
+
+	/* Finish up ********************************************************************************/
+	$('#extras').prepend( '<h3>Final Global Totals</h3>' + 
+			'<p id="globalTotals"><strong>Total Global Tests Run: <span class="totalGrand">' + globalTotal +
+			'</span> Passed: <span class="totalPassed">' + globalPass +
+			'</span> Failed: <span class="totalFailed">' + globalFail +
+			'</span></strong></p>' );
+});
+
+</script>
+
+</body>
+</html>
