@@ -124,8 +124,8 @@ function run_tests ( set, target, min ) {
 		}
 		appNd += '<tfoot><tr class="totals">';
 		appNd += '<td colspan="4">';
-		appNd += '<h3 style="display: inline;">' + set.title + ' ';
-		appNd += 'Grand Total Tested</h3>: <span class="totalGrand">' + tested + '</span> ';
+		appNd += '<h3 style="display: inline;">bpmv' + (min?'min.js ':'.js ') + set.title + ' ';
+		appNd += 'Grand Total</h3>: <span class="totalGrand">' + tested + '</span> ';
 		appNd += 'Passed: <span class="totalPassed">' + passed + '</span> ';
 		appNd += 'Failed: <span class="totalFailed">' + failed + '</span> ';
 		appNd += '</td>';
@@ -244,7 +244,7 @@ function toc_handle_click ( ev ) {
 			gotcha = $('*[toc='+cl.attr( 'toc-to' )+']');
 			if ( goodObj( gotcha ) && ( gotcha.length > 0 ) ) {
 				$('html,body').animate( {
-						'scrollTop' : gotcha.offset().top - 10
+						'scrollTop' : gotcha.offset().top - 40
 				}, 300 );
 			}
 		}
