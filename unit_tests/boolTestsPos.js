@@ -1,4 +1,6 @@
-var boolTestsPos = {};
+var boolTestsPos = {
+	title : 'Positive Boolean Return'
+};
 
 boolTestsPos['arr'] = [
 	  [ [ [ 1 ] ] /*args*/, true /*expect*/, 'single item Array' /*note*/ ]
@@ -67,23 +69,23 @@ boolTestsPos['isadog'] = [
 	, [ [ new RegExp( '.*' ), true ] /*args*/, true /*expect*/, 'new RegExp() with required non-empty source' ]
 ];
 boolTestsPos['num'] = [
-	  [ [ 1 ] /*args*/, true /*expect*/, 'number 1' ]
-	, [ [ '1' ] /*args*/, true /*expect*/, 'string &quot;1&quot;' ]
-	, [ [ 1.2 ] /*args*/, true /*expect*/, 'number 1.2' ]
-	, [ [ '1.2' ] /*args*/, true /*expect*/, 'string &quot;1.2&quot;' ]
-	, [ [ 1.2312312312312312e+29 ] /*args*/, true /*expect*/, 'scientific number 1.2312312312312312e+29' ]
-	, [ [ '1.2312312312312312e+29' ] /*args*/, true /*expect*/, 'scientific string &quot;1.2312312312312312e+29&quot;' ]
-	, [ [ 0, true ] /*args*/, true /*expect*/, 'number 0, zero or below OK' ]
-	, [ [ '0', true ] /*args*/, true /*expect*/, 'string &quot;0&quot;, zero or below OK' ]
-	, [ [ 0.0, true ] /*args*/, true /*expect*/, 'number 0.0, zero or below OK' ]
-	, [ [ '0.0', true ] /*args*/, true /*expect*/, 'string &quot;0.0&quot;, zero or below OK' ]
-	, [ [ -1, true ] /*args*/, true /*expect*/, 'number -1, zero or below OK' ]
-	, [ [ '-1', true ] /*args*/, true /*expect*/, 'string &quot;-1&quot;, zero or below OK' ]
+	  [ [ 1 ] /*args*/, true /*expect*/, 'Number 1' ]
+	, [ [ '1' ] /*args*/, true /*expect*/, 'String &quot;1&quot;' ]
+	, [ [ 1.2 ] /*args*/, true /*expect*/, 'Number 1.2' ]
+	, [ [ '1.2' ] /*args*/, true /*expect*/, 'String &quot;1.2&quot;' ]
+	, [ [ 1.2312312312312312e+29 ] /*args*/, true /*expect*/, 'Scientific number 1.2312312312312312e+29' ]
+	, [ [ '1.2312312312312312e+29' ] /*args*/, true /*expect*/, 'Scientific string &quot;1.2312312312312312e+29&quot;' ]
+	, [ [ 0, true ] /*args*/, true /*expect*/, 'Number 0, zero or below OK' ]
+	, [ [ '0', true ] /*args*/, true /*expect*/, 'String &quot;0&quot;, zero or below OK' ]
+	, [ [ 0.0, true ] /*args*/, true /*expect*/, 'Number 0.0, zero or below OK' ]
+	, [ [ '0.0', true ] /*args*/, true /*expect*/, 'String &quot;0.0&quot;, zero or below OK' ]
+	, [ [ -1, true ] /*args*/, true /*expect*/, 'Number -1, zero or below OK' ]
+	, [ [ '-1', true ] /*args*/, true /*expect*/, 'String &quot;-1&quot;, zero or below OK' ]
 ];
 boolTestsPos['obj'] = [
-	  [ [ {} ] /*args*/, true /*expect*/, 'empty shorthand (&quot;{}&quot;) object' ]
-	, [ [ new Object() ] /*args*/, true /*expect*/, 'empty new Object()' ]
-	, [ [ { a : 2 }, true ] /*args*/, true /*expect*/, 'empty shorthand (&quot;{}&quot;) object required non-empty' ]
+	  [ [ {} ] /*args*/, true /*expect*/, 'Empty shorthand (&quot;{}&quot;) object' ]
+	, [ [ new Object() ] /*args*/, true /*expect*/, 'Empty new Object()' ]
+	, [ [ { a : 2 }, true ] /*args*/, true /*expect*/, 'Non-empty shorthand (&quot;{}&quot;) object required non-empty' ]
 	, [ [ new Object( { a : 2 } ), true ] /*args*/, true /*expect*/, 'empty new Object() required non-empty' ]
 ];
 boolTestsPos['str'] = [

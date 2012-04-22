@@ -1,4 +1,6 @@
-var emptyTests = {};
+var emptyTests = {
+	title : 'Empty Arguments (Default)'
+};
 emptyTests['arr']       = [ [ [], false, 'Empty Args' ] ];
 emptyTests['basename']  = [ [ [], undefined, 'Empty Args' ] ];
 emptyTests['bool']      = [ [ [], false, 'Empty Args' ] ];

@@ -1,4 +1,6 @@
-var boolTestsNeg = {};
+var boolTestsNeg = {
+	title : 'Negative Boolean Return'
+};
 
 boolTestsNeg['arr'] = [
 	  [ [ [] ] /*args*/, false /*expect*/, 'Empty Array' ]
@@ -74,6 +76,7 @@ boolTestsNeg['num'] = [
 	, [ [ undefined ] /*args*/, false /*expect*/, 'undefined proper' ]
 ];
 boolTestsNeg['obj'] = [
+	[ [ {}, true ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object required non-empty' ]
 ];
 boolTestsNeg['str'] = [
 ];
