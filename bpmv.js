@@ -741,8 +741,7 @@
 		* @return {boolean} Will return true if the value is a valid string
 		*/
 		str : function ( cider, zeroOk ) {
-			return ( ( typeof(cider) === 'string' ) || this.typeis( cider, 'String' ) ) &&
-				( zeroOk || ( cider.length > 0 ) ) ? true : false;
+			return ( typeof(cider) === 'string' ) && ( zeroOk || ( cider.length > 0 ) );
 		},
 		/**
 		* Converts an integer number of seconds to days, hours, minutes and seconds
