@@ -1,9 +1,8 @@
-
 /*******************************************************************************
 *
 * WARNING: bpmv.cLog IS CURRENTLY EXPERIMENTAL!!!
 *
-* bpmv.cLog and it's associated bpmv.c* functions are wrappers for console
+* bpmv.cLog() and it's associated bpmv.c* functions are wrappers for console
 * logging. The goal here is to let devs log freely.
 *
 * I got the list of console function names from
