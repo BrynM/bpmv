@@ -12,7 +12,7 @@
 * I've created this as an separate module as it would bloat bpmv.js and I can't
 * guarantee it will even work.
 *
-* To use these wrappers, 
+* To use these wrappers, load bpmv.js then bpmv.cLog.js.
 *
 * Possible future attitions:
 *    + <div> output for console-less browsers?
