@@ -20,7 +20,7 @@
 *      without resorting to an ugly switch(){} hack
 *    + include minified version
 *    + make this work in strict
-*    + accoutn for namespaced and renamed bpmv object
+*    + account for namespaced and renamed bpmv object
 *    + test node support
 *
 *******************************************************************************/
