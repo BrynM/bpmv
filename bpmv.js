@@ -587,6 +587,23 @@
 			return ( this.obj(namedRex) && ( Object.prototype.toString.call( namedRex ) === '[object RegExp]' ) && ( !hasTest || this.str(namedRex.source) ) );
 		},
 		/**
+		* Will return an array containing the keys from an object or array
+		* @param {mixed} lock The object or array you want the keys from
+		* @return {array} array containing the keys lock
+		*/
+		'keys' : function ( lock ) {
+			var ret = [];
+			if ( this.obj(lock, true) || this.arr(lock) ) {
+				for ( var aK in lock ) {
+					if ( lock.hasOwnProperty( aK ) ) {
+						ret.push( aK )
+					}
+				}
+				ret.sort();
+			}
+			return ret;
+		},
+		/**
 		* Trim whitespace or optionally other characters from the beginning of a string
 		* @param {string} bush The string you'd like to trim
 		* @param {string} chars Optional list of characters to trim.
