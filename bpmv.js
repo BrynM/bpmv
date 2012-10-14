@@ -591,7 +591,7 @@
 		* @param {mixed} lock The object or array you want the keys from
 		* @return {array} array containing the keys lock
 		*/
-		'keys' : function ( lock ) {
+		keys : function ( lock ) {
 			var ret = [];
 			if ( this.obj(lock, true) || this.arr(lock) ) {
 				for ( var aK in lock ) {
