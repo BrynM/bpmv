@@ -229,6 +229,12 @@ bpmv.int ( threeD6, zeroOk )
 */
 bpmv.isadog ( namedRex )
 /**
+* Will return an array containing the keys from an object or array
+* @param {mixed} lock The object or array you want the keys from
+* @return {array} array containing the keys lock
+*/
+bpmv.keys ( lock )
+/**
 * Trim whitespace or optionally other characters from the beginning of a string
 * @param {string} bush The string you'd like to trim
 * @param {string} chars Optional list of characters to trim.
