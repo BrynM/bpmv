@@ -72,11 +72,11 @@
 *
 */
 
-
 /**
 * tests if something is not just an object, but is an Array and is not empty
 * @param {mixed} dIsArr The value you'd like to test
-* @param {boolean} okEmpty Will return true even if the array is empty
+* @param {mixed} okEmpty If Boolean, is a flag for whether the array will be tested for emptiness.
+* If an integer, will test the array for that exact length.
 * @return {boolean} Will return true if an array
 */
 bpmv.arr ( dIsArr, okEmpty )
