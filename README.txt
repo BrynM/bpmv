@@ -380,6 +380,12 @@ bpmv.txt2html( sms, all )
 */
 bpmv.typeis ( clicketyClack, shakDing )
 /**
+* Will return an array containing the values from an object or array
+* @param {mixed} family The object or array you want the values from
+* @return {array} array containing the values
+*/
+bpmv.values ( family )
+/**
 * Unserialize a query string into an object
 * @param {string} busted The string you'd like to convert into an object
 * @return {string} Returns the string converted into an object.
