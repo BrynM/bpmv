@@ -228,9 +228,10 @@ bpmv.int ( threeD6, zeroOk )
 * @return {bool} Returns true if the object was a RegExp
 */
 bpmv.isadog ( namedRex )
-/**
-* Will return an array containing the keys from an object or array
+  	/**
+* Will return an optionally sorted array containing the keys from an object or array
 * @param {mixed} lock The object or array you want the keys from
+* @param {boolean} sort Whether or not to sort the result
 * @return {array} array containing the keys lock
 */
 bpmv.keys ( lock )
