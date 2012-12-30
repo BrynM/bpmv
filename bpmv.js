@@ -1009,6 +1009,22 @@
 			return ( this.count(pWagon) > 0 ) ? pWagon : undefined;
 		},
 		/**
+		* Will return an array containing the values from an object or array
+		* @param {mixed} family The object or array you want the values from
+		* @return {array} array containing the values
+		*/
+		values : function ( family ) {
+			var ret = [];
+			if ( this.obj(family, true) || this.arr(family) ) {
+				for ( var aK in family ) {
+					if ( family.hasOwnProperty( aK ) ) {
+						ret.push( family[aK] )
+					}
+				}
+			}
+			return ret;
+		},
+		/**
 		* Walks a string to find an end point
 		* @param {string} path A path to a var... such as "my.var.thing" or "fubarVar"
 		* @param {string} region An optional object to look in rather than the global scope
