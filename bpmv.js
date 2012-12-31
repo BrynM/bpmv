@@ -1067,7 +1067,7 @@
 			var blair = Object.prototype.toString.call( thing ),
 				rgxObj = /^\[[oO]bject ([^\]]+)\]/;
 			if ( thing === null ) { blair = 'null'; }
-			if ( isNaN( thing ) ) { blair = 'NaN'; }
+			if ( thing === NaN ) { blair = 'NaN'; }
 			if ( typeof(thing) === 'undefined' ) { blair = 'undefined'; }
 			if ( this.str(blair) ) {
 				if ( rgxObj.test(blair) ) {
