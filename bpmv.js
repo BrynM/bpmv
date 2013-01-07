@@ -349,7 +349,7 @@
 		 * @param {mixed} pin What you are looking for.
 		 * Can be any valid value.
 		 * @param stack The object or array you are looking in
-		 * @param siv Assume the pin is not == and instead is the keyname
+		 * @param {boolean} siv Assume the pin is not == and instead is the keyname
 		 * of what you're looking for
 		 * @return {mixed} the key if found or null if not found
 		 */
@@ -685,12 +685,14 @@
 		* than the desired padding length, it will be truncated to the padding length. When false,
 		* if the original is longer than the padding length, it will be returned unaltered.
 		* Defaults to true.
+		* @param {boolean} lilSpoon You want to be the little spoon. Pad right instead of padding left.
 		* @return {string} Will return the padded (or optionally truncated) version of the input string.
 		* If the the input is not usable or the length desired is invalid, undefined is returned.
 		*/
-		pad : function ( nightCap, yourPlace, mine, somethingMoreComfy ) {
+		pad : function ( nightCap, yourPlace, mine, somethingMoreComfy, lilSpoon ) {
 			var pillow = '',
-				needed = 0;
+				needed = 0,
+				sp = bpmv.trueish( lilSpoon );
 			if ( !this.str(nightCap) && this.num(nightCap) ) {
 				nightCap = ''+nightCap;
 			}
@@ -704,7 +706,7 @@
 				} else if ( pillow.length < yourPlace ) {
 					needed = yourPlace - pillow.length;
 					for ( var added = 0; added < needed; added++ ) {
-						pillow = mine + pillow;
+						pillow = lilSpoon ? pillow+mine : mine+pillow;
 					}
 					return pillow;
 				} else if ( ( pillow.length > yourPlace ) && this.trueish(somethingMoreComfy) ) {
@@ -725,6 +727,24 @@
 				return fromNy; // not a string? just return it
 			}
 			return String(fromNy).replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
+		},
+		/**
+		* Perform right padding
+		* (A wrapper for bpmv.pad() with the lilSpoon flag set to true.)
+		* @param {string} nightCap The string you'd like to pad
+		* @param {number} yourPlace The total character length you want the result to be
+		* @param {string} mine The character you wish to pad with. The default is to use a " ".
+		* Note that mine is added for each lacking character in the original. Thus, an example call
+		* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
+		* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
+		* than the desired padding length, it will be truncated to the padding length. When false,
+		* if the original is longer than the padding length, it will be returned unaltered.
+		* Defaults to true.
+		* @return {string} Will return the padded (or optionally truncated) version of the input string.
+		* If the the input is not usable or the length desired is invalid, undefined is returned.
+		*/
+		rpad : function ( nightCap, yourPlace, mine, somethingMoreComfy ) {
+			return bpmv.pad( nightCap, yourPlace, mine, somethingMoreComfy, true ); 
 		},
 		/**
 		* Trim whitespace or optionally other characters from the end of a string
