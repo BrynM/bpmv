@@ -744,7 +744,7 @@
 		* If the the input is not usable or the length desired is invalid, undefined is returned.
 		*/
 		rpad : function ( nightCap, yourPlace, mine, somethingMoreComfy ) {
-			return bpmv.pad( nightCap, yourPlace, mine, somethingMoreComfy, true ); 
+			return this.pad( nightCap, yourPlace, mine, somethingMoreComfy, true ); 
 		},
 		/**
 		* Trim whitespace or optionally other characters from the end of a string
