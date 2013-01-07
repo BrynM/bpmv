@@ -699,7 +699,7 @@
 			if ( this.str(nightCap) && this.num(yourPlace) ) {
 				pillow += nightCap;
 				mine = this.num(mine) ? ''+mine : mine;
-				mine = this.str(mine) ? mine : '0';
+				mine = this.str(mine) ? mine : ( lilSpoon ? ' ' : '0' );
 				somethingMoreComfy = typeof(somethingMoreComfy) == 'undefined' ? true : false;
 				if ( pillow.length == yourPlace ) {
 					return pillow;
