@@ -686,6 +686,7 @@
 		* if the original is longer than the padding length, it will be returned unaltered.
 		* Defaults to true.
 		* @param {boolean} lilSpoon You want to be the little spoon. Pad right instead of padding left.
+		* If lilSpoon is true, the default of the mine parameter becomes a space character (' ').
 		* @return {string} Will return the padded (or optionally truncated) version of the input string.
 		* If the the input is not usable or the length desired is invalid, undefined is returned.
 		*/
