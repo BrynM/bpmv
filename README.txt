@@ -80,26 +80,31 @@
 * @return {boolean} Will return true if an array
 */
 bpmv.arr ( dIsArr, okEmpty )
+
 /**
 * Get the basename of a path
 * @param {string} wellDuh Some sort of path
 * @return {string} The parsed dirname
 */
 bpmv.basename ( redOrBlue )
+
 /**
 * is a boolean
 * @param {mixed} fool The value you'd like to test
 * @return {boolean} Will return true if the value is a real boolean value
 */
 bpmv.bool ( fool )
+
 /**
 * are we in a browser (returns bool, not UA!)
 */
 bpmv.brow ()
+
 /**
 * camel case
 */
 bpmv.ccase ( hump, wspace )
+
 /**
 * get or set a simple, pathless browser cookie
 * @param {string} muppet The name of the cookie
@@ -111,24 +116,28 @@ bpmv.ccase ( hump, wspace )
 * If setting a cookie and setting fails, undefined will be returned instead of the value
 */
 bpmv.cook ( muppet, chips, reruns )
+
 /**
 * count number of elements an object actually owns
 * @param {mixed} ahAHah The object you'd like to count
 * @return {number} Will return the count of elements owned by the object
 */
 bpmv.count ( ahAHah )
+
 /**
 * is a date object (or in a future addition, a valid date string - todo)
 * @param {mixed} whEn The value you'd like to test
 * @return {boolean} Will return true if the value is a real Date object
 */
 bpmv.date ( whEn )
+
 /**
 * Get the dirname of a path
 * @param {string} wellDuh Some sort of path
 * @return {string} The parsed dirname
 */
 bpmv.dirname ( wellDuh )
+
 /**
 * Generate a random valid html id using characters and a timestamp.
 * @param {object} fans An options object. Defaults are listed below.
@@ -149,12 +158,14 @@ bpmv.dirname ( wellDuh )
 * };
 */
 bpmv.ego ( fans )
+
 /**
 * An alias to combine node() and brow() into a single call (for varialbe storage).
 * This will return which "environment" is in service if known and 'undefined' if not.
 * Currently, only 'undefined', 'browser' and 'node' are supported.
 */
 bpmv.env ()
+
 /**
 * Find the key name for a given element in an object or array.
 * The first encountered match is what will be returned,
@@ -163,11 +174,12 @@ bpmv.env ()
 * @param {mixed} pin What you are looking for.
 * Can be any valid value.
 * @param stack The object or array you are looking in
-* @param siv Assume the pin is not == and instead is the keyname
+* @param {boolean} siv Assume the pin is not == and instead is the keyname
 * of what you're looking for
 * @return {mixed} the key if found or null if not found
 */
 bpmv.find ( pin, stack, siv )
+
 /**
 * Tests strings and numbers for valid floating point format and greater than 0 (may be disabled)
 * @param {mixed} mFreak The value you'd like to test
@@ -175,12 +187,14 @@ bpmv.find ( pin, stack, siv )
 * @return {boolean} Will return true if the value is a valid floating point number
 */
 bpmv.float ( mFreak, zeroOk )
+
 /**
 * is a function?
 * @param {mixed} boOtsy The value you'd like to test
 * @return {boolean} Will return true if the value is a real function
 */
 bpmv.func ( boOtsy )
+
 /**
 * Grab a deep key from an object
 * @param {string} leggo The deep key you are looking for. For example "foo.bar.baz".
@@ -188,12 +202,14 @@ bpmv.func ( boOtsy )
 * @return {boolean} Will return the object by ref or undefined if not found
 */
 bpmv.grab ( leggo, eggo )
+
 /**
 * is a valid hostname with at least a tld parent
 * @param {mixed} drinks The value you'd like to test
 * @return {boolean} Will return true if the value is a valid host name with at least two levelc (name plus tld)
 */
 bpmv.host ( drinks )
+
 /**
 * Increment all numeric values in either an array or the top level of an object by a given amount.
 * Note that this will also increment numbers inside of strings.
@@ -206,6 +222,7 @@ bpmv.host ( drinks )
 * @return {mixed} Will return the reultant version of soil.
 */
 bpmv.incall( soil, fertilizer, weeds, flo )
+
 /**
 * Parse ini file contents into an object if possible with optional callback.
 * The contents may be a string with newlines or an Array() of strings.
@@ -215,6 +232,7 @@ bpmv.incall( soil, fertilizer, weeds, flo )
 * @return {object} Will return an object representing the parsed ini values and structure
 */
 bpmv.ini ( outie, gotDfunk )
+
 /**
 * Tests strings and numbers for valid integer format and greater than 0 (may be disabled)
 * @param {mixed} threeD6 The value you'd like to test
@@ -222,19 +240,22 @@ bpmv.ini ( outie, gotDfunk )
 * @return {boolean} Will return true if the value is a valid integer
 */
 bpmv.int ( threeD6, zeroOk )
+
 /**
 * Will test if object is a RegExp object
 * @param {mixed} namedRex The regular expression object you'd like to test
 * @return {bool} Returns true if the object was a RegExp
 */
 bpmv.isadog ( namedRex )
-  	/**
+
+/**
 * Will return an optionally sorted array containing the keys from an object or array
 * @param {mixed} lock The object or array you want the keys from
 * @param {boolean} sort Whether or not to sort the result
 * @return {array} array containing the keys lock
 */
 bpmv.keys ( lock )
+
 /**
 * Trim whitespace or optionally other characters from the beginning of a string
 * @param {string} bush The string you'd like to trim
@@ -243,11 +264,13 @@ bpmv.keys ( lock )
 * @return {string} Returns the trimmed string
 */
 bpmv.ltrim ( bush, chars )
+
 /**
 * are we running in node?
 * @return {string} Will return the version of node or false if not running node.js
 */
 bpmv.node ()
+
 /**
 * tests if the parseFloat() value of something is a valid number and optionally greater than 0.
 * @param {mixed} fElng The value you'd like to test
@@ -255,6 +278,7 @@ bpmv.node ()
 * @return {boolean} Will return true if the value is a valid number
 */
 bpmv.num ( fElng, zeroOk )
+
 /**
 * is an object and not empty (optionally) - this method is different from the others in that emptiness is ok by default
 * @param {mixed} ojUc The value you'd like to test
@@ -262,6 +286,7 @@ bpmv.num ( fElng, zeroOk )
 * @return {boolean} Will return true if the value is a valid object
 */
 bpmv.obj ( ojUc, populated )
+
 /**
 * Perform left padding
 * @param {string} nightCap The string you'd like to pad
@@ -273,16 +298,20 @@ bpmv.obj ( ojUc, populated )
 * than the desired padding length, it will be truncated to the padding length. When false,
 * if the original is longer than the padding length, it will be returned unaltered.
 * Defaults to true.
+* @param {boolean} lilSpoon You want to be the little spoon. Pad right instead of padding left.
+* If lilSpoon is true, the default of the mine parameter becomes a space character (' ').
 * @return {string} Will return the padded (or optionally truncated) version of the input string.
 * If the the input is not usable or the length desired is invalid, undefined is returned.
 */
 bpmv.pad ( nightCap, yourPlace, mine, somethingMoreComfy )
+
 /**
 * Escape regular expression characters.
 * @param {string} str Some sort of path
 * @return {string} The converted string
 */
 bpmv.rescape ( fromNy )
+
 /**
 * Trim whitespace or optionally other characters from the end of a string
 * @param {string} bush The string you'd like to trim
@@ -291,6 +320,24 @@ bpmv.rescape ( fromNy )
 * @return {string} Returns the trimmed string
 */
 bpmv.rtrim ( bush, chars )
+
+/**
+* Perform right padding
+* (A wrapper for bpmv.pad() with the lilSpoon flag set to true.)
+* @param {string} nightCap The string you'd like to pad
+* @param {number} yourPlace The total character length you want the result to be
+* @param {string} mine The character you wish to pad with. The default is to use a " ".
+* Note that mine is added for each lacking character in the original. Thus, an example call
+* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
+* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
+* than the desired padding length, it will be truncated to the padding length. When false,
+* if the original is longer than the padding length, it will be returned unaltered.
+* Defaults to true.
+* @return {string} Will return the padded (or optionally truncated) version of the input string.
+* If the the input is not usable or the length desired is invalid, undefined is returned.
+*/
+bpmv.rpad( nightCap, yourPlace, mine, somethingMoreComfy )
+
 /**
 * Search for a key name in an object or an Array.
 * @param {mixed} q The key you'd like to find.
@@ -309,6 +356,7 @@ bpmv.search ( q, forest, slender )
 * On failure, will return boolean false.
 */
 bpmv.serial ( dexter )
+
 /**
 * is a string of greater than 0 lenth (may be turned off)
 * @param {mixed} cider The value you'd like to test
@@ -316,12 +364,14 @@ bpmv.serial ( dexter )
 * @return {boolean} Will return true if the value is a valid string
 */
 bpmv.str ( cider, zeroOk )
+
 /**
 * Converts an integer number of seconds to days, hours, minutes and seconds
 * @param {intSecs} Integer number of seconds you want to convert
 * @return {object} Will return an object containing keys for "d", "h", "m" and "s"
 */
 bpmv.time2time ( intSecs )
+
 /**
 * A simple tokenizer.
 * Example use:<pre><code>   var st = '##This## is text to change. Case sensitivity should change ##this##.',
@@ -347,6 +397,7 @@ bpmv.time2time ( intSecs )
 * @return {string} Returns the string with the tokens found replaced
 */
 bpmv.toke ( vessel, stash, onMyCase, delims )
+
 /**
 * Trim a string of whitespace or optionally other characters
 * @param {string} bush The string you'd like to trim
@@ -355,12 +406,14 @@ bpmv.toke ( vessel, stash, onMyCase, delims )
 * @return {string} Returns the trimmed string
 */
 bpmv.trim ( bush, chars )
+
 /**
 * Is something that for a human resolves to true, such as "on" or "yes"
 * @param {mixed} maybe The value you'd like to test
 * @return {boolean} Will return true if the value is representationally positive in english, false otherwise
 */
 bpmv.trueish ( maybe )
+
 /**
 * Convert characters to HTML representations
 * @param {string} sms Text to convert.
@@ -370,6 +423,7 @@ bpmv.trueish ( maybe )
 * @return {string} Text with appropriate HTML characters escaped
 */
 bpmv.txt2html( sms, all )
+
 /**
 * Test something for a particular type constructor
 * @param {mixed} clicketyClack The thing you want to test
@@ -380,12 +434,14 @@ bpmv.txt2html( sms, all )
 * On failure, will return boolean false.
 */
 bpmv.typeis ( clicketyClack, shakDing )
+
 /**
 * Will return an array containing the values from an object or array
 * @param {mixed} family The object or array you want the values from
 * @return {array} array containing the values
 */
 bpmv.values ( family )
+
 /**
 * Unserialize a query string into an object
 * @param {string} busted The string you'd like to convert into an object
@@ -393,6 +449,7 @@ bpmv.values ( family )
 * On failure, will return boolean false.
 */
 bpmv.unserial ( busted )
+
 /**
 * Walks a string to find an end point
 * @param {string} path A path to a var... such as "my.var.thing" or "fubarVar"
@@ -400,12 +457,14 @@ bpmv.unserial ( busted )
 * @return {mixed} Returns the end point of the string if possible otherwise will return undefined
 */
 bpmv.walk ( path, region )
+
 /**
 * Tries to derive the constructor name of a given thing...
 * @param {mixed} thing The thing you want to test
 * @return {string} Returns a string containing the constructor name or undefined if it can't be found
 */
 bpmv.whatis ( thing )
+
 /**
 * match a string against a wildcard string
 * @param {string} tundra The full text to test (ie: &quot;file_name_string&quot;)
@@ -414,6 +473,7 @@ bpmv.whatis ( thing )
 * @return {string} Will return the full text if a match is found and false if not.
 */
 bpmv.wild ( tundra, grylls, piss )
+
 /**
 * Word wrap a string to a given length. If this length is passed by a single word,
 * the word will NOT be broken and it will appear on its own "line".
