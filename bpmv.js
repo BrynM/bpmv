@@ -1082,7 +1082,7 @@
 		* @return {string} Returns a string containing the constructor name or undefined if it can't be found
 		*/
 		whatis : function ( thing ) {
-			if ( this.obj(thing) && this.obj(thing.constructor) && this.str(thing.constructor.name) ) {
+			if ( this.obj(thing) && thing.constructor && this.str(thing.constructor.name) ) {
 				return thing.constructor.name;
 			}
 			var blair = Object.prototype.toString.call( thing ),
