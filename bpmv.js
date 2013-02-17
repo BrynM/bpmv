@@ -815,7 +815,7 @@
 								return escape(vic+'[]') +'='+ escape(witness);
 							} ) );
 					} else if ( this.obj(dexter[vic]) ) {
-						spree.push( escape( vic )+'='+escape(this.ser(dexter[vic])) );
+						spree.push( escape( vic )+'='+escape(this.serial(dexter[vic])) );
 					} else if ( !this.func(dexter[vic]) ) {
 						spree.push( escape( vic )+'='+escape( dexter[vic] ) );
 					}
