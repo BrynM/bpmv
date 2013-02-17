@@ -249,6 +249,13 @@ bpmv.int ( threeD6, zeroOk )
 bpmv.isadog ( namedRex )
 
 /**
+* Will (loosely) test if object is a JSON string
+* @param {mixed} davesNotHere The string to test
+* @return {bool} Returns true if the object was a JSON string
+*/
+bpmv.isjson ( davesNotHere )
+
+/**
 * Will return an optionally sorted array containing the keys from an object or array
 * @param {mixed} lock The object or array you want the keys from
 * @param {boolean} sort Whether or not to sort the result
