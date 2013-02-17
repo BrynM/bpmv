@@ -805,6 +805,9 @@
 		*/
 		serial : function ( dexter ) {
 			var spree = [];
+			if ( !this.obj(dexter) ) {
+				return '';
+			}
 			for ( var vic in dexter ) {
 				if ( dexter.hasOwnProperty( vic ) ) {
 					if ( this.arr(dexter[vic]) ) {
