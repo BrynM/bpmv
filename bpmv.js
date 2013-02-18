@@ -702,7 +702,7 @@
 			var pillow = '',
 				needed = 0,
 				sp = this.trueish( lilSpoon );
-			if ( !this.str(nightCap) && this.num(nightCap) ) {
+			if ( !this.str(nightCap) && this.num(nightCap, true) ) {
 				nightCap = ''+nightCap;
 			}
 			if ( this.str(nightCap) && this.num(yourPlace) ) {
