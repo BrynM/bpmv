@@ -1,5 +1,6 @@
 /**
 * bpmv - A Simple Validator
+* v1.0
 *
 * These are tasks that I find myself repeating over and over again. The rules
 * for me including code in here are simple: nothing that tries to manipulate

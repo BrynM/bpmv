@@ -1,0 +1,342 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Documents and Settings/bryn/Desktop/browWarn.html",
+			"settings":
+			{
+				"buffer_size": 1154,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 272.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control:",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 448.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/P/code/bpmv/bpmv.js",
+		"/P/code/bpmv/bpmv.cLog.js",
+		"/C/Documents and Settings/bryn/Desktop/bpm_tester.html",
+		"/P/code/bpmv/bmtpl.js",
+		"/P/code/sg-card/trunk/public/card.html",
+		"/P/code/sg-card/trunk/common/bpmv.js",
+		"/P/code/sg-card/trunk/common/sg.card.js",
+		"/P/code/sg-card/trunk/html/tpls/ui/faction-list-item.html",
+		"/P/code/sg-card/trunk/html/tpls/objects/Base_standard.html",
+		"/P/code/sg-card/trunk/html/tpls/objects/Login_standard.html",
+		"/P/code/sg-card/trunk/html/_reachable.txt",
+		"/P/code/sg-card/trunk/common/_reachable.txt",
+		"/O/Program Files/Sublime Text 2/Data/Packages/User/sftp_servers/v2albert",
+		"/P/code/hsm/sftp-config.json",
+		"/P/code/hsm/hsm-remote.sublime-project",
+		"/T/users/bryn/sublime-sftp-browse-1345103472/nota/var/www/html/www.brynmosher.com/src/bpm_scratch_mark.js",
+		"/T/users/bryn/sublime-sftp-browse-1345101205/nota/var/www/html/www.brynmosher.com/src/bpm_scratch_mark.js",
+		"/O/Program Files/Sublime Text 2/Data/Packages/User/SFTP.sublime-settings",
+		"/O/Program Files/Sublime Text 2/Data/Packages/User/sftp_servers/nota",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/less/buttons.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/less/main_fix.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/less/main.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/less/type.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/static/main.css",
+		"/C/Documents and Settings/bryn/Desktop/pric/less/main_misc.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/less/main_vars.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/static/js/main.js",
+		"/C/Documents and Settings/bryn/Desktop/pric/index.html",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/less/utilities.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/less/forms.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/less/reset.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/less/hero-unit.less",
+		"/O/Program Files/Sublime Text 2/Data/Packages/LESS/Comments.tmPreferences",
+		"/O/Program Files/Sublime Text 2/Data/Packages/LESS/LESS.tmLanguage",
+		"/O/Program Files/Sublime Text 2/Data/Packages/CSS/Symbol List.tmPreferences",
+		"/O/Program Files/Sublime Text 2/Data/Packages/CSS/Symbol List Group.tmPreferences",
+		"/O/Program Files/Sublime Text 2/Data/Packages/CSS/Text/text-align-left-center-right-(txt).sublime-snippet",
+		"/O/Program Files/Sublime Text 2/Data/Packages/User/Plain text.sublime-settings",
+		"/O/Program Files/Sublime Text 2/Data/Packages/LESS/package-metadata.json",
+		"/O/Program Files/Sublime Text 2/Data/Packages/CSS/CSS.tmLanguage",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/less/bootstrap.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/less/variables.less",
+		"/C/Documents and Settings/bryn/Desktop/pric/bootstrap/js/README.md",
+		"/C/Documents and Settings/bryn/Desktop/default.js",
+		"/P/code/_poc_dev/saucer/saucer_poc.html",
+		"/P/code/_poc_dev/saucer/jQuery.saucer.js",
+		"/P/code/scaleframe/jQuery.scaleFrame.js/jQuery.scaleFrame.js",
+		"/P/code/bpmv/unit_tests/emptyTests.js",
+		"/P/code/bpmv/unit_tests/unit_tests.htm",
+		"/P/code/bpmv/unit_tests.html",
+		"/P/code/bpmv/bpmv.min.js",
+		"/P/code/_poc_dev/sockpush/testclient.html",
+		"/C/Documents and Settings/bryn/Desktop/practical.html",
+		"/C/Documents and Settings/bryn/Desktop/broo.html",
+		"/P/www/mevio/bmosher.dev/common/htdocs/oven/oven.js",
+		"/C/Documents and Settings/bryn/Desktop/sockpush/testclient.html",
+		"/P/code/bpmv/jsperf_tests.txt",
+		"/P/code/bpmv/releases/bpmv.1.0.js",
+		"/P/code/bpmv/README.txt",
+		"/P/code/bpmv/.git/config",
+		"/O/Program Files/Sublime Text 2/Data/Packages/Git/Git.sublime-settings",
+		"/C/Documents and Settings/bryn/Desktop/topx.html",
+		"/C/Documents and Settings/bryn/Desktop/zmr/zmr.html",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/SFTP/v2albert_svn_test.sublime-project",
+		"/G/downloads/Torquescript Syntax Highlighting.xml",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/PHP/PHP.tmLanguage",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Pristine Packages/PHP.sublime-package",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/User/Preferences.sublime-settings",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/User/GitHub.sublime-settings",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/Gist/Gist.sublime-settings",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/sublime-github/GitHub.sublime-settings",
+		"/T/users/bryn/sublime-sftp-browse-1331358513/v2albert/svn_working/hsm/sbm2/public/static/script/bindings.js",
+		"/P/code/hsm/foo.txt",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/User/SFTP.errors.log",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/SFTP/Default (Windows).sublime-keymap",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/SFTP/sftp-config.json",
+		"/T/users/bryn/sublime-sftp-browse-1331356911/v2albert/svn_working/hsm/sbm2/public/static/script/bindings.js",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/Default/Preferences.sublime-settings",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/SFTP/SFTP.sublime-settings",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/User/sftp_servers/v2albert",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/User/SFTP.sublime-settings",
+		"/C/Documents and Settings/bryn/Desktop/Sublime Text 2 Build 2181/Data/Packages/Default/Default (Windows).sublime-keymap"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"bmtpl.conf",
+			";",
+			"$dragging",
+			"$bpm",
+			"jBpm",
+			"file",
+			".w",
+			"@w",
+			"text-align: right",
+			"text-align",
+			"pric.$[tId]",
+			"cLog._con",
+			"bpmv.log._con",
+			"this.log._con",
+			"@",
+			"assets",
+			"01/c",
+			"img/",
+			"patt2",
+			"$",
+			"jQ.fn.saucer",
+			"h4",
+			"data",
+			"toc_update",
+			"src=",
+			"boolean_results",
+			"4D0013",
+			"394D00",
+			"boolTests",
+			"// note",
+			"// expect",
+			"// args",
+			" // single test ",
+			"//",
+			"theTests",
+			"h2",
+			"[ 	[",
+			" // note",
+			" // expect",
+			" // args",
+			" // single test ",
+			"theTests",
+			"Missing",
+			".obj",
+			"getE",
+			"bpmv",
+			"_cache_txt2html",
+			"bpmv"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"dRag",
+			"$bjq",
+			"bpm",
+			".wBig",
+			"@wBig",
+			"eEle",
+			"_cCon",
+			"this.cLog._con",
+			"bootstrap",
+			"15/w",
+			"http://brynmosher.com/saucer/img/",
+			"c",
+			"saucer",
+			"boolean_pos_results",
+			"802000",
+			"208000",
+			"boolTestsPos",
+			"/*note*/",
+			"/*expect*/",
+			"/*args*/",
+			"",
+			"boolTests",
+			"h3",
+			"[ [",
+			"",
+			"emptyTests",
+			"Empty",
+			"txt2html._cache"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Documents and Settings/bryn/Desktop/browWarn.html",
+					"settings":
+					{
+						"buffer_size": 1154,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 68.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 298.0,
+	"status_bar_visible": true
+}
