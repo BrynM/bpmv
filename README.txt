@@ -107,6 +107,15 @@ bpmv.brow ()
 bpmv.ccase ( hump, wspace )
 
 /**
+* Tell the Great and Mighty Computer to clone your troubleshooter... er... thing.
+* Note that cloning a function will create an anonymous function (not sure how to fix).
+* @param {mixed} alphaComplex The thing you want to clone
+* @param {boolean} outDoors Whether to perform a "deep" clone (recursion warning!)
+* @return {mixed} a copy of the thing or undefined on failure
+*/
+bpmv.clone ( alphaComplex, outDoors )
+
+/**
 * get or set a simple, pathless browser cookie
 * @param {string} muppet The name of the cookie
 * if all parms are undefined, the full set of cookies will be returned

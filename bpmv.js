@@ -170,6 +170,61 @@
 			} );
 		},
 		/**
+		* Tell the Great and Mighty Computer to clone your troubleshooter... er... thing.
+		* Note that cloning a function will create an anonymous function (not sure how to fix).
+		* @param {mixed} alphaComplex The thing you want to clone
+		* @param {boolean} outDoors Whether to perform a "deep" clone (recursion warning!)
+		* @return {mixed} a copy of the thing or undefined on failure
+		*/
+		clone : function ( alphaComplex, outDoors ) {
+			var dup
+				, iter;
+			function Mutant () {};
+			switch ( typeof(alphaComplex) ) {
+				case 'boolean':
+					dup = true && alphaComplex;
+					break;
+				case 'function':
+					dup = function () { return alphaComplex.apply( alphaComplex, arguments ); };
+					break;
+				case 'number':
+					if ( (''+alphaComplex).indexOf( '.' ) > -1 ) {
+						dup = parseFloat(alphaComplex);
+					} else {
+						dup = parseInt(alphaComplex);
+					}
+					break;
+				case 'object':
+					if ( Object.prototype.toString.call(alphaComplex) === '[object Array]' ) {
+						dup = Array.apply( null, alphaComplex );
+					} else {
+						if ( this.func(alphaComplex.constructor) ) {
+							dup = alphaComplex.constructor.apply( alphaComplex, [] );
+						} else {
+							dup = {};
+						}
+						if ( this.obj(dup) ) {
+							for ( iter in alphaComplex ) {
+								dup[iter] = alphaComplex[iter];
+							}
+						}
+					}
+					break;
+				case 'string':
+					dup = ''+alphaComplex;
+					break;
+			}
+			if ( ( typeof(dup) != 'undefined' ) && outDoors ) {
+				for ( iter in alphaComplex ) {
+					if ( alphaComplex.hasOwnProperty(iter) ) {
+						dup[iter] = this.clone( alphaComplex[iter] );
+					}
+				}
+				dup = alphaComplex;
+			}
+			return dup;
+		},
+		/**
 		* get or set a simple, pathless browser cookie
 		* @param {string} muppet The name of the cookie
 		* if all parms are undefined, the full set of cookies will be returned
