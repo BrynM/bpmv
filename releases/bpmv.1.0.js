@@ -76,22 +76,50 @@
 	********************************************************************************
 	* VERSIONS
 	********************************************************************************
-	* v1.0 April 19, 2012
-	*   sha1sum: 24c7e295c20e1bcee743d4b18f9f4d0b7efa1272 *bpmv.1.0.min.js
+	* The version naming convention is as follows. Optional portions are in square
+	* brackets ("[" and  "]").
+	*      (major).(minor)[.(patch number)][-(notation)]
+	* Notation is as follows in chronological order:
+	*      dev - currently under development
+	*      rc - testing to finalize developemnt
+	*      (none) - official version
+	* The files at the top of the Git tree should be considered in development
+	* always. If you want a stable version, please select one from the "releases"
+	* subdirectory.
+	* Releases:
+	*    v1.0 April 19, 2012
+	*      sha1sum: 24c7e295c20e1bcee743d4b18f9f4d0b7efa1272 *bpmv.1.0.min.js
 	********************************************************************************
 	*/
-	var bpmv = {
+	var initialBpmv = {
 		_cfg : {
-			varName : typeof(BPMV_VARNAME) === 'string' ? BPMV_VARNAME : 'bpmv'
+			tag : (function(){
+					var scripts = null;
+					if ( ( typeof(document) == 'object' ) && ( typeof(document.getElementsByTagName) == 'function' ) ) {
+						scripts = document.getElementsByTagName( 'script' );
+						if ( ( typeof(scripts) == 'object' ) && ( scripts.length > 0 ) ) {
+							return scripts[scripts.length - 1];
+						}
+					}
+				})(),
+			varName : typeof(BPMV_VARNAME) === 'string' ? ''+BPMV_VARNAME : 'bpmv',
+			version : '1.1-dev'
 		},
 		/**
 		* tests if something is not just an object, but is an Array and is not empty
 		* @param {mixed} dIsArr The value you'd like to test
-		* @param {boolean} okEmpty Will return true even if the array is empty
+		* @param {mixed} okEmpty If Boolean, is a flag for whether the array will be tested for emptiness.
+		* If an integer, will test the array for that exact length.
 		* @return {boolean} Will return true if an array
 		*/
 		arr : function ( dIsArr, okEmpty ) {
-			return this.obj( dIsArr ) && ( Object.prototype.toString.call(dIsArr) === '[object Array]' ) && ( okEmpty || (dIsArr.length > 0) );
+			if ( this.bool(okEmpty) ) {
+				return Boolean( this.obj( dIsArr ) && ( Object.prototype.toString.call( dIsArr ) === '[object Array]' ) && ( okEmpty || (dIsArr.length > 0) ) );
+			} else if ( !isNaN( okEmpty ) && ( okEmpty > -1 ) ) {
+				return Boolean( this.obj( dIsArr ) && ( Object.prototype.toString.call( dIsArr ) === '[object Array]' ) && ( dIsArr.length == parseInt(okEmpty, 10) ) );
+			} else {
+				return Boolean( this.obj( dIsArr ) && ( Object.prototype.toString.call( dIsArr ) === '[object Array]' ) && ( dIsArr.length > 0 ) );
+			}
 		},
 		/**
 		* Get the basename of a path
@@ -215,7 +243,7 @@
 		* @return {boolean} Will return true if the value is a real Date object
 		*/
 		date : function ( whEn ) {
-			return Object.prototype.toString.call(oA) === '[object Date]';
+			return Object.prototype.toString.call(whEn) === '[object Date]';
 		},
 		/**
 		* Get the dirname of a path
@@ -321,12 +349,12 @@
 		 * @param {mixed} pin What you are looking for.
 		 * Can be any valid value.
 		 * @param stack The object or array you are looking in
-		 * @param siv Assume the pin is not == and instead is the keyname
+		 * @param {boolean} siv Assume the pin is not == and instead is the keyname
 		 * of what you're looking for
 		 * @return {mixed} the key if found or null if not found
 		 */
 		find : function ( pin, stack, siv ) {
-			var ret = null, found = false;
+			var ret = undefined, found = false;
 			if ( this.arr(stack) || this.obj(stack) ) {
 				for ( var aK in stack ) {
 					if ( stack.hasOwnProperty( aK ) ) {
@@ -355,7 +383,7 @@
 		* @return {boolean} Will return true if the value is a valid floating point number
 		*/
 		'float' : function ( mFreak, zeroOk ) { // validates for formatting so '2.0b' is NOT valid
-			return (/^\s*[0-9]*\.?[0-9]+\s*$/).test(String(mFreak)) && this.num(mFreak, zeroOk);
+			return ( (/^(\-)?[0-9]*\.?[0-9]+([eE]\+[0-9]+)?$/).test(String(mFreak)) && this.num(mFreak, zeroOk) );
 		},
 		/**
 		* is a function?
@@ -397,10 +425,11 @@
 		/**
 		* is a valid hostname with at least a tld parent
 		* @param {mixed} drinks The value you'd like to test
+		* @param {bool} justaSingle Allow tests for just a single host name
 		* @return {boolean} Will return true if the value is a valid host name with at least two levelc (name plus tld)
 		*/
-		host : function ( drinks ) {
-			return  (/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/).test( drinks );
+		host : function ( drinks, justaSingle ) {
+			return  ( ( justaSingle && (/^([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])$/).test( drinks ) ) || (/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/).test( drinks ) ) ? true : false;
 		},
 		/**
 		* Increment all numeric values in either an array or the top level of an object by a given amount.
@@ -521,7 +550,7 @@
 			if ( this.func(gotDfunk) ) {
 				gotDfunk( outData );
 			}
-			return outData;
+			return this.obj(outData, true) ? outData : undefined;
 		},
 		/**
 		* Will Test strings and numbers for valid integer format and greater than 0 (may be disabled)
@@ -530,15 +559,67 @@
 		* @return {boolean} Will return true if the value is a valid integer
 		*/
 		'int' : function ( threeD6, zeroOk ) { // validates for formatting so '3m' is NOT valid
-			return (/^\s*[0-9]+\s*$/).test(String(threeD6)) && this.num(threeD6, zeroOk);
+			return (/^(\-)?[0-9]+$/).test(String(threeD6)) && this.num(threeD6, zeroOk);
+		},
+		/**
+		* is a valid IP address
+		* @param {mixed} numba The value you'd like to test
+		* @param {bool} v6 Allow tests for just IPV6 addresses
+		* @return {boolean} Will return true if the value is a valid IP address
+		*/
+		ip : function ( numba, v6 ) {
+			var chunks = null;
+			if ( v6 ) {
+				return (/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/).test( numba );
+			} else if ( (/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/).test( numba ) ) { // dotted
+				chunks = numba.split( '.' );
+				if ( this.arr(chunks) && ( chunks.length == 4 ) ) {
+					return  ( chunks[0] < 1 ) || ( chunks[0] < 255 ) &&
+					 	( chunks[2] < 0 ) || ( chunks[2] < 255 ) &&
+					 	( chunks[2] < 0 ) || ( chunks[2] < 255 ) &&
+					 	( chunks[2] < 1 ) || ( chunks[2] < 255 );
+				}
+			} else if ( (/[0-9]+/).test( numba ) ) { // base 10 address
+				return ( parseInt( numba ) > 16777215 ) && ( parseInt( numba ) < 4294967296 );
+			}
+			return false;
 		},
 		/**
 		* Will test if object is a RegExp object
 		* @param {mixed} namedRex The regular expression object you'd like to test
+		* @param {boolean} hasTest If true, the source of the RegExp object must not be empty
 		* @return {bool} Returns true if the object was a RegExp
 		*/
-		isadog : function ( namedRex ) {
-			return ( this.obj(namedRex) && ( Object.prototype.toString.call( namedRex ) === '[object RegExp]' ) );
+		isadog : function ( namedRex, hasTest ) {
+			return ( this.obj(namedRex) && ( Object.prototype.toString.call( namedRex ) === '[object RegExp]' ) && ( !hasTest || this.str(namedRex.source) ) );
+		},
+		/**
+		* Will (loosely) test if object is a JSON string
+		* @param {mixed} davesNotHere The string to test
+		* @return {bool} Returns true if the object was a JSON string
+		*/
+		isjson : function ( davesNotHere ) {
+			return this.str( davesNotHere ) && !( /[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test( davesNotHere.replace( /"(\\.|[^"\\])*"/g,'' ) ) );
+		},
+		/**
+		* Will return an optionally sorted array containing the keys from an object or array
+		* @param {mixed} lock The object or array you want the keys from
+		* @param {boolean} sort Whether or not to sort the result
+		* @return {array} array containing the keys lock
+		*/
+		keys : function ( lock, sort ) {
+			var ret = [];
+			if ( this.obj(lock, true) || this.arr(lock) ) {
+				for ( var aK in lock ) {
+					if ( lock.hasOwnProperty( aK ) ) {
+						ret.push( aK )
+					}
+				}
+				if ( sort ) {
+					ret.sort();
+				}
+			}
+			return ret;
 		},
 		/**
 		* Trim whitespace or optionally other characters from the beginning of a string
@@ -612,23 +693,29 @@
 		* than the desired padding length, it will be truncated to the padding length. When false,
 		* if the original is longer than the padding length, it will be returned unaltered.
 		* Defaults to true.
+		* @param {boolean} lilSpoon You want to be the little spoon. Pad right instead of padding left.
+		* If lilSpoon is true, the default of the mine parameter becomes a space character (' ').
 		* @return {string} Will return the padded (or optionally truncated) version of the input string.
 		* If the the input is not usable or the length desired is invalid, undefined is returned.
 		*/
-		pad : function ( nightCap, yourPlace, mine, somethingMoreComfy ) {
+		pad : function ( nightCap, yourPlace, mine, somethingMoreComfy, lilSpoon ) {
 			var pillow = '',
-				needed = 0;
+				needed = 0,
+				sp = this.trueish( lilSpoon );
+			if ( !this.str(nightCap) && this.num(nightCap, true) ) {
+				nightCap = ''+nightCap;
+			}
 			if ( this.str(nightCap) && this.num(yourPlace) ) {
 				pillow += nightCap;
 				mine = this.num(mine) ? ''+mine : mine;
-				mine = this.str(mine) ? mine : '0';
+				mine = this.str(mine) ? mine : ( lilSpoon ? ' ' : '0' );
 				somethingMoreComfy = typeof(somethingMoreComfy) == 'undefined' ? true : false;
 				if ( pillow.length == yourPlace ) {
 					return pillow;
 				} else if ( pillow.length < yourPlace ) {
 					needed = yourPlace - pillow.length;
 					for ( var added = 0; added < needed; added++ ) {
-						pillow = mine + pillow;
+						pillow = lilSpoon ? pillow+mine : mine+pillow;
 					}
 					return pillow;
 				} else if ( ( pillow.length > yourPlace ) && this.trueish(somethingMoreComfy) ) {
@@ -651,6 +738,24 @@
 			return String(fromNy).replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
 		},
 		/**
+		* Perform right padding
+		* (A wrapper for bpmv.pad() with the lilSpoon flag set to true.)
+		* @param {string} nightCap The string you'd like to pad
+		* @param {number} yourPlace The total character length you want the result to be
+		* @param {string} mine The character you wish to pad with. The default is to use a " ".
+		* Note that mine is added for each lacking character in the original. Thus, an example call
+		* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
+		* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
+		* than the desired padding length, it will be truncated to the padding length. When false,
+		* if the original is longer than the padding length, it will be returned unaltered.
+		* Defaults to true.
+		* @return {string} Will return the padded (or optionally truncated) version of the input string.
+		* If the the input is not usable or the length desired is invalid, undefined is returned.
+		*/
+		rpad : function ( nightCap, yourPlace, mine, somethingMoreComfy ) {
+			return this.pad( nightCap, yourPlace, mine, somethingMoreComfy, true ); 
+		},
+		/**
 		* Trim whitespace or optionally other characters from the end of a string
 		* @param {string} bush The string you'd like to trim
 		* @param {string} chars Optional list of characters to trim.
@@ -666,6 +771,33 @@
 			return bush.replace( rex, '' );
 		},
 		/**
+		* Search for a key name in an object or an Array.
+		* @param {mixed} q The key you'd like to find.
+		* q is mixed because you can use an integer for an Array.
+		* @param {mixed} forest The object or Array you'd like to look in.
+		* @param {boolean} slender If true, will return a string containing a "local" namespace representation rather than the found value.
+		* @return {mixed} Will return the found value or the namespace representation.
+		* On failure, will return undefined.
+		*/
+		search : function ( q, forest, slender ) {
+			var aK = null
+				, rR = null
+				, rT = null;
+			if ( this.obj(forest, true) || this.arr(forest) ) {
+				for ( aK in forest ) {
+					if ( aK == q ) {
+						return slender ? aK : forest[aK];
+					} else if ( this.obj(forest[aK], true) || this.arr(forest[aK]) ) {
+						rT = this.search( q, forest[aK], true );
+						rR = aK+'.'+rT;
+						if ( this.str(rT) ) {
+							return slender ? rR : this.walk( rR, forest );
+						}
+					}
+				}
+			}
+		},
+		/**
 		* Serialize an object into a query string
 		* @param {mixed} dexter The object you'd like to convert into a query string
 		* @return {string} Returns the object converted into a query string.
@@ -673,6 +805,9 @@
 		*/
 		serial : function ( dexter ) {
 			var spree = [];
+			if ( !this.obj(dexter) ) {
+				return '';
+			}
 			for ( var vic in dexter ) {
 				if ( dexter.hasOwnProperty( vic ) ) {
 					if ( this.arr(dexter[vic]) ) {
@@ -680,7 +815,7 @@
 								return escape(vic+'[]') +'='+ escape(witness);
 							} ) );
 					} else if ( this.obj(dexter[vic]) ) {
-						spree.push( escape( vic )+'='+escape(this.ser(dexter[vic])) );
+						spree.push( escape( vic )+'='+escape(this.serial(dexter[vic])) );
 					} else if ( !this.func(dexter[vic]) ) {
 						spree.push( escape( vic )+'='+escape( dexter[vic] ) );
 					}
@@ -695,7 +830,7 @@
 		* @return {boolean} Will return true if the value is a valid string
 		*/
 		str : function ( cider, zeroOk ) {
-			return ( typeof( cider ) === 'string' ) && ( zeroOk || ( cider.length > 0 ) );
+			return ( typeof(cider) === 'string' ) && ( zeroOk || ( cider.length > 0 ) );
 		},
 		/**
 		* Converts an integer number of seconds to days, hours, minutes and seconds
@@ -708,29 +843,31 @@
 				hr = 60 * min,
 				day = 24 * hr,
 				ret = {
-				d : 0,
-				h : 0,
-				m : 0,
-				s : 0
+					d : 0,
+					h : 0,
+					m : 0,
+					s : 0
 				};
-			if ( this.num(remain) ) {
-				if ( remain > day ) {
-					ret.d = parseInt(remain / day, 10);
-					remain = parseInt(remain - (day*ret.d), 10);
+			if ( this.num(intSecs, true) ) {
+				if ( this.num(remain) ) {
+					if ( remain > day ) {
+						ret.d = parseInt(remain / day, 10);
+						remain = parseInt(remain - (day*ret.d), 10);
+					}
+					if ( remain > hr ) {
+						ret.h = parseInt(remain / hr, 10);
+						remain = parseInt(remain - (hr*ret.h), 10);
+					}
+					if ( remain > min ) {
+						ret.m = parseInt(remain / min, 10);
+						remain = parseInt(remain - (min*ret.m), 10);
+					}
+					if ( remain > 0 ) {
+						ret.s = remain;
+					}
 				}
-				if ( remain > hr ) {
-					ret.h = parseInt(remain / hr, 10);
-					remain = parseInt(remain - (hr*ret.h), 10);
-				}
-				if ( remain > min ) {
-					ret.m = parseInt(remain / min, 10);
-					remain = parseInt(remain - (min*ret.m), 10);
-				}
-				if ( remain > 0 ) {
-					ret.s = remain;
-				}
+				return ret;
 			}
-			return ret;
 		},
 		/**
 		* A simple tokenizer.
@@ -807,7 +944,7 @@
 				case 'function':
 					return String(maybe); // we return a string for safety - no calling the func!
 				case 'string':
-					return (/^\s*(on|true|yes|1|yar|checked)\s*$/i).test(maybe);
+					return (/^\s*(on|true|yes|1|yar|checked|selected)\s*$/i).test(maybe);
 					break;
 				case 'object':
 					return this.obj( maybe, true );
@@ -858,8 +995,8 @@
 						}
 					}
 				}
+				return  tmpString;
 			}
-			return  tmpString;
 		},
 		/**
 		* Test something for a particular type constructor
@@ -904,21 +1041,38 @@
 					}
 				}
 			}
-			return ( this.count(pWagon) > 0 ) ? pWagon : false;
+			return ( this.count(pWagon) > 0 ) ? pWagon : undefined;
+		},
+		/**
+		* Will return an array containing the values from an object or array
+		* @param {mixed} family The object or array you want the values from
+		* @return {array} array containing the values
+		*/
+		values : function ( family ) {
+			var ret = [];
+			if ( this.obj(family, true) || this.arr(family) ) {
+				for ( var aK in family ) {
+					if ( family.hasOwnProperty( aK ) ) {
+						ret.push( family[aK] )
+					}
+				}
+			}
+			return ret;
 		},
 		/**
 		* Walks a string to find an end point
 		* @param {string} path A path to a var... such as "my.var.thing" or "fubarVar"
+		* @param {string} region An optional object to look in rather than the global scope
 		* @return {mixed} Returns the end point of the string if possible otherwise will return undefined
 		*/
-		walk : function ( path ) {
+		walk : function ( path, region ) {
 			var chunked, res, dOb;
 			if ( !this.str(path) || !(/^[a-zA-Z0-9\_\.\[\]\'\"]+$/).test( path ) ) {
 				return;
 			}
 			chunked = path.split( /[\.\[]/g );
 			if ( this.num(chunked.length) ) {
-				dOb = window[chunked[0]];
+				dOb = bpmv.obj(region, true) || bpmv.arr(region) ? region[chunked[0]] : window[chunked[0]];
 				for ( var nn = 1; nn < chunked.length; nn++ ) {
 					chunked[nn] = this.trim( chunked[nn], '\'"]' );
 					if ( typeof(dOb[chunked[nn]]) != 'undefined' ) {
@@ -939,7 +1093,7 @@
 		* @return {string} Returns a string containing the constructor name or undefined if it can't be found
 		*/
 		whatis : function ( thing ) {
-			if ( this.str(thing.constructor.name) ) {
+			if ( this.obj(thing) && thing.constructor && this.str(thing.constructor.name) ) {
 				return thing.constructor.name;
 			}
 			var blair = Object.prototype.toString.call( thing ),
@@ -1031,14 +1185,14 @@
 		}
 	};
 	// populate the appropriate global-ish place
-	if ( bpmv.node() ) {
-		exports[bpmv._cfg.varName] = bpmv;
-	} else if ( ( typeof(us) == 'object' ) && bpmv.obj(us.ebpm) && !bpmv.obj(us.ebpm.v)) {
+	if ( initialBpmv.node() ) {
+		exports[initialBpmv._cfg.varName] = initialBpmv;
+	} else if ( ( typeof(us) == 'object' ) && initialBpmv.obj(us.ebpm) && !initialBpmv.obj(us.ebpm.v)) {
 	// lead with typeof here because scope will throw Uncaught ReferenceError when strict
-		us.ebpm.v = bpmv;
-	} else if ( ( typeof(BPMV_ATTACH) == 'object' ) && !bpmv.obj(BPMV_ATTACH[bpmv._cfg.varName]) ) {
-		BPMV_ATTACH[bpmv._cfg.varName] = bpmv;
-	} else if ( bpmv.obj(window) ) {
-		window[bpmv._cfg.varName] = bpmv;
+		us.ebpm.v = initialBpmv;
+	} else if ( ( typeof(BPMV_ATTACH) == 'object' ) && !initialBpmv.obj(BPMV_ATTACH[initialBpmv._cfg.varName]) ) {
+		BPMV_ATTACH[initialBpmv._cfg.varName] = initialBpmv;
+	} else if ( initialBpmv.obj(window) ) {
+		window[initialBpmv._cfg.varName] = initialBpmv;
 	}
 })();
