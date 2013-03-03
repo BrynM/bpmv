@@ -75,22 +75,6 @@
 	* the lastest changes, you may want to grab the normal version (bpmv.js) and
 	* minify it yourself.
 	********************************************************************************
-	* VERSIONS
-	********************************************************************************
-	* The version naming convention is as follows. Optional portions are in square
-	* brackets ("[" and  "]").
-	*      (major).(minor)[.(patch number)][-(notation)]
-	* Notation is as follows in chronological order:
-	*      dev - currently under development
-	*      rc - testing to finalize developemnt
-	*      (none) - official version
-	* The files at the top of the Git tree should be considered in development
-	* always. If you want a stable version, please select one from the "releases"
-	* subdirectory.
-	* Releases:
-	*    v1.0 April 19, 2012
-	*      sha1sum: 24c7e295c20e1bcee743d4b18f9f4d0b7efa1272 *bpmv.1.0.min.js
-	********************************************************************************
 	*/
 	var initialBpmv = {
 		_cfg : {
@@ -104,7 +88,7 @@
 					}
 				})(),
 			varName : typeof(BPMV_VARNAME) === 'string' ? ''+BPMV_VARNAME : 'bpmv',
-			version : '1.1-dev'
+			version : '1.01'
 		},
 		/**
 		* tests if something is not just an object, but is an Array and is not empty

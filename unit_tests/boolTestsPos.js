@@ -91,7 +91,6 @@ boolTestsPos['obj'] = [
 boolTestsPos['str'] = [
 	  [ [ 'foo' ] /*args*/, true /*expect*/, 'Non-empty string' ]
 	, [ [ '', true ] /*args*/, true /*expect*/, 'Empty string, empty OK' ]
-	, [ [ new String(), true ] /*args*/, true /*expect*/, 'new String(), empty OK' ]
 ];
 boolTestsPos['trueish'] = [
 	  [ [ 1 ] /*args*/, true /*expect*/, 'Integer 1' ]

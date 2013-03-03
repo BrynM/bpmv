@@ -4,7 +4,9 @@
 var globalTotal = 0
 	, globalFail = 0
 	, globalPass = 0
-	, tocCount = 0;
+	, tocCount = 0
+	, tested = {}
+	, untested = {};
 
 function format_thing ( thing ) {
 	switch ( typeof(thing) ) {
@@ -312,6 +314,10 @@ function toc_update () {
 		$('#toc_close').click( toc_toggle );
 		$('#toc_ul li').click( toc_handle_click );
 	}
+}
+
+function untested () {
+
 }
 
 function whatIs ( thing ) {
