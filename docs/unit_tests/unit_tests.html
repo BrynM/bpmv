@@ -3,14 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>bpmv.js tests</title>
-	<link rel="stylesheet" type="text/css" href="../docs/assets/bpmv.css"></link>
+	<link rel="stylesheet" type="text/css" href="../assets/bpmv.css"></link>
+	<link rel="stylesheet" type="text/css" href="../assets/unit_tests.css"></link>
 </head>
 
 <body>
 
 <a href="https://github.com/BrynM/bpmv" target="_blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub"></a>
-<div id="contain">
+<div class="contain unit_tests">
 	<h1 id="page_header">bpmv.js Unit Tests</h1>
+
+	<div class="return_to_docs"><a href="../index.html">bpmv.js Documentation</a></div>
 
 	<div id="result_reports">
 	</div>
@@ -27,17 +30,20 @@
 
 </div>
 
+<!-- Include jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<!-- mini toc tool -->
+<script src="../assets/toc.js"></script>
+
 <!-- Include normal bpmv.js -->
-<script src="../bpmv.js"></script>
+<script src="../../bpmv.js"></script>
 
 <!-- Include bpmv.min.js -->
 <script>
 var BPMV_VARNAME = 'bpmv_min';
 </script>
-<script src="../bpmv.min.js"></script>
-
-<!-- Include jquery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="../../bpmv.min.js"></script>
 
 <!-- Testing functionality -->
 <script src="unit_testing.js"></script>
@@ -59,16 +65,16 @@ $(document).ready( function () {
 		, newMin = null;
 
 	/* bpmv.min.js Info ***********************************************************/
-	newMin = '<h2>bpmv.js</h2>';
-	newMin += '<div class="subcontain">';
-	newMin += '<pre><code id="bpmv_info">';
-	newMin += 'bpmv.min.js' + '\n';
-	newMin += '         Src: ' + bpmv._cfg.tag.src + '\n';
-	newMin += '         Var: ' + bpmv._cfg.varName + '\n';
-	newMin += '     Version: ' + bpmv._cfg.version;
-	newMin += '</code></pre>';
-	newMin += '</div>';
-	home.append( newMin );
+	newFull = '<h2>bpmv.js Details</h2>';
+	newFull += '<div class="subcontain">';
+	newFull += '<pre><code id="bpmv_info">';
+	newFull += 'bpmv.js' + '\n';
+	newFull += '         Src: ' + bpmv._cfg.tag.src + '\n';
+	newFull += '         Var: ' + bpmv._cfg.varName + '\n';
+	newFull += '     Version: ' + bpmv._cfg.version;
+	newFull += '</code></pre>';
+	newFull += '</div>';
+	home.append( newFull );
 
 	/* Run Standard Empty Tests ***************************************************/
 	testize( emptyTests, '#result_reports', false );
@@ -78,7 +84,7 @@ $(document).ready( function () {
 	testize( boolTestsNeg, '#result_reports', false );
 
 	/* bpmv.min.js Info ***********************************************************/
-	newMin = '<h2>bpmv.min.js</h2>';
+	newMin = '<h2>bpmv.min.js Details</h2>';
 	newMin += '<div class="subcontain">';
 	newMin += '<pre><code id="min_bpmv_info">';
 	newMin += 'bpmv.min.js' + '\n';
@@ -97,14 +103,16 @@ $(document).ready( function () {
 	testize( boolTestsNeg, '#result_reports', true );
 
 	/* Finish up ********************************************************************************/
-	$('#page_header').after( '<h2>Final Global Totals</h2><div class="subcontain">' + 
+	$('#result_reports').before( '<h2>Final Global Totals</h2><div class="subcontain">' + 
 		'<div id="globalTotals"><strong>Total Global Tests Run: <span class="totalGrand">' + globalTotal +
 		'</span> Passed: <span class="totalPassed">' + globalPass +
 		'</span> Failed: <span class="totalFailed">' + globalFail +
 		'</span></strong></div></div>'
 	);
+
 	toc_update();
 	toc_toggle( null, true );
+
 });
 
 </script>

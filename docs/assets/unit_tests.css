@@ -1,0 +1,169 @@
+/* ****************************************
+* unit testing
+**************************************** */
+#bpmv_info, #min_bpmv_info {
+	color: black;
+	font-size: 10px;
+}
+.unit_tests {
+}
+
+.unit_tests table {
+	margin: 0 auto;
+}
+
+tbody tr .expect {
+	width: 15%;
+}
+tbody tr .syntax {
+	font-family: monospace;
+	font-size: 9px;
+	width: auto;
+	width: 30%;
+	color: #208000;
+}
+tbody tr .note {
+	font-style: italic;
+	width: auto;
+}
+tbody .tr-pass .pass {
+	font-weight: bold;
+	width: 40px;
+	background-color: #208000;
+	background: -moz-radial-gradient(center, ellipse cover,  #208000 0%, #82d890 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#208000), color-stop(100%,#82d890)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #208000 0%,#82d890 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #208000 0%,#82d890 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #208000 0%,#82d890 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #208000 0%,#82d890 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#208000', endColorstr='#82d890',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	color: #EEFFEE;
+}
+tbody .tr-fail .fail {
+	background-color: #802000; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #802000 0%, #db7a64 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#802000), color-stop(100%,#db7a64)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #802000 0%,#db7a64 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #802000 0%,#db7a64 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #802000 0%,#db7a64 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #802000 0%,#db7a64 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#802000', endColorstr='#db7a64',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	color: #FFEEEE;
+	width: 40px;
+}
+tbody .tr-fail {
+	background-color: #FFCCDA !important;
+	color: #802000 !important;
+}
+tbody .tr-fail, tbody .tr-fail .syntax {
+	color: #66001A !important;
+}
+tbody .tr-fail td:first-child {
+	font-weight: bold;
+}
+tbody .tr-fail .expect {
+	font-weight: bold;
+}
+tbody .tr-fail:hover, tbody .tr-fail:hover .syntax {
+	background: -moz-radial-gradient(center, ellipse cover,  #eeeeee 0%, #ffccda 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#eeeeee), color-stop(100%,#ffccda)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#ffccda',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	color: #66001A !important;
+}
+tbody tr:nth-child(odd).tr-pass:hover {
+	background-color: #EBE5FF;
+	background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #EBE5FF 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#EBE5FF)) !important; /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#EBE5FF',GradientType=1 ) !important; /* IE6-9 fallback on horizontal gradient */
+}
+tbody tr:nth-child(even).tr-pass:hover {
+	background-color: #E5ECFF;
+	background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #E5ECFF 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#E5ECFF)) !important; /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#E5ECFF',GradientType=1 ) !important; /* IE6-9 fallback on horizontal gradient */
+}
+tbody .tr-pass:hover {
+}
+
+tbody .tr-pass .syntax:hover {
+/*
+	background-color: #208000 !important;
+	background: -moz-radial-gradient(center, ellipse cover,  #82d890 0%, #208000 100%) !important;
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#82d890), color-stop(100%,#208000)) !important;
+	background: -webkit-radial-gradient(center, ellipse cover,  #82d890 0%,#208000 100%) !important;
+	background: -o-radial-gradient(center, ellipse cover,  #82d890 0%,#208000 100%) !important;
+	background: -ms-radial-gradient(center, ellipse cover,  #82d890 0%,#208000 100%) !important;
+	background: radial-gradient(center, ellipse cover,  #82d890 0%,#208000 100%) !important;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82d890', endColorstr='#208000',GradientType=1 ) !important;
+	color: #FFFFFF !important;
+*/
+}
+
+.test_totals {
+	font-size: 100%;
+	margin: 0;
+}
+#log_pre {
+	height: 200px;
+	overflow: scroll;
+}
+.rerun {
+	font-size: 9px;
+}
+.syserr {
+	color: red;
+}
+.totals {
+}
+.totalGrand, .totalPassed, .totalFailed {
+	font-size: 15px;
+	line-height: 17px;
+	font-weight: bold;
+}
+.totalGrand {
+	color: #002FBD;
+}
+.totalPassed {
+	color: #208000;
+}
+.totalFailed {
+	color: #802000;
+}
+#globalTotals .totalGrand, #globalTotals .totalPassed, #globalTotals .totalFailed {
+	font-size: 30px;
+	line-height: 35px;
+}
+.rerun {
+	font-weight: bold;
+	font-size: 10px;
+	line-height: 9px;
+	padding: 5px 10px;
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	background-color: #4D0066;
+	border: 1px solid #4D0066;
+	border-radius: 0px 8px 0px 8px;
+	-moz-border-radius: 0px 8px 0px 8px;
+	-webkit-border-radius: 0px 8px 0px 8px;
+}
+.rerun a {
+	color: white;
+	text-decoration: none;
+}
+
+.rerun a:hover {
+	color: #eb7600;
+}

@@ -4,7 +4,6 @@
 var globalTotal = 0
 	, globalFail = 0
 	, globalPass = 0
-	, tocCount = 0
 	, tested = {}
 	, untested = {};
 
@@ -126,7 +125,7 @@ function run_tests ( set, target, min ) {
 		}
 		appNd += '<tfoot><tr class="totals">';
 		appNd += '<td colspan="4">';
-		appNd += '<h3 style="display: inline;">bpmv' + (min?'min.js ':'.js ') + set.title + ' ';
+		appNd += '<h3 style="display: inline;" class="test_totals">bpmv' + (min?'min.js ':'.js ') + set.title + ' ';
 		appNd += 'Grand Total</h3>: <span class="totalGrand">' + tested + '</span> ';
 		appNd += 'Passed: <span class="totalPassed">' + passed + '</span> ';
 		appNd += 'Failed: <span class="totalFailed">' + failed + '</span> ';
@@ -226,7 +225,7 @@ function testize ( set, target, min ) {
 		} else {
 			resTarget.append( cont.join( '\n' ) );
 		}
-		tDootie = $('<div><a href="javascript:void(0);" class="rerun">re-run tests</a></div>');
+		tDootie = $('<div class="rerun"><a href="javascript:void(0);">re-run test set</a></div>');
 		tDootie.data( 'testize', {
 			  'set' : set
 			, 'target' : target
@@ -234,85 +233,6 @@ function testize ( set, target, min ) {
 		});
 		tDootie.click( handle_rerun );
 		resTarget.find('#'+subTargCont).find('.subcontain').prepend( tDootie );
-	}
-}
-
-function toc_handle_click ( ev ) {
-	var cl = null
-		, gotcha = null;
-	if ( goodObj(ev) && goodObj(ev.currentTarget) ) {
-		cl = $(ev.currentTarget);
-		if ( goodObj( cl ) && ( cl.length > 0 ) && cl.is( 'li[toc-to]' ) ) {
-			gotcha = $('*[toc='+cl.attr( 'toc-to' )+']');
-			if ( goodObj( gotcha ) && ( gotcha.length > 0 ) ) {
-				$('html,body').animate( {
-						'scrollTop' : gotcha.offset().top - 40
-				}, 300 );
-			}
-		}
-	}
-}
-
-function toc_toggle ( ev, forceOff ) {
-	var currToc = $('#toc')
-		, currTocTog = $('#toc_tog');
-	if ( goodObj( currToc ) && goodObj(currTocTog) ) {
-		currToc.stop( true, true );
-		currTocTog.stop( true, true );
-		if ( currToc.is( ':visible' ) || forceOff ) {
-			currToc.fadeOut( 200 );
-			currTocTog.fadeIn( 200 );
-		} else {
-			currToc.fadeIn( 200 );
-			currTocTog.fadeOut( 200 );
-		}
-	}
-	if ( goodObj(ev) ) {
-		if ( goodFunc(ev.stopPropagation) ) {
-			ev.stopPropagation();
-		}
-		if ( goodFunc(ev.preventDefault) ) {
-			ev.preventDefault();
-		}
-	}
-	return false;
-}
-
-function toc_update () {
-	var currToc = $('#toc')
-		, currTocTog = $('#toc_tog')
-		, headers = $('#contain h1,#contain h2,#contain h3,#contain h4,#contain h5,#contain h6')
-		, tH = null
-		, cont = [ '<div id="toc_close">close</div>', '<ul id="toc_ul">' ]
-		, node = '';
-	if ( goodObj( headers ) && ( headers.length > 0 ) ) {
-		for ( var aH = 0; aH < headers.length; aH++ ) {
-			tH = $(headers[aH]);
-			node = tH.get(0).nodeName;
-			isToc = tH.attr( 'toc' );
-			if ( !goodStr( isToc ) )  {
-				isToc = tocCount++;
-				tH.attr( 'toc', isToc );
-			}
-			if ( goodObj( tH ) && ( tH.length == 1 ) ) {
-				cont.push( '<li toc-to="' + isToc + '"><' + node + '>' + tH.text() + '</' + node + '></li>' );
-			}
-		}
-		cont.push( '</ul>' );
-		if ( goodObj( currToc ) && ( currToc.length > 0 ) ) {
-			currToc.replaceWith( '<div id="toc">' + cont.join( '\n' ) + '</div>' );
-		} else {
-			currToc = $('<div id="toc"></div>');
-			currToc.append( cont.join( '\n' ) );
-			$('body').prepend( currToc );
-		}
-		if ( !goodObj( currTocTog ) || ( currTocTog.length < 1 ) ) {
-			$('body').prepend( '<div id="toc_tog">Show Contents</div>' );
-			currTocTog = $('#toc_tog');
-			currTocTog.click( toc_toggle );
-		}
-		$('#toc_close').click( toc_toggle );
-		$('#toc_ul li').click( toc_handle_click );
 	}
 }
 

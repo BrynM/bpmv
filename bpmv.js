@@ -108,14 +108,21 @@
 		},
 		/**
 		* Get the basename of a path
-		* @param {string} wellDuh Some sort of path
+		* @param {string} redOrBlue Some sort of path
 		* @return {string} The parsed dirname
 		*/
 		basename : function ( redOrBlue ) {
-			var ret = false;
+			var capFlag
+				, ret = false
+				, tstr
+				, uriMatch;
 			if ( this.str( redOrBlue ) ) {
-				var tstr = this.rtrim( redOrBlue, '/\\' ),
-					capFlag = false;
+				uriMatch = redOrBlue.match( /^[^:]+:\/\// );
+				if ( this.arr(uriMatch) ) {
+					uriMatch = uriMatch.shift();
+				}
+				tstr = this.rtrim( redOrBlue, '/\\' )
+				capFlag = false;
 				if ( /\//.test( tstr ) ) { // *nix dirs
 					capFlag = tstr.split( '/' );
 				} else if ( /\\/.test( tstr ) ) { // windows dirs
@@ -123,6 +130,9 @@
 				}
 				if ( this.arr( capFlag ) ) {
 					ret = capFlag.pop();
+				}
+				if ( this.str(uriMatch) && ( ret.indexOf(uriMatch) === -1 ) && ( redOrBlue.indexOf(ret) === uriMatch.length ) ) {
+					ret = uriMatch+ret;
 				}
 			}
 			return this.str(ret) ? ret : redOrBlue;
@@ -142,17 +152,47 @@
 			return this.obj(window) && this.obj(navigator);
 		},
 		/**
-		* camel case
+		* Convert a string to camel case.
+		* @param {string} hump The string to convert.
+		* @param {mixed} wspace The whitespace character(s) you would like to remove for the conversion.
+		* If a character, it can be an entire string or several comma separated character (no whitespace around your commas).
+		* wspace can also be an Array of characters.
+		* The default wspace is [ ' ', '_', '-', '\r', '\n' ].
+		* @param {boolean} spit If spit is true, the first letter of the string will be capitalized.
+		* @return {string} Returns the camel cased version of your string.
+		* If the hump parameter is not a string, it will be returned as-is to prevent destruction ot loss.
 		*/
-		ccase : function ( hump, wspace ) {
-			if ( !this.str( hump ) ) { return hump; }
-			wspace = this.str( wspace ) ? wspace.split( /\,/ ) : wspace;
-			wspace = this.arr( wspace ) ? wspace : [ ' ', '_', '-' ];
-			var getChar = new RegExp( '(['+wspace.join( '\\' )+'][a-z])', 'g' ),
-				camChar =  new RegExp( '['+wspace.join( '\\' )+']' );
-			return hump.replace( getChar, function ( ltr ) {
-				return ltr.toUpperCase().replace(camChar,'');
+		ccase : function ( hump, wspace, spit ) {
+			var getChar
+				, camChar
+				, wp
+				, out;
+			if ( !this.str(hump) ) {
+				return hump;
+			}
+			wp = this.str( wspace ) ? wspace.split( /\,/ ) : wp;
+			wp = this.arr( wspace ) ? Array.apply( null, wspace ) : wp;
+			wp = this.arr( wp ) ? wp : [ ' ', '_', '-', '\r', '\n' ];
+			wp.map( function ( w ) {
+				if ( this.num(this.find( w, [ '-', '\\' ] ), true) ) {
+					return '\\'+w;
+				} else {
+					return ''+w;
+				}
+			}, this );
+			getChar = new RegExp( '(['+wp.join( '\\' )+'][a-z])', 'g' );
+			camChar =  new RegExp( '['+wp.join( '\\' )+']' );
+			out = hump.replace( getChar, function ( ltr ) {
+				return ltr.toUpperCase().replace( camChar,'' );
 			} );
+			if ( this.str(out) ) {
+				if ( spit ) {
+					out = out.substring( 0, 1 ).toUpperCase()+out.substring( 1 );
+				} else {
+					out = out.substring( 0, 1 ).toLowerCase()+out.substring( 1 );
+				}
+				return out;
+			}
 		},
 		/**
 		* Tell the Great and Mighty Computer to clone your troubleshooter... er... thing.
@@ -259,7 +299,7 @@
 			return;
 		},
 		/**
-		* count number of elements an object actually owns
+		* Count number of elements or properties an object actually owns.
 		* @param {mixed} ahAHah The object you'd like to count
 		* @return {number} Will return the count of elements owned by the object
 		*/
@@ -341,7 +381,7 @@
 			var iLen = fans.absLen == true ? fans.len - tsLen : fans.len;
 			for ( var i=0; i < iLen; i++ ) {
 				var rnum = Math.floor(Math.random() * fans.charset.length);
-				c = fans.charset.substring(rnum,rnum+1);
+				c = (''+fans.charset).substring(rnum,rnum+1);
 				if ( first == false ) {
 					if ( c.match(/[a-zA-Z]/) == null ) {
 						i--;
@@ -360,12 +400,14 @@
 			}
 			rStr = fans.useTime == false ? rStr : rStr+fans.delim+fans.ts;
 			rStr = this.str(fans.prefix) ? fans.prefix+fans.delim+rStr : rStr;
-			if ( typeof(this.ego.usedIds[rStr]) == 'undefined' ) {
-				this.ego.usedIds[rStr] = true;
-				return rStr;
-			} else {
-				// we do this to avoid dupe strings. currently no limit on the recursive call.
-				return this.ego( fans );
+			if ( this.str(rStr) ) {
+				if ( typeof(this.ego.usedIds[rStr]) == 'undefined' ) {
+					this.ego.usedIds[rStr] = true;
+					return rStr;
+				} else {
+					// we do this to avoid dupe strings. currently no limit on the recursive call.
+					return this.ego( fans );
+				}
 			}
 		},
 		/**

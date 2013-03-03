@@ -84,7 +84,7 @@ bpmv.arr ( dIsArr, okEmpty )
 
 /**
 * Get the basename of a path
-* @param {string} wellDuh Some sort of path
+* @param {string} redOrBlue Some sort of path
 * @return {string} The parsed dirname
 */
 bpmv.basename ( redOrBlue )
@@ -102,9 +102,17 @@ bpmv.bool ( fool )
 bpmv.brow ()
 
 /**
-* camel case
+* Convert a string to camel case.
+* @param {string} hump The string to convert.
+* @param {mixed} wspace The whitespace character(s) you would like to remove for the conversion.
+* If a character, it can be an entire string or several comma separated character (no whitespace around your commas).
+* wspace can also be an Array of characters.
+* The default wspace is [ ' ', '_', '-', '\r', '\n' ].
+* @param {boolean} spit If spit is true, the first letter of the string will be capitalized.
+* @return {string} Returns the camel cased version of your string.
+* If the hump parameter is not a string, it will be returned as-is to prevent destruction ot loss.
 */
-bpmv.ccase ( hump, wspace )
+bpmv.ccase ( hump, wspace, spit )
 
 /**
 * Tell the Great and Mighty Computer to clone your troubleshooter... er... thing.
@@ -128,7 +136,7 @@ bpmv.clone ( alphaComplex, outDoors )
 bpmv.cook ( muppet, chips, reruns )
 
 /**
-* count number of elements an object actually owns
+* Count number of elements or properties an object actually owns.
 * @param {mixed} ahAHah The object you'd like to count
 * @return {number} Will return the count of elements owned by the object
 */
@@ -250,6 +258,14 @@ bpmv.ini ( outie, gotDfunk )
 * @return {boolean} Will return true if the value is a valid integer
 */
 bpmv.int ( threeD6, zeroOk )
+
+/**
+* is a valid IP address
+* @param {mixed} numba The value you'd like to test
+* @param {bool} v6 Allow tests for just IPV6 addresses
+* @return {boolean} Will return true if the value is a valid IP address
+*/
+bpmv.ip ( numba, v6 )
 
 /**
 * Will test if object is a RegExp object
