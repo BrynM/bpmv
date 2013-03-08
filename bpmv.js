@@ -421,7 +421,7 @@
 			} else if ( this.brow() ) {
 				return 'browser';
 			}
-			return 'undefined';
+			return;
 		},
 		/**
 		 * Find the key name for a given element in an object or array.
@@ -445,7 +445,7 @@
 								found = true;
 							}
 						} else {
-							if ( stack[aK] == pin ) {
+							if ( stack[aK] === pin ) {
 								found = true;
 							}
 						}

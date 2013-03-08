@@ -481,14 +481,30 @@ bpmv.ego ( fans )
 				</table>
 			</div>
 			<h5>Examples</h5>
-<pre class="lined"><code>bpmv.ego(); // returns something like 'ABC12DEF34GH_1234567890123'
-bpmv.ego( { len : 3 } ); // returns something like 'ABC_1234567890123'
-bpmv.ego( { prefix : 'mine' } ); // returns something like 'mine_ABC12DEF34GH_1234567890123'
-bpmv.ego( { charset : 'mine' } ); // returns something like 'inimmieimmim_1234567890123'
-bpmv.ego( { useTime : false } ); // returns something like 'ABC12DEF34GH'
-bpmv.ego( { len : 3, absLen : true } ); // returns something like 'ABC'
-bpmv.ego( { delim : '+' } ); // returns something like 'ABC12DEF34GH+1234567890123'
-bpmv.ego( { prefix : 'mine', delim : '+' } ); // returns something like 'mine+ABC12DEF34GH+1234567890123'
+<pre class="lined"><code>// returns something like 'ABC12DEF34GH_1234567890123'
+bpmv.ego();
+
+// returns something like 'ABC_1234567890123'
+bpmv.ego( { len : 3 } );
+
+// returns something like 'mine_ABC12DEF34GH_1234567890123'
+bpmv.ego( { prefix : 'mine' } );
+
+// returns something like 'inimmieimmim_1234567890123'
+bpmv.ego( { charset : 'mine' } );
+
+// returns something like 'ABC12DEF34GH'
+bpmv.ego( { useTime : false } );
+
+// returns something like 'ABC'
+bpmv.ego( { len : 3, absLen : true } );
+
+// returns something like 'ABC12DEF34GH+1234567890123'
+bpmv.ego( { delim : '+' } );
+
+// returns something like 'mine+ABC12DEF34GH+1234567890123'
+bpmv.ego( { prefix : 'mine', delim : '+' } );
+
 // let's get fancy
 var egoOptions = {
 	  len     : 25
@@ -502,170 +518,201 @@ bpmv.ego( egoOptions ); // returns something like 'mine+ABC12DEF34GH+12345678901
 		<div class="usage">
 			<h3>.env ()</h3>
 			<p class="description">
-/**
-* An alias to combine node() and brow() into a single call (for varialbe storage).
-* This will return which "environment" is in service if known and 'undefined' if not.
-* Currently, only 'undefined', 'browser' and 'node' are supported.
-*/
-bpmv.env ()
+				An alias to combine bpmv.node() and bpmv.brow() into a single call (for varialbe storage).
 			</p>
 			<div class="parameters">
 				<table>
-					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
-					<tbody>
-						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>
+								Will return which &quot;environment&quot; is in service if known and 'undefined' if not.
+								Currently, only &quot;browser&quot; and &quot;node&quot; are supported.
+								If neither of those can be found, then undefined is returned.
+							</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
+<pre class="lined"><code>bpmv.env(); // returns 'browser' in a web browser
+bpmv.env(); // returns 'node' in node.js
+bpmv.env(); // returns undefined in Adobe Photoshop</code></pre>
 		</div>
 
 		<div class="usage">
-			<h3>.find ()</h3>
+			<h3>.find ( pin, stack, siv )</h3>
 			<p class="description">
-/**
-* Find the key name for a given element in an object or array.
-* The first encountered match is what will be returned,
-* so be carefult that what you are looking for is unique!
-* If the key is not found, null is returned.
-* @param {mixed} pin What you are looking for.
-* Can be any valid value.
-* @param stack The object or array you are looking in
-* @param {boolean} siv Assume the pin is not == and instead is the keyname
-* of what you're looking for
-* @return {mixed} the key if found or null if not found
-*/
-bpmv.find ( pin, stack, siv )
+				Find the property name for a given element in an object or array.
+				The first encountered match is what will be returned,
+				so be carefult that what you are looking for is unique!
+				If the property is not found, null is returned.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>pin</td>
+							<td>mixed</td>
+							<td>
+								What you are looking for.
+								Can be any valid value.
+							</td>
+						</tr>
+						<tr>
+							<td>stack</td>
+							<td>mixed</td>
+							<td>The object or array you are looking in.</td>
+						</tr>
+						<tr>
+							<td>boolean</td>
+							<td>siv</td>
+							<td>
+								Assume the pin is not === and instead is the keyname of what you're looking for.
+								If this option is true, the value of the property will be returned if found.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>mixed</td>
+							<td>The nake of the property if found or null if not found.</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
+<pre class="lined"><code>function foo () {}
+var thing = {
+	  'func' : foo
+	, 'bar'  : 'stuff'
+	, 'baz'  : 2
+	, 'boo'  : null
+}
+bpmv.find( foo, thing ); // returns 'func'
+bpmv.find( 'stuff', thing ); // returns 'bar'
+bpmv.find( null, thing ); // returns 'boo'</code></pre>
 		</div>
 
 		<div class="usage">
-			<h3>.float ()</h3>
+			<h3>.float ( mFreak, zeroOk )</h3>
 			<p class="description">
-/**
-* Tests strings and numbers for valid floating point format and greater than 0 (may be disabled)
-* @param {mixed} mFreak The value you'd like to test
-* @param {boolean} zeroOk Will return true even if the the value is 0 or less
-* @return {boolean} Will return true if the value is a valid floating point number
-*/
-bpmv.float ( mFreak, zeroOk )
+				Tests strings and numbers for valid floating point format and greater than 0 (may be optionally disabled).
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>mFreak</td>
+							<td>mixed</td>
+							<td>The value you'd like to test.</td>
+						</tr>
+						<tr>
+							<td>zeroOk</td>
+							<td>boolean</td>
+							<td>Will return true even if the the value is 0 or less.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a valid floating point number.</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
+<pre class="lined"><code>// these return true
+bpmv.float( 1.234 );
+bpmv.float( 1 );
+bpmv.float( -1, true );
+bpmv.float( 1.234 );
+bpmv.float( '1.234' );
+
+// these return false
+bpmv.float( -1 );
+bpmv.float( -1.234 );
+bpmv.float( 'aa1' );</code></pre>
 		</div>
 
 		<div class="usage">
-			<h3>.func ()</h3>
+			<h3>.func ( boOtsy )</h3>
 			<p class="description">
-/**
-* is a function?
-* @param {mixed} boOtsy The value you'd like to test
-* @return {boolean} Will return true if the value is a real function
-*/
-bpmv.func ( boOtsy )
+				Is a thing a function?
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boOtsy</td>
+							<td>mixed</td>
+							<td>The value you'd like to test.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a real function (anonymous or named).</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
+<pre class="lined"><code>// these return true
+bpmv.func( Date );
+bpmv.func( function () {} );
+bpmv.func( document.getElementById ); // (in a browser)
+
+// these return false
+bpmv.func( 1 );
+bpmv.func( 'George' );
+bpmv.func( (function () {})() ); // (the function is returning a value)
+
+// list all of the functions of the document object in a browser
+for ( var p in document ) {
+	if ( bpmv.func(document[p]) ) {
+		console.log( p, document[p] );
+	}
+}</code></pre>
 		</div>
 
 		<div class="usage">
-			<h3>.grab ()</h3>
+			<h3>.grab ( leggo, eggo )</h3>
 			<p class="description">
-/**
-* Grab a deep key from an object
-* @param {string} leggo The deep key you are looking for. For example "foo.bar.baz".
-* @param {object} eggo The object you're looking in
-* @return {boolean} Will return the object by ref or undefined if not found
-*/
-bpmv.grab ( leggo, eggo )
+				Grab a deep property from an object by its string name.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>leggo</td>
+							<td>string</td>
+							<td>The deep property you are looking for. For example "foo.bar.baz".</td>
+						</tr>
+						<tr>
+							<td>eggo</td>
+							<td>object</td>
+							<td>The object you're looking in.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>mixed</td>
+							<td>Will return the value of that property or undefined if not found.</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
+<pre class="lined"><code>// returns the document.getElementById() function for the current window
+bpmv.grab( 'document.getElementById', window );
+
+// returns the document.getElementById() function for the current window
+bpmv.grab( 'getElementById', window.document );</code></pre>
 		</div>
 
 		<div class="usage">
@@ -1768,17 +1815,69 @@ bpmv.wrapped ( gift, box, bow, bag )
 				You should have received a copy of the GNU Library General Public License Version 2 along with this library named as bpmv_license.txt;
 				if not, you can find it at <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank">http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</a> or write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 			</p>
+			<p>
+				<a class="gpl" href="assets/LICENSE.txt" target="_blank">Read a local copy of the GPL v2 License here.</a>
+			</p>
 		</div>
 	</div>
 
 	<h2>FAQ</h2>
 	<div class="subcontain">
-		<div>
-			<h3>Are there unit tests?</h3>
-			<p>
-				Yes there are! They are run live in a page that is <a href="unit_tests/unit_tests.html">here</a>.
-			</p>
-		</div>
+		<ul class="faq">
+			<li>
+				<h3>Are bpmv functions chainable?</h3>
+				<p>
+					No.
+					That's not really the desired functionality.
+					Most of bpmv is for testing things and returning boolean values.
+				</p>
+			</li>
+			<li>
+				<h3>Are there unit tests?</h3>
+				<p>
+					Yes there are! They are run live in a page that is <a href="unit_tests/unit_tests.html">here</a>.
+				</p>
+			</li>
+			<li>
+				<h3>Can I alter bpmv.js?</h3>
+				<p>
+					You read the <a class="gpl" href="assets/LICENSE.txt" target="_blank">local copy of the GPL v2 License</a>, right?
+					If your alterations are nice, <a href="https://github.com/BrynM/bpmv" target="_blank">send over a pull request</a>.
+				</p>
+			</li>
+			<li>
+				<h3>Can I use bpmv in Adobe Creative Suite JS files?</h3>
+				<p>
+					I've done it and so far haven't seen any issues. That said, it's not officially supported and I won't pass out sample code for it.
+				</p>
+			</li>
+			<li>
+				<h3>Can I use bpmv in node.js?</h3>
+				<p>
+					You betcha. 
+					I do all the time.
+				</p>
+				<pre class="lined"><code>var bpmv = require( __dirname+'/bpmv.min.js' ).bpmv;</code></pre>
+			</li>
+			<li>
+				<h3>SuperCoolTrendyThing.js does X way better! Why don't you do it like them?</h3>
+				<p>
+					For one, coming up with new solutions if possilbe is part of the point.
+					Secondly, if you're just looking for a copy pasta library then please make your own - but you have to release what you crib from bpmv!
+					Finally, if you can rephrase your question to something like &quot;have you tried using new WowBuiltin().obscureFunc() for bpmv.dostuff()?&quot;, then I am all ears.
+					I like to learn.
+				</p>
+			</li>
+			<li>
+				<h3>Why all the silly names and parameters?</h3>
+				<p>
+					I'm just a strange, silly guy.
+					My laugh can be heard for miles.
+					Trying to resist my laugh is a pointless endeavor.
+					Just go with it or ignore it, if you can.
+				</p>
+			</li>
+		</ul>
 	</div>
 
 </div>
