@@ -716,29 +716,34 @@ bpmv.grab( 'getElementById', window.document );</code></pre>
 		</div>
 
 		<div class="usage">
-			<h3>.host ()</h3>
+			<h3>.host ( drinks, justaSingle )</h3>
 			<p class="description">
-/**
-* is a valid hostname with at least a tld parent
-* @param {mixed} drinks The value you'd like to test
-* @return {boolean} Will return true if the value is a valid host name with at least two levelc (name plus tld)
-*/
-bpmv.host ( drinks )
+				Check if a string is a valid hostname with at least a TLD component.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>drinks</td>
+							<td>string</td>
+							<td>
+								The string you'd like to test.
+								Note that passing other parts of an URL, such as the protocol, path, parameters or delimiters will fail and return false.
+							</td>
+						</tr>
+						<tr>
+							<td>justaSingle</td>
+							<td>boolean</td>
+							<td>
+								Allow tests for just a single host name without at TLD.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a valid host name (by default with at least two levels - name plus tld).</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -748,41 +753,62 @@ bpmv.host ( drinks )
 		</div>
 
 		<div class="usage">
-			<h3>.incall ()</h3>
+			<h3>.incall ( soil, fertilizer, weeds, flo )</h3>
 			<p class="description">
-/**
-* Increment all numeric values in either an array or the top level of an object by a given amount.
-* Note that this will also increment numbers inside of strings.
-* @param {mixed} soil array or object to increment values in.
-* @param {number} fertilizer The amount you'd like the numbers incremented.
-* Defaults to 1.
-* @param {boolean} weeds Increment numeric strings too.
-* Defaults to true.
-* @param {boolean} flo If true, integers will not be rounded and may increment to float results.
-* @return {mixed} Will return the reultant version of soil.
-*/
-bpmv.incall( soil, fertilizer, weeds, flo )
+				Increment all numeric values in either an array or the top level of an object by a given amount.
+				Note that this will also increment numbers inside of strings.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>soil</td>
+							<td>mixed</td>
+							<td>The array or object to increment values in.</td>
+						</tr>
+						<tr>
+							<td>fertilizer</td>
+							<td>number</td>
+							<td>
+								The amount you'd like the numbers incremented.
+								This can be a positive or negative value - including 0.
+								Floats are perfectly valid, but integer values being incremented by floats will be rounded.
+								To control the rounding behavior, see the flo parameter.
+								Defaults to 1.
+							</td>
+						</tr>
+						<tr>
+							<td>weeds</td>
+							<td>boolean</td>
+							<td>
+								Increment numeric strings too.
+								If false, only proper Number values will be incremented.
+								Defaults to true.
+							</td>
+						</tr>
+						<tr>
+							<td>flo</td>
+							<td>boolean</td>
+							<td>
+								Normally, when an integer value is being incremented by a float, the integer will be rounded using Math.round().
+								To force them to be converted to floating point numbers, pass this parameter as true.
+								Defaults to false.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>mixed</td>
+							<td>Will return the reultant version of soil.</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
+<pre class="lined"><code>bpmv.incall( [ 1, 1.25, 0 ], 1.6 ); // returns [ 3, 2.85, 2 ]
+bpmv.incall( [ 1, 1.25, 0, '2.2' ], 1.6, true ); // returns [ 3, 2.85, 2 ]
+bpmv.incall( [ 1, 1.25, 0 ], 1.6 ); // returns [ 3, 2.85, 2 ]</code></pre>
 		</div>
 
 		<div class="usage">
@@ -1166,6 +1192,39 @@ bpmv.pad ( nightCap, yourPlace, mine, somethingMoreComfy )
 * @return {string} The converted string
 */
 bpmv.rescape ( fromNy )
+			</p>
+			<div class="parameters">
+				<table>
+					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
+					<tbody>
+						<tr>
+							<td>blahblahblah</td>
+							<td>blahblahblah</td>
+							<td>blahblahblah</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="return"><td>RETURN:</td>
+							<td>blahblahblah</td>
+							<td>blahblahblah</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<h5>Examples</h5>
+<pre class="lined"><code>// examples</code></pre>
+		</div>
+
+		<div class="usage">
+			<h3>.reverse ()</h3>
+			<p class="description">
+/**
+* Reverse a string.
+* @param {string} backAtcha The string you want to reverse.
+* If a string is not given, the string value of backAtcha will be returned.
+* @return {string} The reversed string value
+*/
+reverse ( backAtcha )
 			</p>
 			<div class="parameters">
 				<table>

@@ -76,7 +76,13 @@
 	* minify it yourself.
 	********************************************************************************
 	*/
-	var initialBpmv = {
+	var initialBpmv
+		, rgxIsAtoZAny = /[a-zA-Z]/
+		, rgxIsFloatNotSci   = /^[0-9]+\.([0-9]+)?$/
+		, rgxIsFloatSci   = /^[0-9]+\.([0-9]+([eE]\+[0-9]+)?)?$/
+		, rgxIsNumber  = /^[0-9]+$/;
+
+	initialBpmv = {
 		_cfg : {
 			tag : (function(){
 					var scripts = null;
@@ -383,7 +389,7 @@
 				var rnum = Math.floor(Math.random() * fans.charset.length);
 				c = (''+fans.charset).substring(rnum,rnum+1);
 				if ( first == false ) {
-					if ( c.match(/[a-zA-Z]/) == null ) {
+					if ( c.match(rgxIsAtoZAny) == null ) {
 						i--;
 					} else {
 						rStr += c;
@@ -525,11 +531,19 @@
 		* @return {mixed} Will return the reultant version of soil.
 		*/
 		incall : function ( soil, fertilizer, weeds, flo ) {
-			var wasStr = false, nVal = false;
+			var wasStr = false, nVal = false, ferF, ferD = 0, floD = 0, fSt = (''+fertilizer);
 			weeds = typeof(weeds) == 'undefined' ? true : weeds;
 			fertilizer = typeof(fertilizer) == 'undefined' ? 1 : fertilizer;
 			if ( this.obj(soil, true) || this.arr(soil) ) {
 				if ( this.num(fertilizer, true) && ( fertilizer != 0 ) ) {
+					if ( (rgxIsFloatSci).test( fertilizer ) ) {
+						ferF = parseFloat(fertilizer);
+						ferD = (rgxIsFloatNotSci).test( fertilizer ) ? fSt.indexOf( '.' ) : 0;
+						ferD = ferD > 0 ? fSt.length - ferD : 0;
+console.log( 'ferD', ferD );
+					} else {
+						ferF =  parseInt(fertilizer);
+					}
 					for ( var aS in soil ) {
 						nVal = false;
 						if ( soil.hasOwnProperty( aS ) ) {
@@ -537,11 +551,11 @@
 							if ( wasStr && !weeds ) {
 								continue;
 							}
-							if ( (/^[0-9]+\.([0-9]+([eE]\+[0-9]+)?)?$/).test( soil[aS] ) ) { // float
-								soil[aS] = parseFloat(soil[aS]) + parseFloat(fertilizer);
+							if ( (rgxIsFloatSci).test( soil[aS] ) ) { // float
+								soil[aS] = parseFloat(soil[aS]) + ferF;
 								nVal = true;
-							} else if ( (/^[0-9]+$/).test( soil[aS] ) ) { // int
-								soil[aS] = ( parseInt(soil[aS]) + parseFloat(fertilizer) );
+							} else if ( (rgxIsNumber).test( soil[aS] ) ) { // int
+								soil[aS] = parseInt(soil[aS]) + ferF;
 								if ( !flo ) {
 									soil[aS] = Math.round( soil[aS] );
 								}
@@ -818,6 +832,15 @@
 				return fromNy; // not a string? just return it
 			}
 			return String(fromNy).replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
+		},
+		/**
+		* Reverse a string.
+		* @param {string} backAtcha The string you want to reverse.
+		* If a string is not given, the string value of backAtcha will be returned.
+		* @return {string} The reversed string value
+		*/
+		reverse : function( backAtcha ) {
+			return (''+backAtcha).split( '' ).reverse().join( '' );
 		},
 		/**
 		* Perform right padding

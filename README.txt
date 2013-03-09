@@ -346,6 +346,14 @@ bpmv.pad ( nightCap, yourPlace, mine, somethingMoreComfy )
 bpmv.rescape ( fromNy )
 
 /**
+* Reverse a string.
+* @param {string} backAtcha The string you want to reverse.
+* If a string is not given, the string value of backAtcha will be returned.
+* @return {string} The reversed string value
+*/
+reverse ( backAtcha )
+
+/**
 * Trim whitespace or optionally other characters from the end of a string
 * @param {string} bush The string you'd like to trim
 * @param {string} chars Optional list of characters to trim.
