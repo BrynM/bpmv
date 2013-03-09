@@ -77,10 +77,11 @@
 	********************************************************************************
 	*/
 	var initialBpmv
-		, rgxIsAtoZAny = /[a-zA-Z]/
-		, rgxIsFloatNotSci   = /^[0-9]+\.([0-9]+)?$/
-		, rgxIsFloatSci   = /^[0-9]+\.([0-9]+([eE]\+[0-9]+)?)?$/
-		, rgxIsNumber  = /^[0-9]+$/;
+		, rgxIsAtoZAnyChar = /[a-zA-Z]/
+		, rgxIsAnyNumber   = /^(\-)?[0-9]*\.?[0-9]+([eE]\+[0-9]+)?$/
+		, rgxIsFloatNotSci = /^[\+\-]?[0-9]+\.([0-9]+)?$/
+		, rgxIsFloatSci    = /^[\+\-]?[0-9]+\.([0-9]+([eE]\+[0-9]+)?)?$/
+		, rgxIsNumber      = /^[\+\-]?[0-9]+$/;
 
 	initialBpmv = {
 		_cfg : {
@@ -389,7 +390,7 @@
 				var rnum = Math.floor(Math.random() * fans.charset.length);
 				c = (''+fans.charset).substring(rnum,rnum+1);
 				if ( first == false ) {
-					if ( c.match(rgxIsAtoZAny) == null ) {
+					if ( c.match(rgxIsAtoZAnyChar) == null ) {
 						i--;
 					} else {
 						rStr += c;
@@ -471,7 +472,7 @@
 		* @return {boolean} Will return true if the value is a valid floating point number
 		*/
 		'float' : function ( mFreak, zeroOk ) { // validates for formatting so '2.0b' is NOT valid
-			return ( (/^(\-)?[0-9]*\.?[0-9]+([eE]\+[0-9]+)?$/).test(String(mFreak)) && this.num(mFreak, zeroOk) );
+			return ( (rgxIsAnyNumber).test(String(mFreak)) && this.num(mFreak, zeroOk) );
 		},
 		/**
 		* is a function?
