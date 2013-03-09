@@ -808,7 +808,13 @@ bpmv.grab( 'getElementById', window.document );</code></pre>
 			<h5>Examples</h5>
 <pre class="lined"><code>bpmv.incall( [ 1, 1.25, 0 ], 1.6 ); // returns [ 3, 2.85, 2 ]
 bpmv.incall( [ 1, 1.25, 0, '2.2' ], 1.6, true ); // returns [ 3, 2.85, 2 ]
-bpmv.incall( [ 1, 1.25, 0 ], 1.6 ); // returns [ 3, 2.85, 2 ]</code></pre>
+bpmv.incall( [ 1, 1.25, 0 ], 1.6 ); // returns [ 3, 2.85, 2 ]
+
+//
+// returns [ 3, 2.85, 2, "3.8000000000000003" ]
+// Wait. What!?!? I am working on this.
+bpmv.incall( [ 1, 1.25, 0, '2.2' ], 1.6 );
+</code></pre>
 		</div>
 
 		<div class="usage">

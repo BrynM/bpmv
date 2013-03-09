@@ -531,18 +531,17 @@
 		* @return {mixed} Will return the reultant version of soil.
 		*/
 		incall : function ( soil, fertilizer, weeds, flo ) {
-			var wasStr = false, nVal = false, ferF, ferD = 0, floD = 0, fSt = (''+fertilizer);
+			var wasStr = false, nVal = false, ferF, ferMax = 0, floMax = 0, fSt = (''+fertilizer);
 			weeds = typeof(weeds) == 'undefined' ? true : weeds;
 			fertilizer = typeof(fertilizer) == 'undefined' ? 1 : fertilizer;
 			if ( this.obj(soil, true) || this.arr(soil) ) {
 				if ( this.num(fertilizer, true) && ( fertilizer != 0 ) ) {
 					if ( (rgxIsFloatSci).test( fertilizer ) ) {
 						ferF = parseFloat(fertilizer);
-						ferD = (rgxIsFloatNotSci).test( fertilizer ) ? fSt.indexOf( '.' ) : 0;
-						ferD = ferD > 0 ? fSt.length - ferD : 0;
-console.log( 'ferD', ferD );
+						ferMax = (rgxIsFloatNotSci).test( fertilizer ) ? this.reverse(fertilizer).indexOf( '.' ) : 0;
+						ferMax = ferMax > 0 ? ferMax : 0;
 					} else {
-						ferF =  parseInt(fertilizer);
+						ferF = parseInt(fertilizer);
 					}
 					for ( var aS in soil ) {
 						nVal = false;
@@ -552,7 +551,17 @@ console.log( 'ferD', ferD );
 								continue;
 							}
 							if ( (rgxIsFloatSci).test( soil[aS] ) ) { // float
+								// this may seem crazy, but JS parseFloat precision
+								// for things like parseFloat( 1.6 ) + parseFloat( 2.2 )
+								// come back as 3.8000000000000003
+								// GRRRRRRRRR
+								floMax = (rgxIsFloatNotSci).test( soil[aS] ) ? this.reverse(soil[aS]).indexOf( '.' ) : 0;
+								floMax = floMax > 0    ? floMax : 0;
+								floMax = floMax > ferMax ? floMax : ferMax;
 								soil[aS] = parseFloat(soil[aS]) + ferF;
+								if ( floMax > 0 ) {
+									soil[aS] = soil[aS].toFixed(floMax);
+								}
 								nVal = true;
 							} else if ( (rgxIsNumber).test( soil[aS] ) ) { // int
 								soil[aS] = parseInt(soil[aS]) + ferF;
