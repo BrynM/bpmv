@@ -145,6 +145,16 @@ tfoot {
 	background: linear-gradient(top,  #cccccc 1%,#f2f2f2 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
 }
+tfoot tr:hover {
+	background-color: #dfdfdf;
+	background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #dfdfdf 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#dfdfdf)) !important; /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#dfdfdf 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#dfdfdf 100%) !important; /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#dfdfdf 100%) !important; /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #ffffff 0%,#dfdfdf 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dfdfdf',GradientType=1 ) !important; /* IE6-9 fallback on horizontal gradient */
+}
 
 .contain {
 	margin: 5px;

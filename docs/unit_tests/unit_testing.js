@@ -112,17 +112,104 @@ function report ( pass, syntax, expect, res, note ) {
 }
 
 function report_coverage ( target, min ) {
-	var cont = []
+	var contBreak = []
+		, cont = []
+		, funcTot
+		, funcs = 0
+		, tot = 0
+		, miss = 0
+		, hit = 0
+		, iter
+		, iterSub
 		, res = undefined
 		, resTarget = $(target)
 		, slug = min ? 'min' : 'full'
+		, mv = min ? bpmv_min : bpmv
 		, wrapId = 'bpmv_coverage_'+slug;
-// coverage full min
-	if ( ( resTarget.length > 0 ) && goodObj( coverage ) && goodStr(target) && ( goodObj(coverage.full) || goodObj(coverage.min) ) ) {
+	if ( goodObj(mv) && ( resTarget.length > 0 ) && goodObj( coverage ) && goodStr(target) && ( goodObj(coverage.full) || goodObj(coverage.min) ) ) {
 		$('#'+wrapId).remove();
-		cont.push( '<div id="'+wrapId+'">' );
+		cont.push( '<div id="'+wrapId+'" class="coverage">' );
 		cont.push( '<h2>bpmv.'+(min ? 'min.' : '')+'js Coverage</h2>' );
 		cont.push( '<div class="subcontain">' );
+
+		cont.push( '<table  id="' + wrapId + '_table">' );
+		cont.push( '<thead>' );
+		cont.push( '<tr>' );
+		cont.push( '<th>Function</th>' );
+		cont.push( '<th>Total</th>' );
+		cont.push( '<th>Breakdown</th>' );
+		cont.push( '</tr>' );
+		cont.push( '</thead>' );
+		cont.push( '<tbody id="' + wrapId + '_body">' );
+		for ( iter in mv ) {
+			if ( mv.hasOwnProperty(iter) && goodFunc(mv[iter]) ) {
+				funcs++;
+				funcTot = sum(coverage[slug][iter]);
+				if ( funcTot < 1 ) {
+					miss++;
+				} else {
+					hit++
+				}
+				tot = tot + funcTot;
+				cont.push( '<tr class="'+(funcTot < 1 ? ' covMiss' : '')+'">' );
+				cont.push( '<td class="covFunc">bpmv.'+iter+'()</td>' );
+				cont.push( '<td class="covTot">'+funcTot+'</td>' );
+				cont.push( '<td class="covBreak">' );
+				if ( goodObj(coverage[slug][iter]) ) {
+					contBreak = [];
+					for ( iterSub in coverage[slug][iter] ) {
+						if ( goodObj(window[iterSub]) ) {
+							contBreak.push( '<tr>' );
+							contBreak.push( '<td>'+window[iterSub]._spec.title+'</td>' );
+//							contBreak.push( '<td>'+iterSub+'</td>' );
+							contBreak.push( '<td>'+sum( coverage[slug][iter][iterSub] )+'</td>' );
+							contBreak.push( '<td>'+sum( coverage[slug][iter][iterSub].pass )+'</td>' );
+							contBreak.push( '<td>'+sum( coverage[slug][iter][iterSub].fail )+'</td>' );
+							contBreak.push( '</tr>' );
+						}
+					}
+					if ( contBreak.length > 0 ) {
+						cont.push( '<table  id="' + wrapId + '_'+iterSub+'_breakdown">' );
+						cont.push( '<thead>' );
+						cont.push( '<tr>' );
+						cont.push( '<th>Test Set</th>' );
+//						cont.push( '<th>Set Slug</th>' );
+						cont.push( '<th>Total</th>' );
+						cont.push( '<th>Passed</th>' );
+						cont.push( '<th>Failed</th>' );
+						cont.push( '</tr>' );
+						cont.push( '</thead>' );
+						cont.push( '<tbody>' );
+						cont.push( contBreak.join( '\n' ) );
+						cont.push( '</tbody>' );
+						cont.push( '</table>' );
+					}
+				} else {
+					cont.push( 'No tests run!' );
+				}
+				cont.push( '</td>' );
+				cont.push( '</tr>' );
+			}
+		}
+		cont.push( '</tbody>' );
+		cont.push( '<tfoot>' );
+		cont.push( '<tr>' );
+		cont.push( '<td colspan="3">' );
+		cont.push( '<h3 style="display: inline;" class="test_totals">bpmv.'+(min ? 'min.' : '')+'js Coverage Grand Total</h3> Functions:' );
+		cont.push( '<span class="totalGrand">'+funcs+'</span>' );
+		cont.push( ' Hits: ' );
+		cont.push( '<span class="totalPassed">'+hit+'</span>' );
+		cont.push( ' Missed: ' );
+		cont.push( '<span class="totalFailed">'+miss+'</span>' );
+		cont.push( ' Total Tests: ' );
+		cont.push( '<span class="totalGrand">'+tot+'</span>' );
+		cont.push( ' Average Tests Per Function: ' );
+		cont.push( '<span class="totalGrand">'+parseFloat(tot/funcs).toFixed(3)+'</span>' );
+		cont.push( '</td>' );
+		cont.push( '</tr>' );
+		cont.push( '</tfoot>' );
+		cont.push( '</table>' );
+
 		cont.push( '</div>' ); // close subcontain
 		cont.push( '</div>' ); // close wrapper div
 		resTarget.append( cont.join( '\n' ) );
@@ -160,7 +247,10 @@ function run_tests ( set, target, min ) {
 					coverage[covKey][aSub] = {};
 				}
 				if ( typeof(coverage[covKey][aSub][subId]) === 'undefined' ) {
-					coverage[covKey][aSub][subId] = 0;
+					coverage[covKey][aSub][subId] = {
+						  'fail' : 0
+						, 'pass' : 0
+					};
 				}
 				for ( var aT = 0; aT < set[aSub].length; aT++ ) {
 					var pass = false;
@@ -180,11 +270,12 @@ function run_tests ( set, target, min ) {
 					if ( pass.pass ) {
 						passed++;
 						globalPass++;
+						coverage[covKey][aSub][subId].pass++;
 					} else {
 						failed++;
 						globalFail++
+						coverage[covKey][aSub][subId].fail++;
 					}
-					coverage[covKey][aSub][subId]++;
 					appNd += pass.report;
 					tested++;
 					globalTotal++;

@@ -1,6 +1,6 @@
 var emptyTests = {};
 emptyTests._spec = {
-	  title : 'Empty Arguments (Default)'
+	  title : 'Empty Arguments'
 	, id    : 'emptyTests'
 };
 

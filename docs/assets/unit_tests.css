@@ -185,3 +185,82 @@ tbody .tr-pass .syntax:hover {
 	display: block;
 }
 
+/* coverage */
+.coverage tbody tr.covMiss {
+	background-color: #FFCCDA !important;
+	color: #802000 !important;
+}
+.coverage tbody > tr.covMiss:hover {
+	background: -moz-radial-gradient(center, ellipse cover,  #eeeeee 0%, #ffccda 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#eeeeee), color-stop(100%,#ffccda)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #eeeeee 0%,#ffccda 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#ffccda',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	color: #66001A !important;
+}
+
+.coverage tbody > tr:nth-child(odd):not(.covMiss):hover {
+	background-color: #EBE5FF;
+	background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #EBE5FF 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#EBE5FF)) !important; /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #ffffff 0%,#EBE5FF 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#EBE5FF',GradientType=1 ) !important; /* IE6-9 fallback on horizontal gradient */
+}
+.coverage tbody > tr:nth-child(even):not(.covMiss):hover {
+	background-color: #E5ECFF;
+	background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #E5ECFF 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#E5ECFF)) !important; /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* IE10+ */
+	background: radial-gradient(center, ellipse cover,  #ffffff 0%,#E5ECFF 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#E5ECFF',GradientType=1 ) !important; /* IE6-9 fallback on horizontal gradient */
+}
+.covFunc {
+	width: 20%;
+	font-weight: bold;
+	font-size: 120%;
+}
+.covTot {
+	width: 10%;
+	text-align: right;
+	padding-right: 10px;
+	font-weight: bold;
+	font-size: 120%;
+}
+.covBreak {
+
+}
+.coverage .covBreak > table {
+	max-width: 95%;
+	margin: 5px;
+}
+.coverage .covBreak > table > thead > tr {
+	border: none;
+	background: transparent;
+	border-bottom: 1px solid rgba( 100, 100, 100, 0.15);
+}
+.coverage .covBreak > table > thead > tr > th {
+	font-weight: normal;
+	text-transform: capitalize;
+}
+.coverage .covBreak > table > thead > tr:hover {
+	background: transparent;
+}
+.coverage .covBreak > table > tbody > tr {
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid rgba( 100, 100, 100, 0.15);
+}
+.coverage .covBreak > table > tbody > tr td {
+	border: none;
+}
+.coverage .covBreak > table > tbody > tr td:first-child {
+	border: none;
+	width: 25%;
+}
