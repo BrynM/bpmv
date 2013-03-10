@@ -49,7 +49,7 @@
 	<div class="subcontain">
 
 		<div class="usage">
-			<h3>Optional Setup</h3>
+			<h3>Optional Browser Setup</h3>
 			<p>
 				By default, the global variable `bpmv` will be created (attached to `window`).
 				If node.js is detected as the current environment, `exports.bpmv` will be created.
@@ -437,11 +437,6 @@ bpmv.ccase( 'look its a class_name', null, true ); // returns 'LookItsAClassName
 			<p class="description">
 				Generate a random valid html id using characters and a timestamp.
 				This is the only bpmv.js function that takes an options object parameter.
-/**
-* 
-* @param {} fans 
-*/
-bpmv.ego ( fans )
 			</p>
 			<div class="parameters">
 				<table>
@@ -807,43 +802,38 @@ bpmv.grab( 'getElementById', window.document );</code></pre>
 			</div>
 			<h5>Examples</h5>
 <pre class="lined"><code>bpmv.incall( [ 1, 1.25, 0 ], 1.6 ); // returns [ 3, 2.85, 2 ]
+bpmv.incall( [ 1, 1.25, 0, '2.2' ], 1.6 ); // returns [ 2.6, 2.85, 1.6, "2.2" ]
 bpmv.incall( [ 1, 1.25, 0, '2.2' ], 1.6, true ); // returns [ 3, 2.85, 2 ]
 bpmv.incall( [ 1, 1.25, 0 ], 1.6 ); // returns [ 3, 2.85, 2 ]
-
-//
-// returns [ 3, 2.85, 2, "3.8000000000000003" ]
-// Wait. What!?!? I am working on this.
-bpmv.incall( [ 1, 1.25, 0, '2.2' ], 1.6 );
 </code></pre>
 		</div>
 
 		<div class="usage">
-			<h3>.ini ()</h3>
+			<h3>.ini ( outie, gotDfunk )</h3>
 			<p class="description">
-/**
-* Parse ini file contents into an object if possible with optional callback.
-* The contents may be a string with newlines or an Array() of strings.
-* This always returns an object, so check for emptiness.
-* @param {string} outie The string or array contents of an ini file
-* @param {gotDfunk} an optional callback function to run  when parsing is complete
-* @return {object} Will return an object representing the parsed ini values and structure
-*/
-bpmv.ini ( outie, gotDfunk )
+				Parse ini file contents into an object if possible with optional callback.
+				The contents may be a string with newlines or an Array() of strings.
+				This always returns an object, so check for emptiness.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>outie</td>
+							<td>string</td>
+							<td>The string or array contents of an ini file.</td>
+						</tr>
+						<tr>
+							<td>gotDfunk</td>
+							<td>function</td>
+							<td>An optional callback function to run when parsing is complete.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>object</td>
+							<td>Will return an object representing the parsed ini values and structure.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -853,30 +843,29 @@ bpmv.ini ( outie, gotDfunk )
 		</div>
 
 		<div class="usage">
-			<h3>.int ()</h3>
+			<h3>.int ( threeD6, zeroOk )</h3>
 			<p class="description">
-/**
-* Tests strings and numbers for valid integer format and greater than 0 (may be disabled)
-* @param {mixed} threeD6 The value you'd like to test
-* @param {boolean} zeroOk Will return true even if the the value is 0 or less
-* @return {boolean} Will return true if the value is a valid integer
-*/
-bpmv.int ( threeD6, zeroOk )
+				Tests strings and numbers for valid integer format and greater than 0 (may be disabled).
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>threeD6</td>
+							<td>mixed</td>
+							<td>The value you'd like to test.</td>
+						</tr>
+						<tr>
+							<td>zeroOk</td>
+							<td>boolean</td>
+							<td>Will return true even if the the value is 0 or less.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a valid integer.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -888,28 +877,32 @@ bpmv.int ( threeD6, zeroOk )
 		<div class="usage">
 			<h3>.ip ()</h3>
 			<p class="description">
-/**
-* is a valid IP address
-* @param {mixed} numba The value you'd like to test
-* @param {bool} v6 Allow tests for just IPV6 addresses
-* @return {boolean} Will return true if the value is a valid IP address
-*/
-bpmv.ip ( numba, v6 )
+				Tests that a string is a valid IP address.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>numba</td>
+							<td>string</td>
+							<td>The value you'd like to test.</td>
+						</tr>
+						<tr>
+							<td>v6</td>
+							<td>boolean</td>
+							<td>
+								Test for an IPV6 addresses as well.
+								Normally, this function tests for IPV4.
+								With v6 set to true, a string can be tested for both IPV6 and IPV4.
+								This option is to prevent executing RegExp as long as your arm unless you need it.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a valid IP address.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -919,29 +912,24 @@ bpmv.ip ( numba, v6 )
 		</div>
 
 		<div class="usage">
-			<h3>.isadog ()</h3>
+			<h3>.isadog ( namedRex )</h3>
 			<p class="description">
-/**
-* Will test if object is a RegExp object
-* @param {mixed} namedRex The regular expression object you'd like to test
-* @return {bool} Returns true if the object was a RegExp
-*/
-bpmv.isadog ( namedRex )
+				Will test if something is a RegExp object.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>namedRex</td>
+							<td>mixed</td>
+							<td>The regular expression object you'd like to test.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Returns true if the object was a RegExp.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -951,29 +939,24 @@ bpmv.isadog ( namedRex )
 		</div>
 
 		<div class="usage">
-			<h3>.isjson ()</h3>
+			<h3>.isjson ( davesNotHere )</h3>
 			<p class="description">
-/**
-* Will (loosely) test if object is a JSON string
-* @param {mixed} davesNotHere The string to test
-* @return {bool} Returns true if the object was a JSON string
-*/
-bpmv.isjson ( davesNotHere )
+				Will (loosely) test if something is a JSON string.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>davesNotHere</td>
+							<td>string</td>
+							<td>The string to test.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Returns true if davesNotHere was a JSON string.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -983,30 +966,29 @@ bpmv.isjson ( davesNotHere )
 		</div>
 
 		<div class="usage">
-			<h3>.keys ()</h3>
+			<h3>.keys ( lock, sort )</h3>
 			<p class="description">
-/**
-* Will return an optionally sorted array containing the keys from an object or array
-* @param {mixed} lock The object or array you want the keys from
-* @param {boolean} sort Whether or not to sort the result
-* @return {array} array containing the keys lock
-*/
-bpmv.keys ( lock )
+				Will return an optionally sorted array containing the top level property names (&quot;keys&quot;) from an object or array.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>lock</td>
+							<td>mixed</td>
+							<td>The object or array you want the keys from.</td>
+						</tr>
+						<tr>
+							<td>sort</td>
+							<td>boolean</td>
+							<td>If true, the returned array will be sorted.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>array</td>
+							<td>Returns an array of strings containing the keys.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1086,7 +1068,7 @@ bpmv.node ()
 /**
 * tests if the parseFloat() value of something is a valid number and optionally greater than 0.
 * @param {mixed} fElng The value you'd like to test
-* @param {boolean} zeroOk Will return true even if the the value is 0 or less
+* @param {boolean} zeroOk Will return true even if the the value is 0 or less.
 * @return {boolean} Will return true if the value is a valid number
 */
 bpmv.num ( fElng, zeroOk )
