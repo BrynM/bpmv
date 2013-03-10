@@ -1,6 +1,12 @@
-var emptyTests = {
-	title : 'Empty Arguments (Default)'
+var emptyTests = {};
+emptyTests._spec = {
+	  title : 'Empty Arguments (Default)'
+	, id    : 'emptyTests'
 };
+
+/* *****************************************************************************
+* The Tests
+***************************************************************************** */
 emptyTests['arr']       = [ [ [], false, 'Empty Args' ] ];
 emptyTests['basename']  = [ [ [], undefined, 'Empty Args' ] ];
 emptyTests['bool']      = [ [ [], false, 'Empty Args' ] ];

@@ -1,7 +1,12 @@
-var boolTestsPos = {
-	title : 'Positive Boolean Return'
+var boolTestsPos = {};
+boolTestsPos._spec = {
+	  title : 'Positive Boolean Return'
+	, id    : 'boolTestsPos'
 };
 
+/* *****************************************************************************
+* The Tests
+***************************************************************************** */
 boolTestsPos['arr'] = [
 	  [ [ [ 1 ] ] /*args*/, true /*expect*/, 'single item Array' /*note*/ ]
 	, [ [ new Array( 1 ) ] /*args*/, true /*expect*/, 'new Array(), non-empty' ]
@@ -11,6 +16,9 @@ boolTestsPos['arr'] = [
 boolTestsPos['bool'] = [
 	  [ [ true ] /*args*/, true /*expect*/, 'true' /*note*/ ]
 	, [ [ false ] /*args*/, true /*expect*/, 'false' ]
+];
+boolTestsPos['brow'] = [
+	  [ [ true ] /*args*/, true /*expect*/, 'true' /*note*/ ]
 ];
 boolTestsPos['date'] = [
 	[ [ new Date() ] /*args*/, true /*expect*/, 'new Date object' ]
@@ -112,7 +120,6 @@ boolTestsPos['trueish'] = [
 	, [ [ 'Yes' ] /*args*/, true /*expect*/, 'String &quot;Yes&quot;' ]
 	, [ [ 'YES' ] /*args*/, true /*expect*/, 'String &quot;YES&quot;' ]
 	, [ [ { a : 2} ] /*args*/, true /*expect*/, 'Non-empty shorthand (&quot;{}&quot;) object' ]
-	, [ [ function () {} ] /*args*/, 'function () {}' /*expect*/, 'A function should return the string source of the function.' ]
 ];
 boolTestsPos['typeis'] = [
 	  [ [ false, 'Boolean' ] /*args*/, true /*expect*/, 'Boolean false' ]

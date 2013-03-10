@@ -52,6 +52,7 @@ var BPMV_VARNAME = 'bpmv_min';
 <script src="emptyTests.js"></script>
 <script src="boolTestsNeg.js"></script>
 <script src="boolTestsPos.js"></script>
+<script src="valueTests.js"></script>
 
 <script>
 /*******************************************************************************
@@ -61,8 +62,9 @@ var myTarget = '';
 
 $(document).ready( function () {
 	var home = $('#result_reports')
-		, newFull = null
-		, newMin = null;
+		, newFull
+		, newMin
+		, newSubs;
 
 	/* bpmv.min.js Info ***********************************************************/
 	newFull = '<h2>bpmv.js Details</h2>';
@@ -82,6 +84,11 @@ $(document).ready( function () {
 	testize( boolTestsPos, '#result_reports', false );
 	/* Run Standard Negative Bool Tests *********************************************************/
 	testize( boolTestsNeg, '#result_reports', false );
+	/* Run Standard expected return value Tests *********************************************************/
+	testize( valueTests, '#result_reports', false );
+
+	/* Report coverage *********************************************************/
+	report_coverage( '#result_reports', false );
 
 	/* bpmv.min.js Info ***********************************************************/
 	newMin = '<h2>bpmv.min.js Details</h2>';
@@ -101,8 +108,12 @@ $(document).ready( function () {
 	testize( boolTestsPos, '#result_reports', true );
 	/* Run Min Standard Negative Bool Tests *****************************************************/
 	testize( boolTestsNeg, '#result_reports', true );
+	/* Run Standard expected return value Tests *********************************************************/
+	testize( valueTests, '#result_reports', true );
 
-	/* Finish up ********************************************************************************/
+	/* Report min coverage *********************************************************/
+	report_coverage( '#result_reports', true );
+
 	$('#result_reports').before( '<h2>Final Global Totals</h2><div class="subcontain">' + 
 		'<div id="globalTotals"><strong>Total Global Tests Run: <span class="totalGrand">' + globalTotal +
 		'</span> Passed: <span class="totalPassed">' + globalPass +

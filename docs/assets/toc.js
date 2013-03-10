@@ -72,7 +72,7 @@ function toc_update () {
 				tH.attr( 'toc', isToc );
 			}
 			if ( bpmv.obj( tH ) && ( tH.length == 1 ) ) {
-				cont.push( '<li toc-to="' + isToc + '" class="' + node.toLowerCase() + '">' + tH.text() + '</li>' );
+				cont.push( '<li toc-to="' + isToc + '" class="' + node.toLowerCase() + '">' + tH.get(0).innerHTML + '</li>' );
 			}
 		}
 		cont.push( '</ul>' );

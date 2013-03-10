@@ -1,7 +1,12 @@
-var boolTestsNeg = {
-	title : 'Negative Boolean Return'
+var boolTestsNeg = {};
+boolTestsNeg._spec = {
+	  title : 'Negative Boolean Return'
+	, id    : 'boolTestsNeg'
 };
 
+/* *****************************************************************************
+* The Tests
+***************************************************************************** */
 boolTestsNeg['arr'] = [
 	  [ [ [] ] /*args*/, false /*expect*/, 'Empty Array' ]
 	, [ [ new Array() ] /*args*/, false /*expect*/, 'Empty new Array()' ]

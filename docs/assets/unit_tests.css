@@ -58,6 +58,10 @@ tbody .tr-fail {
 tbody .tr-fail, tbody .tr-fail .syntax {
 	color: #66001A !important;
 }
+tbody .tr-fail .syntax {
+/*	font-size: 100%;*/
+}
+
 tbody .tr-fail td:first-child {
 	font-weight: bold;
 }
@@ -111,6 +115,12 @@ tbody .tr-pass .syntax:hover {
 */
 }
 
+.failreturn {
+	display: block;
+	font-weight: bold;
+	color: black;
+	font-style: normal;
+}
 .test_totals {
 	font-size: 100%;
 	margin: 0;
@@ -167,3 +177,11 @@ tbody .tr-pass .syntax:hover {
 .rerun a:hover {
 	color: #eb7600;
 }
+
+
+.h2 .hsFail, h2[toc] .hsFail {
+	color: red;
+	font-size: 80%;
+	display: block;
+}
+
