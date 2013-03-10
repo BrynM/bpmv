@@ -13,3 +13,6 @@ valueTests['incall'] = [
 valueTests['trueish'] = [
 	  [ [ function () {} ] /*args*/, 'function () {}' /*expect*/, 'A function should return the string source of the function.' ]
 ];
+valueTests['values'] = [
+	  [ [ [ 1, 1.25, 0, '2.2' ] ] /*args*/, [ 1, 1.25, 0, '2.2' ] /*expect*/, '[ 1, 1.25, 0, \'2.2\' ]' ]
+];

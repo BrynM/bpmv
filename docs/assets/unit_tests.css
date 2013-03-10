@@ -186,6 +186,9 @@ tbody .tr-pass .syntax:hover {
 }
 
 /* coverage */
+.coverage > .subcontain > table {
+	margin-bottom: 20px !important;
+}
 .coverage tbody tr.covMiss {
 	background-color: #FFCCDA !important;
 	color: #802000 !important;

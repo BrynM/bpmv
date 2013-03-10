@@ -27,6 +27,9 @@ boolTestsNeg['bool'] = [
 	, [ [ null ] /*args*/, false /*expect*/, 'NULL' ]
 	, [ [ undefined ] /*args*/, false /*expect*/, 'undefined proper' ]
 ];
+boolTestsNeg['clone'] = [
+	  [ [ false ] /*args*/, false /*expect*/, 'false' /*note*/ ]
+];
 boolTestsNeg['date'] = [
 	[ [ {} ] /*args*/, false /*expect*/, 'Empty inline shorthand object' ]
 	, [ [ null ] /*args*/, false /*expect*/, 'NULL' ]
@@ -86,6 +89,23 @@ boolTestsNeg['obj'] = [
 boolTestsNeg['str'] = [
 ];
 boolTestsNeg['trueish'] = [
+	  [ [ 0 ] /*args*/, false /*expect*/, 'Integer 0' ]
+	, [ [ '0' ] /*args*/, false /*expect*/, 'String &quot;0&quot;' ]
+	, [ [ 'off' ] /*args*/, false /*expect*/, 'String &quot;off&quot;' ]
+	, [ [ 'Off' ] /*args*/, false /*expect*/, 'String &quot;Off&quot;' ]
+	, [ [ 'OFF' ] /*args*/, false /*expect*/, 'String &quot;OFF&quot;' ]
+	, [ [ false ] /*args*/, false /*expect*/, 'Boolean false' ]
+	, [ [ 'false' ] /*args*/, false /*expect*/, 'String &quot;false&quot;' ]
+	, [ [ 'False' ] /*args*/, false /*expect*/, 'String &quot;False&quot;' ]
+	, [ [ 'FALSE' ] /*args*/, false /*expect*/, 'String &quot;FALSE&quot;' ]
+	, [ [ 'nay' ] /*args*/, false /*expect*/, 'String &quot;yar&quot;' ]
+	, [ [ 'Nay' ] /*args*/, false /*expect*/, 'String &quot;Nay&quot;' ]
+	, [ [ 'NAY' ] /*args*/, false /*expect*/, 'String &quot;NAY&quot;' ]
+	, [ [ 'no' ] /*args*/, false /*expect*/, 'String &quot;no&quot;' ]
+	, [ [ 'No' ] /*args*/, false /*expect*/, 'String &quot;No&quot;' ]
+	, [ [ 'NO' ] /*args*/, false /*expect*/, 'String &quot;NO&quot;' ]
+	, [ [ [] ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;[]&quot;) Array' ]
+	, [ [ {} ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object' ]
 ];
 boolTestsNeg['typeis'] = [
 ];

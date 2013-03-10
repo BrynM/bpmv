@@ -230,8 +230,8 @@
 					break;
 				case 'object':
 					if ( Object.prototype.toString.call(alphaComplex) === '[object Array]' ) {
-						dup = Array.apply( null, alphaComplex );
-					} else {
+						dup = alphaComplex.slice( 0 );
+					} else if ( alphaComplex != null ) {
 						if ( this.func(alphaComplex.constructor) ) {
 							dup = alphaComplex.constructor.apply( alphaComplex, [] );
 						} else {
@@ -534,7 +534,12 @@
 		* @return {mixed} Will return the reultant version of soil.
 		*/
 		incall : function ( soil, fertilizer, weeds, flo ) {
-			var wasStr = false, nVal = false, ferF, ferMax = 0, floMax = 0, fSt = (''+fertilizer);
+			var wasStr = false
+				, nVal = false
+				, ferF
+				, ferMax = 0
+				, floMax = 0
+				, fSt = (''+fertilizer);
 			weeds = typeof(weeds) == 'undefined' ? true : weeds;
 			fertilizer = typeof(fertilizer) == 'undefined' ? 1 : fertilizer;
 			if ( this.obj(soil, true) || this.arr(soil) ) {
@@ -561,7 +566,7 @@
 								floMax = (rgxIsFloatNotSci).test( soil[aS] ) ? this.reverse(soil[aS]).indexOf( '.' ) : 0;
 								floMax = floMax > 0  ? floMax : 0;
 								floMax = floMax > ferMax ? floMax : ferMax;
-								soil[aS] = parseFloat(soil[aS] + ferF );
+								soil[aS] = parseFloat(soil[aS]) + parseFloat(ferF);
 								if ( floMax > 0 ) {
 									soil[aS] = parseFloat(soil[aS].toFixed(floMax));
 								}
@@ -852,6 +857,9 @@
 		* @return {string} The reversed string value
 		*/
 		reverse : function( backAtcha ) {
+			if ( !this.str(backAtcha) && !this.num(backAtcha) ) {
+				return;
+			}
 			return (''+backAtcha).split( '' ).reverse().join( '' );
 		},
 		/**

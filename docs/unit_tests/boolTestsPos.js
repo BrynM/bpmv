@@ -20,6 +20,9 @@ boolTestsPos['bool'] = [
 boolTestsPos['brow'] = [
 	  [ [ true ] /*args*/, true /*expect*/, 'true' /*note*/ ]
 ];
+boolTestsPos['clone'] = [
+	  [ [ true ] /*args*/, true /*expect*/, 'true' /*note*/ ]
+];
 boolTestsPos['date'] = [
 	[ [ new Date() ] /*args*/, true /*expect*/, 'new Date object' ]
 ];
@@ -28,7 +31,6 @@ boolTestsPos['float'] = [
 	, [ [ '1' ] /*args*/, true /*expect*/, 'string &quot;1&quot;' ]
 	, [ [ 1.2 ] /*args*/, true /*expect*/, 'number 1.2' ]
 	, [ [ '1.2' ] /*args*/, true /*expect*/, 'string &quot;1.2&quot;' ]
-	, [ [ 1.2312312312312312e+29 ] /*args*/, true /*expect*/, 'scientific number 1.2312312312312312e+29' ]
 	, [ [ '1.2312312312312312e+29' ] /*args*/, true /*expect*/, 'scientific string &quot;1.2312312312312312e+29&quot;' ]
 	, [ [ 0, true ] /*args*/, true /*expect*/, 'number 0, zero or below OK' ]
 	, [ [ '0', true ] /*args*/, true /*expect*/, 'string &quot;0&quot;, zero or below OK' ]
@@ -119,6 +121,7 @@ boolTestsPos['trueish'] = [
 	, [ [ 'yes' ] /*args*/, true /*expect*/, 'String &quot;yes&quot;' ]
 	, [ [ 'Yes' ] /*args*/, true /*expect*/, 'String &quot;Yes&quot;' ]
 	, [ [ 'YES' ] /*args*/, true /*expect*/, 'String &quot;YES&quot;' ]
+	, [ [ [ 'a', 2 ] ] /*args*/, true /*expect*/, 'Non-empty shorthand (&quot;[]&quot;) Array' ]
 	, [ [ { a : 2} ] /*args*/, true /*expect*/, 'Non-empty shorthand (&quot;{}&quot;) object' ]
 ];
 boolTestsPos['typeis'] = [

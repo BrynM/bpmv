@@ -4,6 +4,7 @@
 var globalTotal = 0
 	, globalFail = 0
 	, globalPass = 0
+	, decMac = 2
 	, testSets = {}
 	, scorecard = {}
 	, coverage = {
@@ -114,6 +115,8 @@ function report ( pass, syntax, expect, res, note ) {
 function report_coverage ( target, min ) {
 	var contBreak = []
 		, cont = []
+		, fail
+		, funcCount = 0
 		, funcTot
 		, funcs = 0
 		, tot = 0
@@ -121,9 +124,12 @@ function report_coverage ( target, min ) {
 		, hit = 0
 		, iter
 		, iterSub
+		, pass
 		, res = undefined
 		, resTarget = $(target)
+		, setTots = {}
 		, slug = min ? 'min' : 'full'
+		, subTmp
 		, mv = min ? bpmv_min : bpmv
 		, wrapId = 'bpmv_coverage_'+slug;
 	if ( goodObj(mv) && ( resTarget.length > 0 ) && goodObj( coverage ) && goodStr(target) && ( goodObj(coverage.full) || goodObj(coverage.min) ) ) {
@@ -132,6 +138,7 @@ function report_coverage ( target, min ) {
 		cont.push( '<h2>bpmv.'+(min ? 'min.' : '')+'js Coverage</h2>' );
 		cont.push( '<div class="subcontain">' );
 
+		cont.push( '<h3>bpmv.'+(min ? 'min.' : '')+'js Coverage By Function</h3>' );
 		cont.push( '<table  id="' + wrapId + '_table">' );
 		cont.push( '<thead>' );
 		cont.push( '<tr>' );
@@ -159,12 +166,18 @@ function report_coverage ( target, min ) {
 					contBreak = [];
 					for ( iterSub in coverage[slug][iter] ) {
 						if ( goodObj(window[iterSub]) ) {
+							if ( !goodObj(setTots[iterSub]) ) {
+								setTots[iterSub] = {};
+							}
+							if ( !setTots[iterSub][iter] ) {
+								setTots[iterSub][iter] = sum( coverage[slug][iter][iterSub] );
+							}
 							contBreak.push( '<tr>' );
 							contBreak.push( '<td>'+window[iterSub]._spec.title+'</td>' );
-//							contBreak.push( '<td>'+iterSub+'</td>' );
+							//contBreak.push( '<td>'+iterSub+'</td>' );
 							contBreak.push( '<td>'+sum( coverage[slug][iter][iterSub] )+'</td>' );
-							contBreak.push( '<td>'+sum( coverage[slug][iter][iterSub].pass )+'</td>' );
-							contBreak.push( '<td>'+sum( coverage[slug][iter][iterSub].fail )+'</td>' );
+							contBreak.push( '<td>'+coverage[slug][iter][iterSub].pass+'</td>' );
+							contBreak.push( '<td>'+coverage[slug][iter][iterSub].fail+'</td>' );
 							contBreak.push( '</tr>' );
 						}
 					}
@@ -173,7 +186,7 @@ function report_coverage ( target, min ) {
 						cont.push( '<thead>' );
 						cont.push( '<tr>' );
 						cont.push( '<th>Test Set</th>' );
-//						cont.push( '<th>Set Slug</th>' );
+						//cont.push( '<th>Set Slug</th>' );
 						cont.push( '<th>Total</th>' );
 						cont.push( '<th>Passed</th>' );
 						cont.push( '<th>Failed</th>' );
@@ -195,28 +208,113 @@ function report_coverage ( target, min ) {
 		cont.push( '<tfoot>' );
 		cont.push( '<tr>' );
 		cont.push( '<td colspan="3">' );
-		cont.push( '<h3 style="display: inline;" class="test_totals">bpmv.'+(min ? 'min.' : '')+'js Coverage Grand Total</h3> Functions:' );
+		cont.push( '<h4 style="display: inline;" class="test_totals">bpmv.'+(min ? 'min.' : '')+'js Coverage By Function Grand Total</h4> Functions:' );
 		cont.push( '<span class="totalGrand">'+funcs+'</span>' );
+		cont.push( 'Coverage: <span class="totalGrand">' + (parseFloat(hit/funcs) * 100).toFixed(decMac) + '%</span> ' );
 		cont.push( ' Hits: ' );
 		cont.push( '<span class="totalPassed">'+hit+'</span>' );
 		cont.push( ' Missed: ' );
 		cont.push( '<span class="totalFailed">'+miss+'</span>' );
 		cont.push( ' Total Tests: ' );
 		cont.push( '<span class="totalGrand">'+tot+'</span>' );
-		cont.push( ' Average Tests Per Function: ' );
-		cont.push( '<span class="totalGrand">'+parseFloat(tot/funcs).toFixed(3)+'</span>' );
+		cont.push( ' Average Tests: ' );
+		cont.push( '<span class="totalGrand">'+parseFloat(tot/funcs).toFixed(decMac)+'</span>' );
 		cont.push( '</td>' );
 		cont.push( '</tr>' );
 		cont.push( '</tfoot>' );
 		cont.push( '</table>' );
 
+		cont.push( '<h3>bpmv.'+(min ? 'min.' : '')+'js Coverage By Set</h3>' );
+		for ( iter in setTots ) {
+			for ( iterSub in mv ) {
+				if ( ( iterSub === '_spec' ) || ( iterSub === '_cfg' ) ) {
+					continue;
+				}
+				if ( !goodNum(setTots[iter][iterSub]) ) {
+					setTots[iter][iterSub] = 0;
+				}
+			}
+		}
+		for ( iter in setTots ) {
+			tot = 0;
+			pass = 0;
+			fail = 0;
+			hit = 0;
+			miss = 0;
+			funcCount = 0;
+			cont.push( '<h4>'+window[iter]._spec.title+' Coverage</h4>' );
+			cont.push( '<table  id="' + wrapId + '_table">' );
+			cont.push( '<thead>' );
+			cont.push( '<tr>' );
+			cont.push( '<th>Set</th>' );
+			cont.push( '<th>Function</th>' );
+			cont.push( '<th>Total Tests</th>' );
+			cont.push( '<th>Pass</th>' );
+			cont.push( '<th>Fail</th>' );
+			cont.push( '</tr>' );
+			cont.push( '</thead>' );
+			cont.push( '<tbody id="' + wrapId + '_body">' );
+
+
+			for ( iterSub in mv ) {
+				if ( ( iterSub === '_spec' ) || ( iterSub === '_cfg' ) ) {
+					continue;
+				}
+				funcCount++;
+				funcTot = sum( setTots[iter][iterSub] );
+				tot = parseInt( tot + funcTot );
+				if ( funcTot < 1 ) {
+//					continue;
+				}
+				cont.push( '<tr class="'+(funcTot < 1 ? ' covMiss' : '')+'">' );
+				cont.push( '<td>'+iter+'</td>' );
+				cont.push( '<td>bpmv.'+iterSub+'()</td>' );
+				cont.push( '<td>'+funcTot+'</td>' );
+				if  ( ( coverage[slug][iterSub] == null ) || ( coverage[slug][iterSub][iter] == null ) ) {
+					miss++;
+					cont.push( '<td>0</td>' );
+					cont.push( '<td>0</td>' );
+				} else {
+					hit++;
+					cont.push( '<td>'+coverage[slug][iterSub][iter].pass+'</td>' );
+					pass = parseInt( pass + coverage[slug][iterSub][iter].pass );
+					cont.push( '<td>'+coverage[slug][iterSub][iter].fail+'</td>' );
+					fail = parseInt( fail + coverage[slug][iterSub][iter].fail );
+				}
+				cont.push( '</tr>' );
+			}
+			cont.push( '</tbody>' );
+			cont.push( '<tfoot>' );
+			cont.push( '<tr>' );
+			cont.push( '<td colspan="5">' );
+			cont.push( '<h5 style="display: inline;" class="test_totals">'+window[iter]._spec.title+' Coverage Totals</h5>:' );
+			cont.push( 'Functions: <span class="totalGrand">' + funcCount + '</span> ' );
+			cont.push( 'Coverage: <span class="totalGrand">' + (parseFloat(hit/funcCount) * 100).toFixed(decMac) + '%</span> ' );
+			cont.push( 'Hits: <span class="totalPassed">' + hit + '</span> ' );
+			cont.push( 'Missed: <span class="totalFailed">' + miss + '</span> ' );
+			cont.push( ' Average Tests: ' );
+			cont.push( '<span class="totalGrand">'+parseFloat(tot/funcCount).toFixed(decMac)+'</span>' );
+			cont.push( ' Pass: ' );
+			cont.push( '<span class="totalPassed">'+pass+'</span>' );
+			cont.push( ' Fail: ' );
+			cont.push( '<span class="totalFailed">'+fail+'</span>' );
+
+/*
+		appNd += '<h3 style="display: inline;" class="test_totals">bpmv' + (min?'.min.js ':'.js ') + set._spec.title + ' ';
+		appNd += 'Grand Total</h3>: <span class="totalGrand">' + tested + '</span> ';
+		appNd += 'Passed: <span class="totalPassed">' + passed + '</span> ';
+		appNd += 'Failed: <span class="totalFailed">' + failed + '</span> ';
+*/
+			cont.push( '</td>' );
+			cont.push( '</tr>' );
+			cont.push( '</tfoot>' );
+			cont.push( '</table>' );
+		}
+
 		cont.push( '</div>' ); // close subcontain
 		cont.push( '</div>' ); // close wrapper div
 		resTarget.append( cont.join( '\n' ) );
 	}
-}
-
-function report_coverage_item ( thing, min ) {
 }
 
 function run_tests ( set, target, min ) {
@@ -227,7 +325,8 @@ function run_tests ( set, target, min ) {
 		, scorePart
 		, minSLug = (min ? '_min.' : '.')
 		, covKey = (min ? 'min' : 'full')
-		, subId;
+		, subId
+		, tex;
 	if ( goodObj( set ) && goodObj( set._spec ) ) {
 		subId = set._spec.id;
 		if ( testSets[subId] == null ) {
@@ -238,7 +337,7 @@ function run_tests ( set, target, min ) {
 		$('#'+myTarget).parent().find( 'tfoot' ).remove();
 		log( '*** running set ' + set._spec.title);
 		for ( var aSub in set ) {
-			if ( aSub === '_spec' ) {
+			if ( ( aSub === '_spec' ) || ( aSub === '_cfg' ) ) {
 				continue;
 			}
 			if ( goodStr( aSub ) && goodArr( set[aSub] ) && ( set[aSub].length > 0 ) ) {
@@ -253,18 +352,29 @@ function run_tests ( set, target, min ) {
 					};
 				}
 				for ( var aT = 0; aT < set[aSub].length; aT++ ) {
-					var pass = false;
+					var pass = false
+						args = [];
+					if ( set[aSub][aT].length > 0 ) {
+						// funky fix for byref arrays having trouble when affected b y multiple runs
+						for ( var ia = 0; ia < set[aSub][aT][0].length; ia++ ) {
+							if ( goodArr(set[aSub][aT][0][ia]) ) {
+								args.push( bpmv.clone(set[aSub][aT][0][ia]) );
+							} else {
+								args.push( set[aSub][aT][0][ia] );
+							}
+						}
+					}
 					if ( goodArr( set[aSub][aT] ) && ( set[aSub][aT].length == 3 ) ) {
 						if ( min ) {
-							pass = test_bpmvmin( aSub, set[aSub][aT][0], set[aSub][aT][1], set[aSub][aT][2] );
+							pass = test_bpmvmin( aSub, args, set[aSub][aT][1], set[aSub][aT][2] );
 						} else {
-							pass = test_bpmv( aSub, set[aSub][aT][0], set[aSub][aT][1], set[aSub][aT][2] );
+							pass = test_bpmv( aSub, args, set[aSub][aT][1], set[aSub][aT][2] );
 						}
 					} else if ( goodArr( set[aSub][aT] ) && ( set[aSub][aT].length == 2 ) ) {
 						if ( min ) {
-							pass = test_bpmvmin( aSub, set[aSub][aT][0], set[aSub][aT][1] );
+							pass = test_bpmvmin( aSub, args, set[aSub][aT][1] );
 						} else {
-							pass = test_bpmv( aSub, set[aSub][aT][0], set[aSub][aT][1] );
+							pass = test_bpmv( aSub, args, set[aSub][aT][1] );
 						}
 					}
 					if ( pass.pass ) {
@@ -292,7 +402,7 @@ function run_tests ( set, target, min ) {
 		};
 		appNd += '<tfoot><tr class="totals">';
 		appNd += '<td colspan="4">';
-		appNd += '<h3 style="display: inline;" class="test_totals">bpmv' + (min?'min.js ':'.js ') + set._spec.title + ' ';
+		appNd += '<h3 style="display: inline;" class="test_totals">bpmv' + (min?'.min.js ':'.js ') + set._spec.title + ' ';
 		appNd += 'Grand Total</h3>: <span class="totalGrand">' + tested + '</span> ';
 		appNd += 'Passed: <span class="totalPassed">' + passed + '</span> ';
 		appNd += 'Failed: <span class="totalFailed">' + failed + '</span> ';
