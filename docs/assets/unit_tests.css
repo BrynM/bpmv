@@ -10,6 +10,7 @@
 
 .unit_tests table {
 	margin: 0 auto;
+	min-width: 500px;
 }
 
 tbody tr .expect {
@@ -240,7 +241,6 @@ tbody .tr-pass .syntax:hover {
 
 }
 .coverage .covBreak > table {
-	max-width: 95%;
 	margin: 5px;
 }
 .coverage .covBreak > table > thead > tr {
@@ -266,4 +266,17 @@ tbody .tr-pass .syntax:hover {
 .coverage .covBreak > table > tbody > tr td:first-child {
 	border: none;
 	width: 25%;
+}
+
+.coverage .coverage-by-func, .coverage .set-coverage {
+	min-width: 500px;
+	max-width: 900px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+.coverage .set-coverage td {
+	width: 15%;
+}
+.coverage .set-coverage td:nth-child(2) {
+	width: auto;
 }

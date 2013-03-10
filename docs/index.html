@@ -998,31 +998,32 @@ bpmv.incall( [ 1, 1.25, 0 ], 1.6 ); // returns [ 3, 2.85, 2 ]
 		</div>
 
 		<div class="usage">
-			<h3>.ltrim ()</h3>
+			<h3>.ltrim ( bush, chars )</h3>
 			<p class="description">
-/**
-* Trim whitespace or optionally other characters from the beginning of a string
-* @param {string} bush The string you'd like to trim
-* @param {string} chars Optional list of characters to trim.
-* By default the trim characters are ' \t\n\r'.
-* @return {string} Returns the trimmed string
-*/
-bpmv.ltrim ( bush, chars )
+				Trim whitespace or optionally other characters from the beginning (left) of a string.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>bush</td>
+							<td>string</td>
+							<td>The string you'd like to trim.</td>
+						</tr>
+						<tr>
+							<td>chars</td>
+							<td>string</td>
+							<td>
+								Optional list of characters to trim.
+								By default the trim characters are ' \t\n\r'.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>Returns the trimmed string.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1034,26 +1035,14 @@ bpmv.ltrim ( bush, chars )
 		<div class="usage">
 			<h3>.node ()</h3>
 			<p class="description">
-/**
-* are we running in node?
-* @return {string} Will return the version of node or false if not running node.js
-*/
-bpmv.node ()
+				Are we running in node?
 			</p>
 			<div class="parameters">
 				<table>
-					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
-					<tbody>
-						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>Will return the version of node or false if not running node.js.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1063,30 +1052,160 @@ bpmv.node ()
 		</div>
 
 		<div class="usage">
-			<h3>.num ()</h3>
+			<h3>.num ( fElng, zeroOk )</h3>
 			<p class="description">
-/**
-* tests if the parseFloat() value of something is a valid number and optionally greater than 0.
-* @param {mixed} fElng The value you'd like to test
-* @param {boolean} zeroOk Will return true even if the the value is 0 or less.
-* @return {boolean} Will return true if the value is a valid number
-*/
-bpmv.num ( fElng, zeroOk )
+				Tests if the parseFloat() value of something is a valid number and greater than 0 ( or optionally lower than 0 or greater than a certain number).
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>fElng</td>
+							<td>mixed</td>
+							<td>The value you'd like to test.</td>
+						</tr>
+						<tr>
+							<td>zeroOk</td>
+							<td>mixed</td>
+							<td>
+								If Boolean true is passed, will return true even if the the value is 0 or less.
+								If a real Number is passed, true will be returned if the value is greater and the Number passed.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a valid number.</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<h5>Examples</h5>
+<pre class="lined"><code>// these return true
+bpmv.num( 1.25 );
+bpmv.num( 1 );
+bpmv.num( 1, 0 );
+bpmv.num( 1, true );
+bpmv.num( 0, true );
+bpmv.num( -1, true );
+
+// these return false
+bpmv.num();
+bpmv.num( null );
+bpmv.num( undefined );
+bpmv.num( -1 );
+bpmv.num( 0 );
+bpmv.num( {} );
+bpmv.num( [] );
+bpmv.num( 'a' );
+bpmv.num( 1, 2 );</code></pre>
+		</div>
+
+		<div class="usage">
+			<h3>.obj ( ojUc, populated )</h3>
+			<p class="description">
+
+				Tests that something is an object and not empty (optionally).
+				This method is different from the other boolean return tests in that emptiness is ok by default.
+			</p>
+			<div class="parameters">
+				<table>
+					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
+					<tbody>
+						<tr>
+							<td>ojUc</td>
+							<td>mixed</td>
+							<td>The value you'd like to test.</td>
+						</tr>
+						<tr>
+							<td>populated</td>
+							<td>boolean</td>
+							<td>If true, test that the object has at least one child of its own.</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="return"><td>RETURN:</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a valid object.</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<h5>Examples</h5>
+<pre class="lined"><code>// these return true
+bpmv.obj( {} );
+bpmv.obj( [] ); // an Array!
+bpmv.obj( document );
+bpmv.obj( { 'a' : 1 }, true );
+bpmv.obj( [ 1 ], true ); // an Array!
+
+// these return false
+bpmv.obj();
+bpmv.obj( null );
+bpmv.obj( undefined );
+bpmv.obj( document.getElementById ); // a function!
+bpmv.obj( {}, true );
+bpmv.obj( [], true ); // an Array!
+bpmv.obj( 23 );
+bpmv.obj( 'text' );</code></pre>
+		</div>
+
+		<div class="usage">
+			<h3>.pad ( nightCap, yourPlace, mine, moreComfy, lilSpoon )</h3>
+			<p class="description">
+				Perform string padding.
+			</p>
+			<div class="parameters">
+				<table>
+					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
+					<tbody>
+						<tr>
+							<td>nightCap</td>
+							<td>string</td>
+							<td>The string you'd like to pad.</td>
+						</tr>
+						<tr>
+							<td>yourPlace</td>
+							<td>number</td>
+							<td>The total character length you want the result to be.</td>
+						</tr>
+						<tr>
+							<td>mine</td>
+							<td>string</td>
+							<td>
+								The character you wish to pad with. The default is to use a &quot;0&quot;.
+								Note that mine is added for each lacking character in the original.
+								Thus, an example call of bpmv.pad( 'a', 3, 'foo' ) would result in the string &quot;foofooa&quot;.
+							</td>
+						</tr>
+						<tr>
+							<td>moreComfy</td>
+							<td>boolean</td>
+							<td>
+								If true, when the length if the original string is longer than the desired padding length, it will be truncated to the padding length.
+								When false, if the original is longer than the padding length, it will be returned unaltered.
+								Defaults to true.
+							</td>
+						</tr>
+						<tr>
+							<td>lilSpoon</td>
+							<td>boolean</td>
+							<td>
+								You want to be the little spoon. Pad right instead of padding left.
+								If lilSpoon is true, the default of the mine parameter becomes a space character (&quot; &quot;).
+								bpmv.rpad() is an alias for this functionality.
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="return"><td>RETURN:</td>
+							<td>string</td>
+							<td>
+								Will return the padded (or optionally truncated) version of the input string.
+								If the the input is not usable or the length desired is invalid, undefined is returned.
+							</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1096,30 +1215,24 @@ bpmv.num ( fElng, zeroOk )
 		</div>
 
 		<div class="usage">
-			<h3>.obj ()</h3>
+			<h3>.rescape ( fromNy )</h3>
 			<p class="description">
-/**
-* is an object and not empty (optionally) - this method is different from the others in that emptiness is ok by default
-* @param {mixed} ojUc The value you'd like to test
-* @param {boolean} populated Optionally test that the object has at least one child of its own
-* @return {boolean} Will return true if the value is a valid object
-*/
-bpmv.obj ( ojUc, populated )
+				Escape regular expression characters in a given string.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>fromNy</td>
+							<td>string</td>
+							<td>The string you would like to escape.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>The escaped string.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1129,40 +1242,26 @@ bpmv.obj ( ojUc, populated )
 		</div>
 
 		<div class="usage">
-			<h3>.pad ()</h3>
+			<h3>.reverse ( backAtcha )</h3>
 			<p class="description">
-/**
-* Perform left padding
-* @param {string} nightCap The string you'd like to pad
-* @param {number} yourPlace The total character length you want the result to be
-* @param {string} mine The character you wish to pad with. The default is to use a "0".
-* Note that mine is added for each lacking character in the original. Thus, an example call
-* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
-* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
-* than the desired padding length, it will be truncated to the padding length. When false,
-* if the original is longer than the padding length, it will be returned unaltered.
-* Defaults to true.
-* @param {boolean} lilSpoon You want to be the little spoon. Pad right instead of padding left.
-* If lilSpoon is true, the default of the mine parameter becomes a space character (' ').
-* @return {string} Will return the padded (or optionally truncated) version of the input string.
-* If the the input is not usable or the length desired is invalid, undefined is returned.
-*/
-bpmv.pad ( nightCap, yourPlace, mine, somethingMoreComfy )
+				Reverse a string.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>backAtcha</td>
+							<td>string</td>
+							<td>
+								The string (or number) you want to reverse.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>The reversed string value or undefined on failure.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1172,29 +1271,51 @@ bpmv.pad ( nightCap, yourPlace, mine, somethingMoreComfy )
 		</div>
 
 		<div class="usage">
-			<h3>.rescape ()</h3>
+			<h3>.rpad ( nightCap, yourPlace, mine, moreComfy )</h3>
 			<p class="description">
-/**
-* Escape regular expression characters.
-* @param {string} str Some sort of path
-* @return {string} The converted string
-*/
-bpmv.rescape ( fromNy )
+				Perform right padding.
+				(An alias for bpmv.pad() with the lilSpoon flag set to true.)
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>nightCap</td>
+							<td>string</td>
+							<td>The string you'd like to pad.</td>
+						</tr>
+						<tr>
+							<td>yourPlace</td>
+							<td>number</td>
+							<td>The total character length you want the result to be.</td>
+						</tr>
+						<tr>
+							<td>mine</td>
+							<td>string</td>
+							<td>
+								The character you wish to pad with. The default is to use a &quot;0&quot;.
+								Note that mine is added for each lacking character in the original.
+								Thus, an example call of bpmv.pad( 'a', 3, 'foo' ) would result in the string &quot;foofooa&quot;.
+							</td>
+						</tr>
+						<tr>
+							<td>moreComfy</td>
+							<td>boolean</td>
+							<td>
+								If true, when the length if the original string is longer than the desired padding length, it will be truncated to the padding length.
+								When false, if the original is longer than the padding length, it will be returned unaltered.
+								Defaults to true.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>
+								Will return the padded (or optionally truncated) version of the input string.
+								If the the input is not usable or the length desired is invalid, undefined is returned.
+							</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1204,30 +1325,32 @@ bpmv.rescape ( fromNy )
 		</div>
 
 		<div class="usage">
-			<h3>.reverse ()</h3>
+			<h3>.rtrim ( bush, chars )</h3>
 			<p class="description">
-/**
-* Reverse a string.
-* @param {string} backAtcha The string you want to reverse.
-* If a string is not given, the string value of backAtcha will be returned.
-* @return {string} The reversed string value
-*/
-reverse ( backAtcha )
+				Trim whitespace or optionally other characters from the end (right side) of a string.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>bush</td>
+							<td>string</td>
+							<td>The string you'd like to trim.</td>
+						</tr>
+						<tr>
+							<td>chars</td>
+							<td>string</td>
+							<td>
+								Optional list of characters to trim.
+								By default the trim characters are ' \t\n\r'.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>Returns the trimmed string.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1237,31 +1360,40 @@ reverse ( backAtcha )
 		</div>
 
 		<div class="usage">
-			<h3>.rpad ()</h3>
+			<h3>.search ( q, forest, slender )</h3>
 			<p class="description">
-/**
-* Trim whitespace or optionally other characters from the end of a string
-* @param {string} bush The string you'd like to trim
-* @param {string} chars Optional list of characters to trim.
-* By default the trim characters are ' \t\n\r'.
-* @return {string} Returns the trimmed string
-*/
-bpmv.rtrim ( bush, chars )
+				Search for a key/property name in an object or an Array.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>q</td>
+							<td>mixed</td>
+							<td>
+								The key you'd like to find.
+								q is listed as mixed because you can use an integer for an Array.
+							</td>
+						</tr>
+						<tr>
+							<td>forest</td>
+							<td>mixed</td>
+							<td>The object or Array you'd like to look in.</td>
+						</tr>
+						<tr>
+							<td>slender</td>
+							<td>boolean</td>
+							<td>If true, will return a string containing a "local" namespace representation rather than the found value.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>mixed</td>
+							<td>
+								Will return the found value or the namespace representation.
+								On failure, will return undefined.
+							</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1271,39 +1403,27 @@ bpmv.rtrim ( bush, chars )
 		</div>
 
 		<div class="usage">
-			<h3>.rtrim ()</h3>
+			<h3>.serial ( dexter )</h3>
 			<p class="description">
-/**
-* Perform right padding
-* (A wrapper for bpmv.pad() with the lilSpoon flag set to true.)
-* @param {string} nightCap The string you'd like to pad
-* @param {number} yourPlace The total character length you want the result to be
-* @param {string} mine The character you wish to pad with. The default is to use a " ".
-* Note that mine is added for each lacking character in the original. Thus, an example call
-* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
-* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
-* than the desired padding length, it will be truncated to the padding length. When false,
-* if the original is longer than the padding length, it will be returned unaltered.
-* Defaults to true.
-* @return {string} Will return the padded (or optionally truncated) version of the input string.
-* If the the input is not usable or the length desired is invalid, undefined is returned.
-*/
-bpmv.rpad( nightCap, yourPlace, mine, somethingMoreComfy )
+				Serialize an object into a query string.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>dexter</td>
+							<td>object</td>
+							<td>The object you'd like to convert into a query string.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>
+								Returns the object converted into a query string.
+								On failure, will return boolean false.
+							</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1313,33 +1433,29 @@ bpmv.rpad( nightCap, yourPlace, mine, somethingMoreComfy )
 		</div>
 
 		<div class="usage">
-			<h3>.search ()</h3>
+			<h3>.str ( cider, zeroOk )</h3>
 			<p class="description">
-/**
-* Search for a key name in an object or an Array.
-* @param {mixed} q The key you'd like to find.
-* q is mixed because you can use an integer for an Array.
-* @param {mixed} forest The object or Array you'd like to look in.
-* @param {boolean} slender If true, will return a string containing a "local" namespace representation rather than the found value.
-* @return {mixed} Will return the found value or the namespace representation.
-* On failure, will return undefined.
-*/
-bpmv.search ( q, forest, slender )
+				Test that something is a string of greater than 0 lenth (may be turned off).
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>cider</td>
+							<td>mixed</td>
+							<td>The value you'd like to test.</td>
+						</tr>
+						<tr>
+							<td>zeroOk</td>
+							<td>Will return true even if the the length is 0.</td>
 							<td>blahblahblah</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a valid string.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1349,30 +1465,29 @@ bpmv.search ( q, forest, slender )
 		</div>
 
 		<div class="usage">
-			<h3>.serial ()</h3>
+			<h3>.sum ( most, skim )</h3>
 			<p class="description">
-/**
-* Serialize an object into a query string
-* @param {mixed} dexter The object you'd like to convert into a query string
-* @return {string} Returns the object converted into a query string.
-* On failure, will return boolean false.
-*/
-bpmv.serial ( dexter )
+				Finds all numbers (whether proper Number objects or in strings) and returns the total added together.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>most</td>
+							<td>mixed</td>
+							<td>The object or array containing the thigns you want to sum.</td>
+						</tr>
+						<tr>
+							<td>skim</td>
+							<td>boolean</td>
+							<td>Only sum the top level of most.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>number</td>
+							<td>Returns the sum of all of the numbers found in most.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1382,30 +1497,24 @@ bpmv.serial ( dexter )
 		</div>
 
 		<div class="usage">
-			<h3>.str ()</h3>
+			<h3>.time2time ( lauper )</h3>
 			<p class="description">
-/**
-* is a string of greater than 0 lenth (may be turned off)
-* @param {mixed} cider The value you'd like to test
-* @param {boolean} zeroOk Will return true even if the the length is 0
-* @return {boolean} Will return true if the value is a valid string
-*/
-bpmv.str ( cider, zeroOk )
+				Converts an integer number of seconds to days, hours, minutes and seconds.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>lauper</td>
+							<td>number</td>
+							<td>Integer number of seconds you want to convert.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>object</td>
+							<td>Will return an object containing keys for &quot;d&quot;, &quot;h&quot;, &quot;m&quot;, and &quot;s&quot;</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1415,31 +1524,98 @@ bpmv.str ( cider, zeroOk )
 		</div>
 
 		<div class="usage">
-			<h3>.sum ()</h3>
+			<h3>.toke ( vessel, stash, onMyCase, couch )</h3>
 			<p class="description">
-/**
-* Finds all numbers (whether proper Number objects or in strings) and returns the total added together
-* @param {mixed} most The object or array containing the thigns you want to sum.
-* @param {boolean} skim Only sum the top level of most.
-* If not true, the object will be traversed recursively for numbers to total.
-* @return {number} Returns the sum of all of the numbers found in most.
-*/
-sum ( most, skim )
+				A simple tokenizer.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
+							<td>vessel</td>
+							<td>string</td>
+							<td>The string containing the tokens you wish to replace.</td>
+						</tr>
+						<tr>
+							<td>stash</td>
+							<td>object</td>
+							<td>An object with the tokens as key names and the replacements as the values as key/value pairs.</td>
+						</tr>
+						<tr>
+							<td>onMyCase</td>
+							<td>boolean</td>
 							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+						</tr>
+						<tr>
+							<td>couch</td>
+							<td>object</td>
+							<td>
+								couch can some in three formats.
+								First, as an object containing two keys, 'r' and 'l'.
+								Secondly as an array of two strings. The first (0) will be assigned to the left side.
+								If couch is just a string, it will be applied to both left and right delimiters.
+								These are used to denote the beginning and ending of a token in the original string.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>Returns the string with the tokens found replaced.</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<h5>Examples</h5>
+<pre class="lined"><code>var st = '##This## is text to change. Case sensitivity should change ##this##.'
+    , slugs = { 'this' : 'that' }
+    , altDelims = { l : '|@', r : '@|' }
+    , altSt = '|@This@| is text to change. Case sensitivity should change |@this@|.';
+
+// returns 'that is text to change. Case sensitivity should change that.'
+bpmv.toke( st, slugs );
+
+// returns '##This## is text to change. Case sensitivity should change that.'
+bpmv.toke( st, slugs, true );
+
+
+// we are using alternate delimiters on our alternate string
+// returns 'that is text to change. Case sensitivity should change that.'
+bpmv.toke( altSt, slugs, null, altDelims );
+
+// we are using alternate delimiters on our alternate string
+// returns '|@This@| is text to change. Case sensitivity should change that.'
+bpmv.toke( altSt, slugs, true, altDelims );</code></pre>
+		</div>
+
+		<div class="usage">
+			<h3>.trim ( bush, chars )</h3>
+			<p class="description">
+				Trim a string of whitespace or optionally other characters on both ends.
+			</p>
+			<div class="parameters">
+				<table>
+					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
+					<tbody>
+						<tr>
+							<td>bush</td>
+							<td>string</td>
+							<td>The string you'd like to trim.</td>
+						</tr>
+						<tr>
+							<td>chars</td>
+							<td>string</td>
+							<td>
+								Optional list of characters to trim.
+								By default the trim characters are ' \t\n\r'.
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="return"><td>RETURN:</td>
+							<td>string</td>
+							<td>Returns the trimmed string.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1449,29 +1625,101 @@ sum ( most, skim )
 		</div>
 
 		<div class="usage">
-			<h3>.time2time ()</h3>
+			<h3>.trueish ( maybe )</h3>
 			<p class="description">
-/**
-* Converts an integer number of seconds to days, hours, minutes and seconds
-* @param {intSecs} Integer number of seconds you want to convert
-* @return {object} Will return an object containing keys for "d", "h", "m" and "s"
-*/
-bpmv.time2time ( intSecs )
+				Test that a value resolves representationally to true, such as &quot;on&quot;, &quot;yes&quot;, or &quot;checked&quot;.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>maybe</td>
+							<td>mixed</td>
+							<td>The value you'd like to test.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
+							<td>boolean</td>
+							<td>Will return true if the value is a representationally positive word or false otherwise.</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<h5>Examples</h5>
+<pre class="lined"><code>// these return true
+bpmv.trueish();
+bpmv.trueish( 1 );
+bpmv.trueish( '1' );
+bpmv.trueish( 'checked' );
+bpmv.trueish( 'Checked' );
+bpmv.trueish( 'CHECKED' );
+bpmv.trueish( 'on' );
+bpmv.trueish( 'On' );
+bpmv.trueish( 'ON' );
+bpmv.trueish( true );
+bpmv.trueish( 'true' );
+bpmv.trueish( 'True' );
+bpmv.trueish( 'TRUE' );
+bpmv.trueish( 'yar' );
+bpmv.trueish( 'Yar' );
+bpmv.trueish( 'YAR' );
+bpmv.trueish( 'yes' );
+bpmv.trueish( 'Yes' );
+bpmv.trueish( 'YES' );
+bpmv.trueish( [ 'a', 2 ] );
+bpmv.trueish( { a : 2} ] );
+
+// these return false
+bpmv.trueish();
+bpmv.trueish( 0 );
+bpmv.trueish( '0' );
+bpmv.trueish( 'off' );
+bpmv.trueish( 'Off' );
+bpmv.trueish( 'OFF' );
+bpmv.trueish( false );
+bpmv.trueish( 'false' );
+bpmv.trueish( 'False' );
+bpmv.trueish( 'FALSE' );
+bpmv.trueish( 'nay' );
+bpmv.trueish( 'Nay' );
+bpmv.trueish( 'NAY' );
+bpmv.trueish( 'no' );
+bpmv.trueish( 'No' );
+bpmv.trueish( 'NO' );
+bpmv.trueish( [] );
+bpmv.trueish( {} );</code></pre>
+		</div>
+
+		<div class="usage">
+			<h3>.txt2html ( sms, all )</h3>
+			<p class="description">
+				Convert characters in a string to their HTML representations.
+			</p>
+			<div class="parameters">
+				<table>
+					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
+					<tbody>
+						<tr>
+							<td>sms</td>
+							<td>string</td>
 							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+						</tr>
+						<tr>
+							<td>all</td>
+							<td>mixed</td>
+							<td>
+								If a Boolean value, will convert all characters to HTML.
+								If passed an Array, only the characters in the array will be matched.
+								Normally only ", &amp;, &lt;, and &gt; are converted.
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="return"><td>RETURN:</td>
+							<td>string</td>
+							<td>Text with appropriate HTML characters escaped.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1481,48 +1729,32 @@ bpmv.time2time ( intSecs )
 		</div>
 
 		<div class="usage">
-			<h3>.toke ()</h3>
+			<h3>.typeis ( clicketyClack, shakDing )</h3>
 			<p class="description">
-/**
-* A simple tokenizer.
-* Example use:<pre><code>   var st = '##This## is text to change. Case sensitivity should change ##this##.',
-*    &nbsp;   slugs = { 'this' : 'that' };
-*    console.log( bpmv.toke( st, slugs ) );
-*    // output: that is text to change. Case sensitivity should change that.
-*    console.log( bpmv.toke( st, slugs, true ) );
-*    // output: ##This## is text to change. Case sensitivity should change that.</code></pre>
-* @param {string} vessel The string containing the tokens you wish to replace.
-* @param {object} stash An object with the tokens as key names and the replacements as the values.
-* For example:<pre><code>// replaces occurences of 'this' with 'that'
-* var stash = &#123; 'this' : 'that' &#125;;</code></pre>
-* @param {boolean} onMyCase Whether or not the tokens will be compared as case-sensitive strings.
-* The default is to perform case-INsensitive matching.
-* @param {object} delims delims can some in three formats.
-* First, as an object containing two keys, 'r' and 'l'.
-* Secondly as an array of two strings. The first (0) will be assigned to the left side.
-* If delims is just a string, it will be applied to both left and right delimiters.
-* These are used to denote the beginning and ending of a token in the original string.
-* For example:<pre><code>// the defaults - the token for the word 'foo' would be '##foo##'
-* // we are setting custom delimiters
-* var delims = { l : '|@', r : '@|' };</code></pre>
-* @return {string} Returns the string with the tokens found replaced
-*/
-bpmv.toke ( vessel, stash, onMyCase, delims )
+				Test something for a particular type constructor
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>clicketyClack</td>
+							<td>mixed</td>
+							<td>The thing you want to test.</td>
+						</tr>
+						<tr>
+							<td>shakDing</td>
+							<td>string</td>
+							<td>The object constructor name you expect to match, such as &quot;String&quot; or &quot;Array&quot;.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>boolean</td>
+							<td>
+								Returns true if the type matches, false if not and undefined if the parameters are incorrect (either clicketyClack was undefined or shakDing was not a valid string)
+								On failure, will return boolean false.
+							</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1532,31 +1764,27 @@ bpmv.toke ( vessel, stash, onMyCase, delims )
 		</div>
 
 		<div class="usage">
-			<h3>.trim ()</h3>
+			<h3>.unserial ( someFriesMf )</h3>
 			<p class="description">
-/**
-* Trim a string of whitespace or optionally other characters
-* @param {string} bush The string you'd like to trim
-* @param {string} chars Optional list of characters to trim.
-* By default the trim characters are ' \t\n\r'.
-* @return {string} Returns the trimmed string
-*/
-bpmv.trim ( bush, chars )
+				Unserialize a query string into an object.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>someFriesMf</td>
+							<td>string</td>
+							<td>The string of get parameters (ie: &quot;?foo=1&amp;bar=baz&quot;) you'd like to convert into an object.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>object</td>
+							<td>
+								Returns the string converted into an object.
+								On failure, will return boolean false.
+							</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1566,29 +1794,24 @@ bpmv.trim ( bush, chars )
 		</div>
 
 		<div class="usage">
-			<h3>.trueish ()</h3>
+			<h3>.values ( family )</h3>
 			<p class="description">
-/**
-* Is something that for a human resolves to true, such as "on" or "yes"
-* @param {mixed} maybe The value you'd like to test
-* @return {boolean} Will return true if the value is representationally positive in english, false otherwise
-*/
-bpmv.trueish ( maybe )
+				Will return an array containing the values from an object or array.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>family</td>
+							<td>mixed</td>
+							<td>The object or array you want the values from.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>array</td>
+							<td>An array containing the values.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1598,32 +1821,66 @@ bpmv.trueish ( maybe )
 		</div>
 
 		<div class="usage">
-			<h3>.txt2html ()</h3>
+			<h3>.walk ( path, region )</h3>
 			<p class="description">
-/**
-* Convert characters to HTML representations
-* @param {string} sms Text to convert.
-* @param {mixed} all If a Boolean value, will convert all characters to HTML.
-* If passed an Array, only the characters in the array will be matched.
-* Normally only ", &, <, and > are converted.
-* @return {string} Text with appropriate HTML characters escaped
-*/
-bpmv.txt2html( sms, all )
+				Walks a string namespace to find an end point.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>path</td>
+							<td>string</td>
+							<td>A string namespace path to a var, such as &quot;my.var.thing&quot;, &quot;window.document.getElementById&quot;, or &quot;fubarVar&quot;.</td>
+						</tr>
+						<tr>
+							<td>region</td>
+							<td>object</td>
+							<td>An optional object to look in rather than the global scope.</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>mixed</td>
+							<td>Returns the end point of the string if possible or otherwise undefined.</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<h5>Examples</h5>
+<pre class="lined"><code>// returns window.document
+bpmv.walk( 'document' );
+
+// returns window.document
+bpmv.walk( 'window.document' );
+
+// returns the window.document.getElementById function
+bpmv.walk( 'document.getElementById', window );
+
+// returns the window.document.getElementById function
+bpmv.walk( 'window.document.getElementById' );</code></pre>
+		</div>
+
+		<div class="usage">
+			<h3>.whatis ( thing )</h3>
+			<p class="description">
+				Tries to derive the constructor name of a given thing.
+			</p>
+			<div class="parameters">
+				<table>
+					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
+					<tbody>
+						<tr>
+							<td>thing</td>
+							<td>mixed</td>
+							<td>The thing you want to test.</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="return"><td>RETURN:</td>
+							<td>string</td>
+							<td>Returns a string containing the constructor name or undefined if it can't be found.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1633,33 +1890,37 @@ bpmv.txt2html( sms, all )
 		</div>
 
 		<div class="usage">
-			<h3>.typeis ()</h3>
+			<h3>.wild ( tundra, grylls, piss )</h3>
 			<p class="description">
-/**
-* Test something for a particular type constructor
-* @param {mixed} clicketyClack The thing you want to test
-* @param {string} shakDing The object constructor name you expect to match
-* @return {boolean} Returns true if the type matches, false if not and undefined
-* if the parameters are incorrect (either clicketyClack was undefined or shakDing
-* was not a valid string)
-* On failure, will return boolean false.
-*/
-bpmv.typeis ( clicketyClack, shakDing )
+				Match a string against a wildcard string.
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>tundra</td>
+							<td>string</td>
+							<td>The full text to test (ie: &quot;file_name_string&quot;).</td>
+						</tr>
+						<tr>
+							<td>grylls</td>
+							<td>string</td>
+							<td>The wildcard string (ie: &quot;file_*&quot;).</td>
+						</tr>
+						<tr>
+							<td>piss</td>
+							<td>string</td>
+							<td>
+								The wildcard character (ie: &quot;*&quot;).
+								Defaults to &quot;*&quot;.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>Will return the full text if a match is found and false if not.</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -1669,204 +1930,51 @@ bpmv.typeis ( clicketyClack, shakDing )
 		</div>
 
 		<div class="usage">
-			<h3>.unserial ()</h3>
+			<h3>.wrapped ( gift, box, bow, bag )</h3>
 			<p class="description">
-/**
-* Will return an array containing the values from an object or array
-* @param {mixed} family The object or array you want the values from
-* @return {array} array containing the values
-*/
-bpmv.values ( family )
+				Word wrap a string to a given length.
+				If this length is passed by a single word, the word will NOT be broken and it will appear on its own "line".
 			</p>
 			<div class="parameters">
 				<table>
 					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
 					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>gift</td>
+							<td>string</td>
+							<td>The string that you would like to wordwrap.</td>
 						</tr>
-					</tbody>
-					<tfoot>
-						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
-		</div>
-
-		<div class="usage">
-			<h3>.values ()</h3>
-			<p class="description">
-/**
-* Unserialize a query string into an object
-* @param {string} busted The string you'd like to convert into an object
-* @return {string} Returns the string converted into an object.
-* On failure, will return boolean false.
-*/
-bpmv.unserial ( busted )
-			</p>
-			<div class="parameters">
-				<table>
-					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
-					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>box</td>
+							<td>string</td>
+							<td>
+								The "line" length you'd like the gift to be wrapped at.
+								The default is 80 characters.
+							</td>
 						</tr>
-					</tbody>
-					<tfoot>
-						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
-		</div>
-
-		<div class="usage">
-			<h3>.walk ()</h3>
-			<p class="description">
-/**
-* Walks a string to find an end point
-* @param {string} path A path to a var... such as "my.var.thing" or "fubarVar"
-* @param {string} region An optional object to look in rather than the global scope
-* @return {mixed} Returns the end point of the string if possible otherwise will return undefined
-*/
-bpmv.walk ( path, region )
-			</p>
-			<div class="parameters">
-				<table>
-					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
-					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>bow</td>
+							<td>string</td>
+							<td>
+								The string you would like to use as a "line" terminator.
+								The length of your "line" terminator is NOT accounted for when measuring "line" length, so the resultant true length of each "line" is the lengh plus the terminator length.
+								This parm being a variable of any string value is the reason the word "line" is shown in quotes so much.
+							</td>
 						</tr>
-					</tbody>
-					<tfoot>
-						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
-		</div>
-
-		<div class="usage">
-			<h3>.whatis ()</h3>
-			<p class="description">
-/**
-* Tries to derive the constructor name of a given thing...
-* @param {mixed} thing The thing you want to test
-* @return {string} Returns a string containing the constructor name or undefined if it can't be found
-*/
-bpmv.whatis ( thing )
-			</p>
-			<div class="parameters">
-				<table>
-					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
-					<tbody>
 						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>bag</td>
+							<td>string</td>
+							<td>
+								This is leftmost whitespace to be prepended to each line.
+								The length of the bag whitespace IS taken into account when measuring the length of a line.
+								The default is an empty string.
+							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
-		</div>
-
-		<div class="usage">
-			<h3>.wild ()</h3>
-			<p class="description">
-/**
-* match a string against a wildcard string
-* @param {string} tundra The full text to test (ie: 'file_name_string')
-* @param {string} grylls The wildcard string (ie: 'file_*')
-* @param {string} piss The wildcard character (ie: '*')
-* @return {string} Will return the full text if a match is found and false if not.
-*/
-bpmv.wild ( tundra, grylls, piss )
-			</p>
-			<div class="parameters">
-				<table>
-					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
-					<tbody>
-						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-			<h5>Examples</h5>
-<pre class="lined"><code>// examples</code></pre>
-		</div>
-
-		<div class="usage">
-			<h3>.wrapped ()</h3>
-			<p class="description">
-/**
-* Word wrap a string to a given length. If this length is passed by a single word,
-* the word will NOT be broken and it will appear on its own "line".
-* @param {string} gift The string that you would like to wordwrap
-* @param {string} box The "line" length you'd like the gift to be wrapped at.
-* The default is 80 characters.
-* @param {string} bow The string you would like to use as a "line" terminator.
-* The length of your "line" terminator is NOT accounted for when measuring
-* "line" length, so the resultant true length of each "line" is the lengh plus
-* the terminator length. This parm being a variable of any string value is the
-* reason the word "line" is shown in quotes so much.
-* @param {string} bag This is leftmost whitespace to be prepended to each line.
-* The length of the bag whitespace IS taken into account when measuring the
-* length of a line. The default is an empty string.
-* @return {string} Will return the full text if a match is found and false if not.
-*/
-bpmv.wrapped ( gift, box, bow, bag )
-			</p>
-			<div class="parameters">
-				<table>
-					<thead><tr><th>Parameter</th><th>Type</th><th>Explanation</th></tr></thead>
-					<tbody>
-						<tr>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr class="return"><td>RETURN:</td>
-							<td>blahblahblah</td>
-							<td>blahblahblah</td>
+							<td>string</td>
+							<td>Will return the full text if a match is found and false if not.</td>
 						</tr>
 					</tfoot>
 				</table>

@@ -802,7 +802,7 @@
 		* @param {string} mine The character you wish to pad with. The default is to use a "0".
 		* Note that mine is added for each lacking character in the original. Thus, an example call
 		* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
-		* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
+		* @param {boolean} moreComfy If true, when the length if the original string is longer
 		* than the desired padding length, it will be truncated to the padding length. When false,
 		* if the original is longer than the padding length, it will be returned unaltered.
 		* Defaults to true.
@@ -811,7 +811,7 @@
 		* @return {string} Will return the padded (or optionally truncated) version of the input string.
 		* If the the input is not usable or the length desired is invalid, undefined is returned.
 		*/
-		pad : function ( nightCap, yourPlace, mine, somethingMoreComfy, lilSpoon ) {
+		pad : function ( nightCap, yourPlace, mine, moreComfy, lilSpoon ) {
 			var pillow = '',
 				needed = 0,
 				sp = this.trueish( lilSpoon );
@@ -822,7 +822,7 @@
 				pillow += nightCap;
 				mine = this.num(mine) ? ''+mine : mine;
 				mine = this.str(mine) ? mine : ( lilSpoon ? ' ' : '0' );
-				somethingMoreComfy = typeof(somethingMoreComfy) == 'undefined' ? true : false;
+				moreComfy = typeof(moreComfy) == 'undefined' ? true : false;
 				if ( pillow.length == yourPlace ) {
 					return pillow;
 				} else if ( pillow.length < yourPlace ) {
@@ -831,7 +831,7 @@
 						pillow = lilSpoon ? pillow+mine : mine+pillow;
 					}
 					return pillow;
-				} else if ( ( pillow.length > yourPlace ) && this.trueish(somethingMoreComfy) ) {
+				} else if ( ( pillow.length > yourPlace ) && this.trueish(moreComfy) ) {
 					return pillow.substr( (pillow.length-yourPlace), (pillow.length-(pillow.length-yourPlace)) );
 				} else if ( pillow.length > yourPlace ) {
 					return nightCap;
@@ -870,15 +870,15 @@
 		* @param {string} mine The character you wish to pad with. The default is to use a " ".
 		* Note that mine is added for each lacking character in the original. Thus, an example call
 		* of bpmv.pad( 'a', 3, 'foo' ) would result in the string "foofooa".
-		* @param {boolean} somethingMoreComfy If true, when the length if the original string is longer
+		* @param {boolean} moreComfy If true, when the length if the original string is longer
 		* than the desired padding length, it will be truncated to the padding length. When false,
 		* if the original is longer than the padding length, it will be returned unaltered.
 		* Defaults to true.
 		* @return {string} Will return the padded (or optionally truncated) version of the input string.
 		* If the the input is not usable or the length desired is invalid, undefined is returned.
 		*/
-		rpad : function ( nightCap, yourPlace, mine, somethingMoreComfy ) {
-			return this.pad( nightCap, yourPlace, mine, somethingMoreComfy, true ); 
+		rpad : function ( nightCap, yourPlace, mine, moreComfy ) {
+			return this.pad( nightCap, yourPlace, mine, moreComfy, true ); 
 		},
 		/**
 		* Trim whitespace or optionally other characters from the end of a string
@@ -985,11 +985,11 @@
 		},
 		/**
 		* Converts an integer number of seconds to days, hours, minutes and seconds
-		* @param {intSecs} Integer number of seconds you want to convert
+		* @param {lauper} Integer number of seconds you want to convert
 		* @return {object} Will return an object containing keys for "d", "h", "m" and "s"
 		*/
-		time2time : function ( intSecs ) {
-			var remain = parseInt(intSecs, 10),
+		time2time : function ( lauper ) {
+			var remain = parseInt(lauper, 10),
 				min = 60,
 				hr = 60 * min,
 				day = 24 * hr,
@@ -999,7 +999,7 @@
 					m : 0,
 					s : 0
 				};
-			if ( this.num(intSecs, true) ) {
+			if ( this.num(lauper, true) ) {
 				if ( this.num(remain) ) {
 					if ( remain > day ) {
 						ret.d = parseInt(remain / day, 10);
@@ -1034,10 +1034,10 @@
 		* var stash = &#123; 'this' : 'that' &#125;;</code></pre>
 		* @param {boolean} onMyCase Whether or not the tokens will be compared as case-sensitive strings.
 		* The default is to perform case-INsensitive matching.
-		* @param {object} delims delims can some in three formats.
+		* @param {object} couch couch can some in three formats.
 		* First, as an object containing two keys, 'r' and 'l'.
 		* Secondly as an array of two strings. The first (0) will be assigned to the left side.
-		* If delims is just a string, it will be applied to both left and right delimiters.
+		* If couch is just a string, it will be applied to both left and right delimiters.
 		* These are used to denote the beginning and ending of a token in the original string.
 		* For example:<pre><code>// the defaults - the token for the word 'foo' would be '##foo##'
 		* // we are setting custom delimiters
@@ -1045,24 +1045,24 @@
 		* @return {string} Returns the string with the tokens found replaced
 		* @method toke
 		*/
-		toke : function ( vessel, stash, onMyCase, delims ) {
+		toke : function ( vessel, stash, onMyCase, couch ) {
 			if ( this.str(vessel) ) {
 				var newStr = String( vessel );
 				onMyCase = (( typeof(onMyCase) == 'undefined' ) || ( !onMyCase )) ? 'i' : '';
 				stash = this.obj(stash) ? stash : {};
 				// validate delimiter possibilities
-				if ( this.str(delims) ) {
-					delims = { l : String(delims), r : String(delims) };
-				} else if ( this.arr(delims) && ( delims.length == 2 ) && this.str(delims[0]) && this.str(delims[1]) ) {
-					delims = { l : delims[0], r : delims[1] };
+				if ( this.str(couch) ) {
+					couch = { l : String(couch), r : String(couch) };
+				} else if ( this.arr(couch) && ( couch.length == 2 ) && this.str(couch[0]) && this.str(couch[1]) ) {
+					couch = { l : couch[0], r : couch[1] };
 				} else {
-					delims = this.obj(delims) ? delims : {};
-					delims.l = this.str(delims.l) ? delims.l : '##';
-					delims.r = this.str(delims.r) ? delims.r : '##';
+					couch = this.obj(couch) ? couch : {};
+					couch.l = this.str(couch.l) ? couch.l : '##';
+					couch.r = this.str(couch.r) ? couch.r : '##';
 				}
 				for ( var ppPass in stash ) {
 					if ( stash.hasOwnProperty( ppPass ) && this.str(ppPass) && (this.str(stash[ppPass]) || this.num(stash[ppPass], true) ) ) {
-						var bogart = ''+delims.l+ppPass+delims.r;
+						var bogart = ''+couch.l+ppPass+couch.r;
 						var rex = new RegExp( this.rescape(bogart), 'g'+onMyCase );
 						newStr = newStr.replace( rex, stash[ppPass] );
 					}
@@ -1172,18 +1172,21 @@
 		},
 		/**
 		* Unserialize a query string into an object
-		* @param {string} busted The string you'd like to convert into an object
+		* @param {string} someFriesMf The string you'd like to convert into an object
 		* @return {string} Returns the string converted into an object.
 		* On failure, will return boolean false.
 		*/
-		unserial : function ( busted ) {
-			var pWagon = {};
-			if ( this.str(busted) ) {
-				busted = busted.replace( /^.*\?/, ''); // forcefully get rid of the query delim and all before it
-				var coppers = busted.split( '&' );
-				for ( var aCop in coppers ) {
+		unserial : function ( someFriesMf ) {
+			var pWagon = {}
+				, coppers
+				, aCop
+				, cuffs;
+			if ( this.str(someFriesMf) ) {
+				someFriesMf = someFriesMf.replace( /^.*\?/, ''); // forcefully get rid of the query delim and all before it
+				coppers = someFriesMf.split( '&' );
+				for ( aCop in coppers ) {
 					if ( this.str(coppers[aCop]) ) {
-						var cuffs = coppers[aCop].match( /^([^=]+)=(.*)$/ );
+						cuffs = coppers[aCop].match( /^([^=]+)=(.*)$/ );
 						if ( cuffs ) {
 							if ( this.str(cuffs[1]) && this.str(cuffs[2]) ) {
 								pWagon[cuffs[1]] = cuffs[2];
@@ -1192,7 +1195,7 @@
 					}
 				}
 			}
-			return ( this.count(pWagon) > 0 ) ? pWagon : undefined;
+			return this.obj(pWagon, true) ? pWagon : undefined;
 		},
 		/**
 		* Will return an array containing the values from an object or array
@@ -1223,7 +1226,18 @@
 			}
 			chunked = path.split( /[\.\[]/g );
 			if ( this.num(chunked.length) ) {
-				dOb = bpmv.obj(region, true) || bpmv.arr(region) ? region[chunked[0]] : window[chunked[0]];
+				dOb = bpmv.obj(region, true) || bpmv.arr(region) ? region[chunked[0]] : null;
+				if ( dOb == null ) {
+					switch ( this.env() ) {
+						case 'node':
+							dOb = global[chunked[0]];
+							BREAK;
+						case 'browser':
+							dOb = window[chunked[0]]
+						default:
+							break;
+					}
+				}
 				for ( var nn = 1; nn < chunked.length; nn++ ) {
 					chunked[nn] = this.trim( chunked[nn], '\'"]' );
 					if ( typeof(dOb[chunked[nn]]) != 'undefined' ) {

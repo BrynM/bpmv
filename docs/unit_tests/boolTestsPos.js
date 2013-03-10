@@ -2,6 +2,7 @@ var boolTestsPos = {};
 boolTestsPos._spec = {
 	  title : 'Positive Boolean Return'
 	, id    : 'boolTestsPos'
+	, note  : 'These are all tests the expect functions to return boolean true. Not everything should have a positive test.'
 };
 
 /* *****************************************************************************

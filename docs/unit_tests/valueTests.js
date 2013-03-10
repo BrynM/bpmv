@@ -2,6 +2,7 @@ var valueTests = {};
 valueTests._spec = {
 	title : 'Expected Return Values'
 	, id : 'valueTests'
+	, note  : 'These are tests that expect very specific return values. They are sometimes related to bugs. Everything should have an empty parameter test.'
 };
 
 /* *****************************************************************************

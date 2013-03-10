@@ -139,7 +139,7 @@ function report_coverage ( target, min ) {
 		cont.push( '<div class="subcontain">' );
 
 		cont.push( '<h3>bpmv.'+(min ? 'min.' : '')+'js Coverage By Function</h3>' );
-		cont.push( '<table  id="' + wrapId + '_table">' );
+		cont.push( '<table  id="' + wrapId + '_table" class="coverage-by-func">' );
 		cont.push( '<thead>' );
 		cont.push( '<tr>' );
 		cont.push( '<th>Function</th>' );
@@ -243,7 +243,10 @@ function report_coverage ( target, min ) {
 			miss = 0;
 			funcCount = 0;
 			cont.push( '<h4>'+window[iter]._spec.title+' Coverage</h4>' );
-			cont.push( '<table  id="' + wrapId + '_table">' );
+			if ( goodStr(window[iter]._spec.note) ) {
+				cont.push( '<p>'+window[iter]._spec.note+'</p>' );
+			}
+			cont.push( '<table  id="' + wrapId + '_table" class="set-coverage">' );
 			cont.push( '<thead>' );
 			cont.push( '<tr>' );
 			cont.push( '<th>Set</th>' );
@@ -287,7 +290,7 @@ function report_coverage ( target, min ) {
 			cont.push( '<tfoot>' );
 			cont.push( '<tr>' );
 			cont.push( '<td colspan="5">' );
-			cont.push( '<h5 style="display: inline;" class="test_totals">'+window[iter]._spec.title+' Coverage Totals</h5>:' );
+			cont.push( '<strong style="display: inline;" class="test_totals">'+window[iter]._spec.title+' Coverage Totals</strong>:' );
 			cont.push( 'Functions: <span class="totalGrand">' + funcCount + '</span> ' );
 			cont.push( 'Coverage: <span class="totalGrand">' + (parseFloat(hit/funcCount) * 100).toFixed(decMac) + '%</span> ' );
 			cont.push( 'Hits: <span class="totalPassed">' + hit + '</span> ' );
@@ -512,6 +515,9 @@ function testize ( set, target, min ) {
 		}
 		cont.push( '</h2>' );
 		cont.push( '<div class="subcontain">' );
+		if ( goodStr(set._spec.note) ) {
+			cont.push( '<p>'+set._spec.note+'</p>' );
+		}
 		cont.push( '<table >' );
 		cont.push( '<thead>' );
 		cont.push( '<tr>' );

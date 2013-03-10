@@ -2,6 +2,7 @@ var boolTestsNeg = {};
 boolTestsNeg._spec = {
 	  title : 'Negative Boolean Return'
 	, id    : 'boolTestsNeg'
+	, note  : 'These are all tests the expect functions to return boolean false. Not everything should have a negative test.'
 };
 
 /* *****************************************************************************
@@ -86,7 +87,11 @@ boolTestsNeg['num'] = [
 boolTestsNeg['obj'] = [
 	[ [ {}, true ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object required non-empty' ]
 ];
+boolTestsNeg['node'] = [
+	[ [] /*args*/, false /*expect*/, 'Not in node...' ]
+];
 boolTestsNeg['str'] = [
+	[ [ {} ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object' ]
 ];
 boolTestsNeg['trueish'] = [
 	  [ [ 0 ] /*args*/, false /*expect*/, 'Integer 0' ]

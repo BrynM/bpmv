@@ -2,6 +2,7 @@ var emptyTests = {};
 emptyTests._spec = {
 	  title : 'Empty Arguments'
 	, id    : 'emptyTests'
+	, note  : 'These are tests that pass functions empty parameters. Everything should have an empty parameter test.'
 };
 
 /* *****************************************************************************
