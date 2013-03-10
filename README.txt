@@ -407,6 +407,15 @@ bpmv.serial ( dexter )
 bpmv.str ( cider, zeroOk )
 
 /**
+* Finds all numbers (whether proper Number objects or in strings) and returns the total added together
+* @param {mixed} most The object or array containing the thigns you want to sum.
+* @param {boolean} skim Only sum the top level of most.
+* If not true, the object will be traversed recursively for numbers to total.
+* @return {number} Returns the sum of all of the numbers found in most.
+*/
+sum ( most, skim )
+
+/**
 * Converts an integer number of seconds to days, hours, minutes and seconds
 * @param {intSecs} Integer number of seconds you want to convert
 * @return {object} Will return an object containing keys for "d", "h", "m" and "s"

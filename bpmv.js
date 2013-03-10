@@ -950,6 +950,32 @@
 			return ( typeof(cider) === 'string' ) && ( zeroOk || ( cider.length > 0 ) );
 		},
 		/**
+		* Finds all numbers (whether proper Number objects or in strings) and returns the total added together
+		* @param {mixed} most The object or array containing the thigns you want to sum.
+		* @param {boolean} skim Only sum the top level of most.
+		* If not true, the object will be traversed recursively for numbers to total.
+		* @return {number} Returns the sum of all of the numbers found in most.
+		*/
+		sum : function ( most, skim ) {
+			var tot = 0
+				, iter;
+			if ( this.num(most) ) {
+				return most;
+			}
+			if ( this.obj(most) ) {
+				for ( iter in most ) {
+					if ( most.hasOwnProperty(iter) ) {
+						if ( this.obj(most[iter]) && !skim ) {
+							tot = 1*tot + sum( most[iter] );
+						} else if ( this.num(most[iter], true) ) {
+							tot = 1*tot + most[iter];
+						}
+					}
+				}
+			}
+			return tot;
+		},
+		/**
 		* Converts an integer number of seconds to days, hours, minutes and seconds
 		* @param {intSecs} Integer number of seconds you want to convert
 		* @return {object} Will return an object containing keys for "d", "h", "m" and "s"
