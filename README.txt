@@ -2,6 +2,9 @@
 * bpmv - A Simple Validator
 * v1.01
 *
+* The official documentation for bpmv.js can be found at [http://brynmosher.com/bpmv/](http://brynmosher.com/bpmv/).
+* Please go there as this document may be deprecated or out of date.
+*
 * These are tasks that I find myself repeating over and over again. The rules
 * for me including code in here are simple: nothing that tries to manipulate
 * the DOM itself and things that mainly revolve around testing or altering
