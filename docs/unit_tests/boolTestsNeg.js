@@ -32,7 +32,7 @@ boolTestsNeg['clone'] = [
 	  [ [ false ] /*args*/, false /*expect*/, 'false' /*note*/ ]
 ];
 boolTestsNeg['date'] = [
-	[ [ {} ] /*args*/, false /*expect*/, 'Empty inline shorthand object' ]
+	  [ [ {} ] /*args*/, false /*expect*/, 'Empty inline shorthand object' ]
 	, [ [ null ] /*args*/, false /*expect*/, 'NULL' ]
 	, [ [ undefined ] /*args*/, false /*expect*/, 'undefined proper' ]
 ];
@@ -56,14 +56,30 @@ boolTestsNeg['float'] = [
 	, [ [ undefined ] /*args*/, false /*expect*/, 'undefined proper' ]
 ];
 boolTestsNeg['func'] = [
+	  [ [] /*args*/, false /*expect*/, 'Empty args' ]
+	, [ [ document.location.protocol ] /*args*/, false /*expect*/, 'Native variable document.location.protocol' ]
+	, [ [ 'crud' ] /*args*/, false /*expect*/, 'String "crud"' ]
 ];
 boolTestsNeg['host'] = [
+	  [ [ 'crud' ] /*args*/, false /*expect*/, 'String "crud"' ]
+	, [ [ document.location.href ] /*args*/, false /*expect*/, 'Native variable document.location.href' ]
 ];
 boolTestsNeg['int'] = [
+	  [ [ 'a' ] /*args*/, false /*expect*/, 'String \'a\'' ]
+	, [ [ 1.25 ] /*args*/, false /*expect*/, 'float 1.25' ]
 ];
 boolTestsNeg['ip'] = [
+	  [ [] /*args*/, false /*expect*/, 'empty args' ]
+	, [ [ '127:0:0:1' ] /*args*/, false /*expect*/, 'localhost - wrong delims' ]
+	, [ [ '2001:0db8:85a3:0000:0000:8a2e:0370:7334' ] /*args*/, false /*expect*/, 'ipv6 \'2001:0db8:85a3:0000:0000:8a2e:0370:7334\' without flag' ]
 ];
 boolTestsNeg['isadog'] = [
+	  [ [ '/things/' ] /*args*/, false /*expect*/, 'string \'/things/\'' ]
+	, [ [ '' ] /*args*/, false /*expect*/, 'empty string \'\'' ]
+];
+boolTestsNeg['isjson'] = [
+	  [ [ 'things' ] /*args*/, false /*expect*/, 'string \'things\'' ]
+	, [ [ '' ] /*args*/, false /*expect*/, 'empty string \'\'' ]
 ];
 boolTestsNeg['num'] = [
 	  [ [ 0 ] /*args*/, false /*expect*/, 'number 0' ]
@@ -85,13 +101,18 @@ boolTestsNeg['num'] = [
 	, [ [ undefined ] /*args*/, false /*expect*/, 'undefined proper' ]
 ];
 boolTestsNeg['obj'] = [
-	[ [ {}, true ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object required non-empty' ]
+	  [ [ {}, true ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object required non-empty' ]
 ];
 boolTestsNeg['node'] = [
-	[ [] /*args*/, false /*expect*/, 'Not in node...' ]
+	  [ [] /*args*/, false /*expect*/, 'Not in node...' ]
 ];
 boolTestsNeg['str'] = [
-	[ [ {} ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object' ]
+	  [ [ {} ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object' ]
+];
+boolTestsNeg['serial'] = [
+	  [ [] /*args*/, false /*expect*/, 'empty parameters' ]
+	, [ [ {} ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object' ]
+	, [ [ '' ] /*args*/, false /*expect*/, 'Empty string \'\'' ]
 ];
 boolTestsNeg['trueish'] = [
 	  [ [ 0 ] /*args*/, false /*expect*/, 'Integer 0' ]
@@ -113,4 +134,14 @@ boolTestsNeg['trueish'] = [
 	, [ [ {} ] /*args*/, false /*expect*/, 'Empty shorthand (&quot;{}&quot;) object' ]
 ];
 boolTestsNeg['typeis'] = [
+	  [ [ new Array(), 'String' ] /*args*/, false /*expect*/, 'new Array() is \'String\'' ]
+];
+boolTestsNeg['typeis'] = [
+	  [ [ new Array(), 'String' ] /*args*/, false /*expect*/, 'new Array() is \'String\'' ]
+	, [ [ '', 'undefined' ] /*args*/, false /*expect*/, 'empty string \'\' is \'undefined\'' ]
+	, [ [ '', 'string' ] /*args*/, false /*expect*/, 'empty string \'\' is \'string\' (case sensitive)' ]
+];
+boolTestsNeg['wild'] = [
+	  [ [ 'foo', 'baz*' ] /*args*/, false /*expect*/, 'strings \'foo\' and \'baz\'' ]
+	, [ [ 'fo', 'foo*' ] /*args*/, false /*expect*/, 'strings \'fo\' and \'foo*\'' ]
 ];

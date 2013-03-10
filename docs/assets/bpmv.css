@@ -166,6 +166,7 @@ tfoot tr:hover {
 }
 .subcontain {
 	width: 95%;
+	max-width: 1000px;
 	min-width: 600px;
 	margin: 10px auto;
 	margin-bottom: 30px;
@@ -227,7 +228,7 @@ tfoot tr:hover {
 	width: 100px;
 }
 .parameters tfoot td {
-	padding: 5px;
+	padding: 2px 5px;
 }
 .parameters tfoot td {
 	padding-left: 6px;

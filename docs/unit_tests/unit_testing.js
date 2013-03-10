@@ -138,11 +138,11 @@ function report_coverage ( target, min ) {
 		cont.push( '<h2>bpmv.'+(min ? 'min.' : '')+'js Coverage</h2>' );
 		cont.push( '<div class="subcontain">' );
 
-		cont.push( '<h3>bpmv.'+(min ? 'min.' : '')+'js Coverage By Function</h3>' );
+		cont.push( '<h3>bpmv.'+(min ? 'min.' : '')+'js Coverage By Func</h3>' );
 		cont.push( '<table  id="' + wrapId + '_table" class="coverage-by-func">' );
 		cont.push( '<thead>' );
 		cont.push( '<tr>' );
-		cont.push( '<th>Function</th>' );
+		cont.push( '<th>Func</th>' );
 		cont.push( '<th>Total</th>' );
 		cont.push( '<th>Breakdown</th>' );
 		cont.push( '</tr>' );
@@ -208,7 +208,7 @@ function report_coverage ( target, min ) {
 		cont.push( '<tfoot>' );
 		cont.push( '<tr>' );
 		cont.push( '<td colspan="3">' );
-		cont.push( '<h4 style="display: inline;" class="test_totals">bpmv.'+(min ? 'min.' : '')+'js Coverage By Function Grand Total</h4> Functions:' );
+		cont.push( '<h4 style="display: inline;" class="test_totals">bpmv.'+(min ? 'min.' : '')+'js Coverage By Func Grand Totals</h4> Funcs:' );
 		cont.push( '<span class="totalGrand">'+funcs+'</span>' );
 		cont.push( 'Coverage: <span class="totalGrand">' + (parseFloat(hit/funcs) * 100).toFixed(decMac) + '%</span> ' );
 		cont.push( ' Hits: ' );
@@ -250,7 +250,7 @@ function report_coverage ( target, min ) {
 			cont.push( '<thead>' );
 			cont.push( '<tr>' );
 			cont.push( '<th>Set</th>' );
-			cont.push( '<th>Function</th>' );
+			cont.push( '<th>Func</th>' );
 			cont.push( '<th>Total Tests</th>' );
 			cont.push( '<th>Pass</th>' );
 			cont.push( '<th>Fail</th>' );
@@ -290,8 +290,8 @@ function report_coverage ( target, min ) {
 			cont.push( '<tfoot>' );
 			cont.push( '<tr>' );
 			cont.push( '<td colspan="5">' );
-			cont.push( '<strong style="display: inline;" class="test_totals">'+window[iter]._spec.title+' Coverage Totals</strong>:' );
-			cont.push( 'Functions: <span class="totalGrand">' + funcCount + '</span> ' );
+			cont.push( '<strong style="display: inline;" class="test_totals">'+window[iter]._spec.title+' Coverage Totals</strong>' );
+			cont.push( 'Funcs: <span class="totalGrand">' + funcCount + '</span> ' );
 			cont.push( 'Coverage: <span class="totalGrand">' + (parseFloat(hit/funcCount) * 100).toFixed(decMac) + '%</span> ' );
 			cont.push( 'Hits: <span class="totalPassed">' + hit + '</span> ' );
 			cont.push( 'Missed: <span class="totalFailed">' + miss + '</span> ' );

@@ -133,4 +133,3 @@ boolTestsPos['typeis'] = [
 	, [ [ '', 'String' ] /*args*/, true /*expect*/, 'Empty string' ]
 	, [ [ new String(), 'String' ] /*args*/, true /*expect*/, 'new String()' ]
 ];
-
