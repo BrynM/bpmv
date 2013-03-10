@@ -81,6 +81,8 @@
 		, rgxIsAnyNumber   = /^(\-)?[0-9]*\.?[0-9]+([eE]\+[0-9]+)?$/
 		, rgxIsFloatNotSci = /^[\+\-]?[0-9]+\.([0-9]+)?$/
 		, rgxIsFloatSci    = /^[\+\-]?[0-9]+\.([0-9]+([eE]\+[0-9]+)?)?$/
+		, rgxIsIpV4        = /[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/
+		, rgxIsIpV4OrV6    = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/
 		, rgxIsNumber      = /^[\+\-]?[0-9]+$/;
 
 	initialBpmv = {
@@ -551,28 +553,28 @@
 							if ( wasStr && !weeds ) {
 								continue;
 							}
-							if ( (rgxIsFloatSci).test( soil[aS] ) ) { // float
+							if ( (rgxIsFloatSci).test( soil[aS] ) || (( !flo ) && ( ferMax > 0 )) ) { // float
 								// this may seem crazy, but JS parseFloat precision
 								// for things like parseFloat( 1.6 ) + parseFloat( 2.2 )
 								// come back as 3.8000000000000003
 								// GRRRRRRRRR
 								floMax = (rgxIsFloatNotSci).test( soil[aS] ) ? this.reverse(soil[aS]).indexOf( '.' ) : 0;
-								floMax = floMax > 0    ? floMax : 0;
+								floMax = floMax > 0  ? floMax : 0;
 								floMax = floMax > ferMax ? floMax : ferMax;
-								soil[aS] = parseFloat(soil[aS]) + ferF;
+								soil[aS] = parseFloat(soil[aS] + ferF );
 								if ( floMax > 0 ) {
-									soil[aS] = soil[aS].toFixed(floMax);
+									soil[aS] = parseFloat(soil[aS].toFixed(floMax));
 								}
 								nVal = true;
 							} else if ( (rgxIsNumber).test( soil[aS] ) ) { // int
 								soil[aS] = parseInt(soil[aS]) + ferF;
-								if ( !flo ) {
+								if ( flo ) {
 									soil[aS] = Math.round( soil[aS] );
 								}
 								nVal = true;
 							}
-							if ( nVal ) {
-								soil[aS] = wasStr ? ''+soil[aS] : soil[aS];
+							if ( nVal && wasStr ) {
+								soil[aS] = ''+soil[aS];
 							}
 						}
 					}
@@ -676,8 +678,8 @@
 		ip : function ( numba, v6 ) {
 			var chunks = null;
 			if ( v6 ) {
-				return (/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/).test( numba );
-			} else if ( (/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/).test( numba ) ) { // dotted
+				return (rgxIsIpV4OrV6).test( numba );
+			} else if ( (rgxIsIpV4).test( numba ) ) { // dotted
 				chunks = numba.split( '.' );
 				if ( this.arr(chunks) && ( chunks.length == 4 ) ) {
 					return  ( chunks[0] < 1 ) || ( chunks[0] < 255 ) &&
