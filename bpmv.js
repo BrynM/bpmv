@@ -446,7 +446,11 @@
 		 */
 		find : function ( pin, stack, siv ) {
 			var ret = undefined, found = false;
-			if ( this.arr(stack) || this.obj(stack) ) {
+			if ( this.arr(stack, true) && !siv ) {
+				aK = stack.indexOf( pin );
+				found = true;
+			}
+			if ( this.obj(stack) && !found ) {
 				for ( var aK in stack ) {
 					if ( stack.hasOwnProperty( aK ) ) {
 						if ( siv ) {
@@ -454,16 +458,18 @@
 								found = true;
 							}
 						} else {
-							if ( stack[aK] === pin ) {
+							if ( stack[aK] == pin ) {
 								found = true;
 							}
 						}
 						if ( found ) {
-							ret = siv ? stack[aK] : aK;
 							break;
 						}
 					}
 				}
+			}
+			if ( found ) {
+				ret = siv ? stack[aK] : aK;
 			}
 			return ret;
 		},
