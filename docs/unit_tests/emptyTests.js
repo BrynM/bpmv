@@ -18,6 +18,7 @@ emptyTests['cook']      = [ [ [], function ( cook ) { return typeof(cook) == 'ob
 emptyTests['count']     = [ [ [], false, 'Empty Args' ] ];
 emptyTests['date']      = [ [ [], false, 'Empty Args' ] ];
 emptyTests['dirname']   = [ [ [], undefined, 'Empty Args' ] ];
+emptyTests['dive']      = [ [ [], undefined, 'Empty Args' ] ];
 emptyTests['ego']       = [ [ [], function ( id ) { return /^[A-Z0-9]{12}\_[0-9]{9,}$/.test( id ); }, 'Empty Args' ] ];
 emptyTests['env']       = [ [ [], 'browser', 'Empty Args' ] ];
 emptyTests['find']      = [ [ [], undefined, 'Empty Args' ] ];
@@ -43,6 +44,7 @@ emptyTests['rpad']      = [ [ [], undefined, 'Empty Args' ] ];
 emptyTests['rtrim']     = [ [ [], undefined, 'Empty Args' ] ];
 emptyTests['search']    = [ [ [], undefined, 'Empty Args' ] ];
 emptyTests['serial']    = [ [ [], false, 'Empty Args' ] ];
+emptyTests['shuffle']   = [ [ [], undefined, 'Empty Args' ] ];
 emptyTests['str']       = [ [ [], false, 'Empty Args' ] ];
 emptyTests['sum']       = [ [ [], 0, 'Empty Args' ] ];
 emptyTests['time2time'] = [ [ [], undefined, 'Empty Args' ] ];

@@ -28,6 +28,9 @@ valueTests['ccase'] = [
 	, [ [ 'look its a class_name', null, true ] /*args*/, 'LookItsAClassName' /*expect*/, 'string \'look its a class_name\' with capitalization true' ]
 	, [ [ 'This is_stuff.', ' ', true ] /*args*/, 'ThisIs_stuff.' /*expect*/, 'string \'This is_stuff.\' replacing spaces with capitalization true' ]
 ];
+valueTests['dive'] = [
+	  [ [ {a: { b: { c: true } } }, 'a.b.c' ] /*args*/, true /*expect*/, 'string \'Look for a.b.c in {a: { b: { c: true } } }\'' ]
+];
 valueTests['incall'] = [
 	  [ [ [ 1, 1.25, 0, '2.2' ], 1.6 ] /*args*/, [2.6, 2.85, 1.6, '3.8'] /*expect*/, 'parseFloat( 1.6 ) + parseFloat( 2.2 ) = 3.8000000000000003 // bug' ]
 ];
