@@ -160,6 +160,17 @@ bpmv.date ( whEn )
 bpmv.dirname ( wellDuh )
 
 /**
+* Deep-dive a key from a JavaScript object without a pile of typeof or a try/catch
+* @param {object} obj The object you want to search in
+* @param {string} obj Relative namespace path to what you're looking for.
+* For example to look for foo.bar.baz.biz, call as:
+*     bpmv.dive(foo, 'bar.baz.biz');
+* @return {mixed} The value if found or undefined
+* @todo upgrade to dudrenov's version
+*/
+bpmv.dive ( obj, path )
+
+/**
 * Generate a random valid html id using characters and a timestamp.
 * @param {object} fans An options object. Defaults are listed below.
 * defaults = {
@@ -400,6 +411,15 @@ bpmv.search ( q, forest, slender )
 * On failure, will return boolean false.
 */
 bpmv.serial ( dexter )
+
+/**
+* Shuffle the order of elements of an array or values of an object.
+* @param {mixed} deck The array you'd like to shuffle.
+* If an object is given instead, the values will be converted to a shuffled array.
+* @return {array} Will return an array containing the shuffled values.
+* If deck is neither an array or an object, undefined will be returned.
+*/
+bpmv.shuffle ( deck )
 
 /**
 * is a string of greater than 0 lenth (may be turned off)
