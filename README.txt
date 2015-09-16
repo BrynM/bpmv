@@ -1,6 +1,6 @@
 /**
 * bpmv - A Simple Validator
-* v1.01
+* v1.03
 *
 * The official documentation for bpmv.js can be found at http://brynmosher.com/bpmv/ .
 * Please go there as this document may be deprecated or out of date.

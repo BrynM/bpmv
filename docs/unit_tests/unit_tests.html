@@ -115,9 +115,19 @@ $(document).ready( function () {
 	report_coverage( '#result_reports', true );
 
 	$('#result_reports').before( '<h2>Final Global Totals</h2><div class="subcontain">' + 
-		'<div id="globalTotals"><strong>Total Global Tests Run: <span class="totalGrand">' + globalTotal +
+		'<div id="globalTotals"><strong>Total bpmv.js Functions (incl. min): <span class="totalGrand">' + globalFuncs +
+		'</span> Sets Tested: <span class="totalGrand">' + globalSets +
+		'</span> Total Tests: <span class="totalGrand">' + globalTestFuncs +
+		'</span> Total Global Tests Run: <span class="totalGrand">' + globalTotal +
 		'</span> Passed: <span class="totalPassed">' + globalPass +
 		'</span> Failed: <span class="totalFailed">' + globalFail +
+		'</span></div><div>' + 
+		'<div id="globalTotals"><strong>Coverage: <span class="totalGrand">' + (parseFloat(globalHit/(globalHit+globalMiss)) * 100).toFixed(decMac) + '%' +
+		'</span> Hit: <span class="totalPassed">' + globalHit +
+		'</span> Miss: <span class="totalFailed">' + globalMiss +
+		'</span> Average Tests: <span class="totalGrand">' + parseFloat(globalTestFuncs/(globalFuncs * globalSets)).toFixed(decMac) +
+		'</span> Hit per Func: <span class="totalPassed">' + (parseFloat(globalHit/(globalFuncs * globalSets)) * 100).toFixed(decMac) + '%' +
+		'</span> Miss per Func: <span class="totalFailed">' + (parseFloat(globalMiss/(globalFuncs * globalSets)) * 100).toFixed(decMac) + '%' +
 		'</span></strong></div></div>'
 	);
 

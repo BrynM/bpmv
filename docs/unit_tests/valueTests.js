@@ -10,7 +10,8 @@ valueTests._spec = {
 ***************************************************************************** */
 
 valueTests['basename'] = [
-	  [ [ '/path/to/a/thing' ] /*args*/, 'thing' /*expect*/, 'string \'/path/to/a/thing\'' ]
+	  [ [ '/' ] /*args*/, undefined /*expect*/, 'string \'/\'' ]
+	, [ [ '/path/to/a/thing' ] /*args*/, 'thing' /*expect*/, 'string \'/path/to/a/thing\'' ]
 	, [ [ '/path/to/a/thing/' ] /*args*/, 'thing' /*expect*/, 'string \'/path/to/a/thing/\'' ]
 	, [ [ 'C:\\' ] /*args*/, 'C:\\' /*expect*/, 'string \'C:\\\'' ]
 	, [ [ 'C:\\Program Files\\App\\thing' ] /*args*/, 'thing' /*expect*/, 'string \'C:\\Program Files\\App\\thing\'' ]
@@ -30,6 +31,15 @@ valueTests['ccase'] = [
 ];
 valueTests['dive'] = [
 	  [ [ {a: { b: { c: true } } }, 'a.b.c' ] /*args*/, true /*expect*/, 'string \'Look for a.b.c in {a: { b: { c: true } } }\'' ]
+];
+valueTests['empty'] = [
+	  [ [ null ] /*args*/, true /*expect*/, 'null' ]
+	, [ [ undefined ] /*args*/, true /*expect*/, 'the global &quot;unedfined&quot;' ]
+	, [ [ ] /*args*/, true /*expect*/, 'nothing' ]
+	, [ [ [] ] /*args*/, true /*expect*/, 'empty array' ]
+	, [ [ {} ] /*args*/, true /*expect*/, 'empty object' ]
+	, [ [ '' ] /*args*/, true /*expect*/, 'empty string' ]
+	, [ [ parseInt('a', 10) ] /*args*/, true /*expect*/, 'NaN (parseInt(\'a\', 10))' ]
 ];
 valueTests['incall'] = [
 	  [ [ [ 1, 1.25, 0, '2.2' ], 1.6 ] /*args*/, [2.6, 2.85, 1.6, '3.8'] /*expect*/, 'parseFloat( 1.6 ) + parseFloat( 2.2 ) = 3.8000000000000003 // bug' ]

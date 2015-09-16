@@ -4,6 +4,11 @@
 var globalTotal = 0
 	, globalFail = 0
 	, globalPass = 0
+	, globalHit = 0
+	, globalMiss = 0
+	, globalFuncs = 0
+	, globalTestFuncs = 0
+	, globalSets = 0
 	, decMac = 2
 	, testSets = {}
 	, scorecard = {}
@@ -131,6 +136,8 @@ function report_coverage ( target, min ) {
 		, slug = min ? 'min' : 'full'
 		, subTmp
 		, mv = min ? bpmv_min : bpmv
+		, totalGrand
+		, totalCover
 		, wrapId = 'bpmv_coverage_'+slug;
 	if ( goodObj(mv) && ( resTarget.length > 0 ) && goodObj( coverage ) && goodStr(target) && ( goodObj(coverage.full) || goodObj(coverage.min) ) ) {
 		$('#'+wrapId).remove();
@@ -151,6 +158,7 @@ function report_coverage ( target, min ) {
 		for ( iter in mv ) {
 			if ( mv.hasOwnProperty(iter) && goodFunc(mv[iter]) ) {
 				funcs++;
+				globalFuncs++;
 				funcTot = sum(coverage[slug][iter]);
 				if ( funcTot < 1 ) {
 					miss++;
@@ -258,7 +266,6 @@ function report_coverage ( target, min ) {
 			cont.push( '</thead>' );
 			cont.push( '<tbody id="' + wrapId + '_body">' );
 
-
 			for ( iterSub in mv ) {
 				if ( ( iterSub === '_spec' ) || ( iterSub === '_cfg' ) ) {
 					continue;
@@ -267,7 +274,7 @@ function report_coverage ( target, min ) {
 				funcTot = sum( setTots[iter][iterSub] );
 				tot = parseInt( tot + funcTot );
 				if ( funcTot < 1 ) {
-//					continue;
+					//continue;
 				}
 				cont.push( '<tr class="'+(funcTot < 1 ? ' covMiss' : '')+'">' );
 				cont.push( '<td>'+iter+'</td>' );
@@ -286,6 +293,7 @@ function report_coverage ( target, min ) {
 				}
 				cont.push( '</tr>' );
 			}
+
 			cont.push( '</tbody>' );
 			cont.push( '<tfoot>' );
 			cont.push( '<tr>' );
@@ -301,17 +309,15 @@ function report_coverage ( target, min ) {
 			cont.push( '<span class="totalPassed">'+pass+'</span>' );
 			cont.push( ' Fail: ' );
 			cont.push( '<span class="totalFailed">'+fail+'</span>' );
-
-/*
-		appNd += '<h3 style="display: inline;" class="test_totals">bpmv' + (min?'.min.js ':'.js ') + set._spec.title + ' ';
-		appNd += 'Grand Total</h3>: <span class="totalGrand">' + tested + '</span> ';
-		appNd += 'Passed: <span class="totalPassed">' + passed + '</span> ';
-		appNd += 'Failed: <span class="totalFailed">' + failed + '</span> ';
-*/
 			cont.push( '</td>' );
 			cont.push( '</tr>' );
 			cont.push( '</tfoot>' );
 			cont.push( '</table>' );
+
+			globalTestFuncs += funcCount;
+			globalMiss += miss;
+			globalHit += hit;
+			globalSets++;
 		}
 
 		cont.push( '</div>' ); // close subcontain

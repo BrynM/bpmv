@@ -238,10 +238,11 @@ tbody .tr-pass .syntax:hover {
 	font-size: 120%;
 }
 .covBreak {
-
+	padding: 2px;
 }
 .coverage .covBreak > table {
-	width: auto;
+	width: 100%;
+	width: calc(100% - 20px);
 	margin: 5px 10px;
 }
 .coverage .covBreak > table > thead > tr > th {

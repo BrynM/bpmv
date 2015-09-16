@@ -1,7 +1,7 @@
 /*!
 * bpmv - A Simple Validator
 * https://github.com/BrynM/bpmv
-* v1.02
+* v1.03
 */
 /**
 * These are tasks that I find myself repeating over and over again. The rules
@@ -98,7 +98,7 @@
 					}
 				})(),
 			varName : typeof(BPMV_VARNAME) === 'string' ? ''+BPMV_VARNAME : 'bpmv',
-			version : '1.01'
+			version : '1.03'
 		},
 		/**
 		* tests if something is not just an object, but is an Array and is not empty
@@ -128,7 +128,7 @@
 				, uriMatch;
 			if ( this.str( redOrBlue ) ) {
 				uriMatch = redOrBlue.match( /^[^:]+:\/\// );
-				if ( this.arr(uriMatch) ) {
+				if ( this.arr( uriMatch ) ) {
 					uriMatch = uriMatch.shift();
 				}
 				tstr = this.rtrim( redOrBlue, '/\\' )
@@ -145,7 +145,14 @@
 					ret = uriMatch+ret;
 				}
 			}
-			return this.str(ret) ? ret : redOrBlue;
+			
+			if ( this.str(ret) ) {
+				return ret
+			}
+
+			if ( this.str( this.rtrim( redOrBlue, '/\\' ) ) ) {
+				return redOrBlue;
+			}
 		},
 		/**
 		* is a boolean
@@ -448,6 +455,52 @@
 			}
 		},
 		/**
+		* Tests to see if something is "empty";
+		* @param {mixed} em The value you'd like to test
+		* @return {boolean} Will return true if the value is "empty".
+		*/
+		empty: function ( em ) {
+			var iter;
+
+			switch (typeof em) {
+				case 'undefined':
+					return true;
+					break;
+
+				case 'boolean':
+				case 'symbol':
+				case 'function':
+					return false;
+					break;
+
+				case 'string':
+					return em.length < 1;
+					break;
+
+				case 'number':
+					return isNaN(em);
+					break;
+
+				case 'object':
+					if (Object.prototype.toString.call(em) === '[object Array]') {
+						return em.length < 1;
+					}
+
+					if (em === null) {
+						return true;
+					}
+
+					for (iter in em) {
+						if (em.hasOwnProperty(iter) && typeof em[iter] !== 'undefined') {
+							return false;
+						}
+					}
+
+					return true;
+					break;
+			}
+		},
+		/**
 		* An alias to combine node() and brow() into a single call (for varialbe storage).
 		* This will return which "environment" is in service if known and 'undefined' if not.
 		* Currently, only 'undefined', 'browser' and 'node' are supported.
@@ -461,17 +514,17 @@
 			return;
 		},
 		/**
-		 * Find the key name for a given element in an object or array.
-		 * The first encountered match is what will be returned,
-		 * so be carefult that what you are looking for is unique!
-		 * If the key is not found, null is returned.
-		 * @param {mixed} pin What you are looking for.
-		 * Can be any valid value.
-		 * @param stack The object or array you are looking in
-		 * @param {boolean} siv Assume the pin is not == and instead is the keyname
-		 * of what you're looking for
-		 * @return {mixed} the key if found or null if not found
-		 */
+		* Find the key name for a given element in an object or array.
+		* The first encountered match is what will be returned,
+		* so be carefult that what you are looking for is unique!
+		* If the key is not found, null is returned.
+		* @param {mixed} pin What you are looking for.
+		* Can be any valid value.
+		* @param stack The object or array you are looking in
+		* @param {boolean} siv Assume the pin is not == and instead is the keyname
+		* of what you're looking for
+		* @return {mixed} the key if found or null if not found
+		*/
 		find : function ( pin, stack, siv ) {
 			var ret = undefined, found = false;
 			if ( this.arr(stack, true) && !siv ) {

@@ -27,6 +27,13 @@ boolTestsPos['clone'] = [
 boolTestsPos['date'] = [
 	[ [ new Date() ] /*args*/, true /*expect*/, 'new Date object' ]
 ];
+boolTestsPos['empty'] = [
+	  [ [] /*args*/, true /*expect*/, 'nothing' ]
+	, [ [ {} ] /*args*/, true /*expect*/, 'empty object ({})' ]
+	, [ [[]] /*args*/, true /*expect*/, 'empty array ([])' ]
+	, [ [ '' ] /*args*/, true /*expect*/, 'empty string (&quot;&quot;)' ]
+	, [ [ parseInt('a', 10) ] /*args*/, true /*expect*/, 'NaN (parseInt(\'a\', 10))' ]
+];
 boolTestsPos['float'] = [
 	  [ [ 1 ] /*args*/, true /*expect*/, 'number 1' ]
 	, [ [ '1' ] /*args*/, true /*expect*/, 'string &quot;1&quot;' ]
