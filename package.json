@@ -1,0 +1,24 @@
+{
+	"name": "bpmv",
+	"version": "1.03.0",
+	"description": "A simple validator and utility stash.",
+	"license" : "GPLv2",
+	"repository": "https://github.com/BrynM/bpmv.git",
+	"homepage": "https://github.com/BrynM/bpmv",
+	"author": "Bryn Mosher (BrynM)",
+	"bugs": {
+		"https://github.com/BrynM/bpmv/issues"
+	},
+	"keywords": [
+		"bpmv",
+		"utilities",
+		"validation",
+		"javascript"
+	],
+	"dependencies": {
+	},
+	"main": "bpmv",
+	"engines": {
+		"node": ">= 0.4.1"
+	}
+}
