@@ -1485,9 +1485,6 @@
 	// populate the appropriate global-ish place
 	if ( initialBpmv.node() ) {
 		exports[initialBpmv._cfg.varName] = initialBpmv;
-	} else if ( ( typeof(us) == 'object' ) && initialBpmv.obj(us.ebpm) && !initialBpmv.obj(us.ebpm.v)) {
-	// lead with typeof here because scope will throw Uncaught ReferenceError when strict
-		us.ebpm.v = initialBpmv;
 	} else if ( ( typeof(BPMV_ATTACH) == 'object' ) && !initialBpmv.obj(BPMV_ATTACH[initialBpmv._cfg.varName]) ) {
 		BPMV_ATTACH[initialBpmv._cfg.varName] = initialBpmv;
 	} else if ( initialBpmv.obj(window) ) {
