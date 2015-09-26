@@ -6,9 +6,6 @@
 	"repository": "https://github.com/BrynM/bpmv.git",
 	"homepage": "https://github.com/BrynM/bpmv",
 	"author": "Bryn Mosher (BrynM)",
-	"bugs": {
-		"https://github.com/BrynM/bpmv/issues"
-	},
 	"keywords": [
 		"bpmv",
 		"utilities",
